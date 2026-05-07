@@ -1,5 +1,8 @@
 ---
 import { albums } from '../data/albums';
+import LogoHorizontalDark from './LogoHorizontalDark.astro';
+import LogoStackedDark from './LogoStackedDark.astro';
+
 const path = Astro.url.pathname;
 const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
 ---
@@ -7,7 +10,9 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
 <!-- Desktop sidebar -->
 <aside class="sidebar">
   <div class="sidebar-inner">
-    <a href="/" class="wordmark">reuben ingber<br />photography</a>
+    <a href="/" class="logo-link" aria-label="Home">
+      <LogoHorizontalDark />
+    </a>
 
     <nav class="sidebar-nav">
       {albums.map(album => (
@@ -28,7 +33,9 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
 
 <!-- Mobile top bar -->
 <div class="mobile-bar">
-  <a href="/" class="mobile-logo">reuben ingber photography</a>
+  <a href="/" class="mobile-logo-link" aria-label="Home">
+    <LogoHorizontalDark />
+  </a>
   <button class="hamburger" id="hamburger" aria-label="Open navigation" type="button">
     <span></span><span></span><span></span>
   </button>
@@ -38,7 +45,9 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
 <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
   <button class="drawer-close" id="drawer-close" aria-label="Close navigation" type="button">✕</button>
 
-  <a href="/" class="wordmark">reuben ingber<br />photography</a>
+  <a href="/" class="drawer-logo-link" aria-label="Home">
+    <LogoStackedDark />
+  </a>
 
   <nav class="sidebar-nav">
     {albums.map(album => (
@@ -94,25 +103,22 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    padding: 32px 28px 40px;
+    padding: 0 0 40px;
   }
 
-  .wordmark {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 14px;
-    line-height: 1.4;
-    letter-spacing: 0.01em;
-    color: var(--text);
+  /* Logo link — flush to top, no extra padding (logo SVG has its own bg) */
+  .logo-link {
     display: block;
-    margin-bottom: 36px;
+    margin-bottom: 28px;
     flex-shrink: 0;
   }
-  .wordmark:hover { opacity: 1; }
+  .logo-link:hover { opacity: 0.9; }
 
   .sidebar-nav {
     display: flex;
     flex-direction: column;
     gap: 14px;
+    padding: 0 28px;
   }
 
   .sidebar-nav a {
@@ -132,7 +138,7 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
 
   .sidebar-foot {
     margin-top: auto;
-    padding-top: 40px;
+    padding: 40px 28px 0;
   }
 
   .sidebar-foot a {
@@ -160,28 +166,36 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
       top: 0;
       left: 0;
       right: 0;
-      height: 52px;
-      padding: 0 20px;
+      height: 44px;
+      padding: 0;
       background: var(--bg);
       z-index: 200;
+      overflow: hidden;
     }
 
-    .mobile-logo {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 13px;
-      letter-spacing: 0.01em;
-      color: var(--text);
+    /* Scale the horizontal logo to fit the mobile bar height */
+    .mobile-logo-link {
+      display: block;
+      height: 44px;
+      /* logo SVG is 320:52 — at 44px height, width = 44*(320/52) ≈ 271px */
+      width: 271px;
+      flex-shrink: 0;
     }
-    .mobile-logo:hover { opacity: 1; }
+    .mobile-logo-link svg {
+      height: 44px;
+      width: auto;
+    }
+    .mobile-logo-link:hover { opacity: 0.9; }
 
     .hamburger {
       background: none;
       border: none;
       cursor: pointer;
-      padding: 6px;
+      padding: 10px 16px;
       display: flex;
       flex-direction: column;
       gap: 5px;
+      flex-shrink: 0;
     }
     .hamburger span {
       display: block;
@@ -201,7 +215,7 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
       height: 100vh;
       background: var(--bg);
       z-index: 300;
-      padding: 32px 28px 48px;
+      padding: 28px 28px 48px;
       overflow-y: auto;
       transform: translateX(-100%);
       transition: transform 0.26s ease;
@@ -223,14 +237,17 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
       padding: 4px 8px;
     }
 
-    .mobile-drawer .wordmark {
-      font-size: 14px;
-      margin-top: 8px;
-      margin-bottom: 44px;
+    /* Stacked logo in drawer — constrain width so it doesn't fill full drawer */
+    .drawer-logo-link {
+      display: block;
+      width: 120px;
+      margin: 8px 0 32px;
     }
+    .drawer-logo-link:hover { opacity: 0.9; }
 
     .mobile-drawer .sidebar-nav {
       gap: 20px;
+      padding: 0;
     }
 
     .mobile-drawer .sidebar-nav a {
@@ -239,7 +256,7 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
     }
 
     .mobile-drawer .sidebar-foot {
-      padding-top: 40px;
+      padding: 40px 0 0;
     }
   }
 </style>
