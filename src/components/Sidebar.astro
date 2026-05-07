@@ -1,7 +1,7 @@
 ---
 import { albums } from '../data/albums';
-import LogoHorizontalDark from './LogoHorizontalDark.astro';
-import LogoStackedDark from './LogoStackedDark.astro';
+import LogoStackedLight from './LogoStackedLight.astro';
+import LogoHorizontalLight from './LogoHorizontalLight.astro';
 
 const path = Astro.url.pathname;
 const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
@@ -11,7 +11,7 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
 <aside class="sidebar">
   <div class="sidebar-inner">
     <a href="/" class="logo-link" aria-label="Home">
-      <LogoHorizontalDark />
+      <LogoStackedLight />
     </a>
 
     <nav class="sidebar-nav">
@@ -34,7 +34,7 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
 <!-- Mobile top bar -->
 <div class="mobile-bar">
   <a href="/" class="mobile-logo-link" aria-label="Home">
-    <LogoHorizontalDark />
+    <LogoHorizontalLight />
   </a>
   <button class="hamburger" id="hamburger" aria-label="Open navigation" type="button">
     <span></span><span></span><span></span>
@@ -46,7 +46,7 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
   <button class="drawer-close" id="drawer-close" aria-label="Close navigation" type="button">✕</button>
 
   <a href="/" class="drawer-logo-link" aria-label="Home">
-    <LogoStackedDark />
+    <LogoStackedLight />
   </a>
 
   <nav class="sidebar-nav">
