@@ -1,0 +1,235 @@
+---
+import { imgUrl, imgSrcset, lightboxUrl } from '../utils/cloudinary';
+
+interface Photo {
+  publicId: string;
+  album: string;
+  alt: string;
+  width?: number;
+  height?: number;
+}
+
+interface Props {
+  photos: Photo[];
+}
+
+const { photos } = Astro.props;
+
+const lightboxData = photos.map(p => ({
+  src: lightboxUrl(p.publicId),
+  alt: p.alt,
+}));
+---
+
+<div class="masonry" id="masonry">
+  {photos.map((photo, i) => (
+    <button
+      class="photo-btn"
+      data-index={i}
+      aria-label={`Open ${photo.alt}`}
+      type="button"
+    >
+      <img
+        src={imgUrl(photo.publicId, 800)}
+        srcset={imgSrcset(photo.publicId)}
+        sizes="(max-width: 600px) 100vw, (max-width: 960px) 50vw, 33vw"
+        alt={photo.alt}
+        width={photo.width}
+        height={photo.height}
+        loading="lazy"
+        decoding="async"
+      />
+    </button>
+  ))}
+</div>
+
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+  <button class="lb-close" id="lb-close" aria-label="Close" type="button">✕</button>
+  <button class="lb-prev" id="lb-prev" aria-label="Previous photo" type="button">‹</button>
+  <button class="lb-next" id="lb-next" aria-label="Next photo" type="button">›</button>
+  <div class="lb-img-wrap">
+    <img id="lb-img" src="" alt="" />
+  </div>
+</div>
+
+<script define:vars={{ lightboxData }}>
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  const lbClose = document.getElementById('lb-close');
+  const lbPrev = document.getElementById('lb-prev');
+  const lbNext = document.getElementById('lb-next');
+  const photos = lightboxData;
+  let current = 0;
+
+  function open(index) {
+    current = index;
+    lbImg.src = photos[current].src;
+    lbImg.alt = photos[current].alt;
+    lightbox.hidden = false;
+    document.body.style.overflow = 'hidden';
+    lbClose.focus();
+  }
+
+  function close() {
+    lightbox.hidden = true;
+    document.body.style.overflow = '';
+    document.querySelector(`[data-index="${current}"]`)?.focus();
+  }
+
+  function prev() {
+    current = (current - 1 + photos.length) % photos.length;
+    lbImg.src = photos[current].src;
+    lbImg.alt = photos[current].alt;
+  }
+
+  function next() {
+    current = (current + 1) % photos.length;
+    lbImg.src = photos[current].src;
+    lbImg.alt = photos[current].alt;
+  }
+
+  document.getElementById('masonry').addEventListener('click', e => {
+    const btn = e.target.closest('[data-index]');
+    if (btn) open(parseInt(btn.dataset.index, 10));
+  });
+
+  lbClose.addEventListener('click', close);
+  lbPrev.addEventListener('click', prev);
+  lbNext.addEventListener('click', next);
+
+  lightbox.addEventListener('click', e => {
+    if (e.target === lightbox) close();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (lightbox.hidden) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') prev();
+    if (e.key === 'ArrowRight') next();
+  });
+
+  let touchStartX = 0;
+  lightbox.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  lightbox.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (dx > 50) prev();
+    else if (dx < -50) next();
+  }, { passive: true });
+</script>
+
+<style>
+  .masonry {
+    column-count: 3;
+    column-gap: var(--gap);
+    padding: 0 32px 64px;
+  }
+
+  .photo-btn {
+    display: block;
+    width: 100%;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    break-inside: avoid;
+    margin-bottom: var(--gap);
+  }
+
+  .photo-btn img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: opacity 0.2s;
+  }
+
+  .photo-btn:hover img {
+    opacity: 0.88;
+  }
+
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+
+  .lightbox[hidden] {
+    display: none;
+  }
+
+  .lb-img-wrap {
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lb-img-wrap img {
+    max-width: 90vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .lb-close,
+  .lb-prev,
+  .lb-next {
+    position: fixed;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    font-size: 28px;
+    line-height: 1;
+    padding: 16px;
+    transition: color 0.15s;
+    z-index: 1001;
+  }
+
+  .lb-close:hover,
+  .lb-prev:hover,
+  .lb-next:hover {
+    color: #fff;
+  }
+
+  .lb-close {
+    top: 16px;
+    right: 20px;
+    font-size: 20px;
+  }
+
+  .lb-prev {
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 48px;
+  }
+
+  .lb-next {
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 48px;
+  }
+
+  @media (max-width: 960px) {
+    .masonry {
+      column-count: 2;
+      padding: 0 20px 48px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .masonry {
+      column-count: 1;
+      padding: 0 16px 40px;
+    }
+  }
+</style>

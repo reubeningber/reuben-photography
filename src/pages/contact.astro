@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { CONTACT_EMAIL } from '../data/config';
+---
+
+<Layout title="Contact">
+  <div class="contact">
+    <a href={`mailto:${CONTACT_EMAIL}`} class="email-link">{CONTACT_EMAIL}</a>
+  </div>
+</Layout>
+
+<style>
+  .contact {
+    padding: 80px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40vh;
+  }
+
+  .email-link {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 20px;
+    letter-spacing: 0.01em;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+  }
+
+  .email-link:hover {
+    opacity: 0.55;
+  }
+</style>

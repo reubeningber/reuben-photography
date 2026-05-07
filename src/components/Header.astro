@@ -1,0 +1,77 @@
+---
+import { albums } from '../data/albums';
+const currentPath = Astro.url.pathname;
+---
+
+<header>
+  <a href="/" class="wordmark">reuben ingber photography</a>
+  <nav>
+    {albums.map(album => (
+      <a
+        href={`/${album.slug}`}
+        class:list={[{ active: currentPath === `/${album.slug}` || currentPath === `/${album.slug}/` }]}
+      >
+        {album.label}
+      </a>
+    ))}
+    <a
+      href="/contact"
+      class:list={[{ active: currentPath === '/contact' || currentPath === '/contact/' }]}
+    >
+      Contact
+    </a>
+  </nav>
+</header>
+
+<style>
+  header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 28px 32px;
+    gap: 24px;
+  }
+
+  .wordmark {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 15px;
+    letter-spacing: 0.01em;
+    font-weight: 400;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  nav {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  nav a {
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.15s;
+  }
+
+  nav a:hover,
+  nav a.active {
+    color: var(--text);
+    opacity: 1;
+  }
+
+  @media (max-width: 600px) {
+    header {
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px 20px;
+    }
+
+    nav {
+      gap: 16px;
+      justify-content: flex-start;
+    }
+  }
+</style>
