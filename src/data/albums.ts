@@ -4,7 +4,10 @@ export interface Album {
 }
 
 export const albums: Album[] = [
-  { slug: 'people', label: 'People' },
-  { slug: 'running', label: 'Running' },
-  { slug: 'city', label: 'City' },
+  { slug: 'family',       label: 'Family' },
+  { slug: 'little-league', label: 'Little League' },
+  { slug: 'nature',       label: 'Nature' },
+  { slug: 'paris',        label: 'Paris' },
+  { slug: 'running',      label: 'Running' },
+  { slug: 'urban',        label: 'Urban' },
 ];
