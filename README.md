@@ -1,43 +1,133 @@
-# Astro Starter Kit: Minimal
+# Reuben Photography
+
+Photography portfolio site for Reuben Ingber, built with Astro and deployed to `photos.reubeningber.com`.
+
+## Overview
+
+This repo contains the standalone photography site that was split out from the main `reubeningber.com` site. It is a static Astro project with:
+
+- a fixed desktop sidebar and mobile drawer navigation
+- a custom inline SVG logo system
+- album routes generated from local data
+- Cloudinary-hosted image delivery
+- GitHub Pages deployment with a custom subdomain
+
+## Stack
+
+- Astro 6
+- Static output
+- Cloudinary image URLs generated at render time
+- GitHub Actions + GitHub Pages
+
+## Local Development
+
+Requirements:
+
+- Node `>=22.12.0`
+
+Commands:
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev
+npm run build
+npm run preview
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Local dev runs on Astro’s default port, usually `http://localhost:4321`.
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## Project Structure
 
 ```text
-/
+.
 ├── public/
+│   ├── CNAME
+│   └── favicon*
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── components/
+│   │   ├── Logo*.astro
+│   │   ├── MasonryGrid.astro
+│   │   └── Sidebar.astro
+│   ├── data/
+│   │   ├── albums.ts
+│   │   ├── config.ts
+│   │   └── photos.json
+│   ├── layouts/
+│   │   └── Layout.astro
+│   ├── pages/
+│   │   ├── index.astro
+│   │   ├── contact.astro
+│   │   └── [album].astro
+│   └── utils/
+│       └── cloudinary.ts
+└── .github/workflows/deploy.yml
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Content Model
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Album navigation lives in [src/data/albums.ts](/Users/ringber/code/personal/reuben-photography/src/data/albums.ts).
 
-Any static assets, like images, can be placed in the `public/` directory.
+Photo records live in [src/data/photos.json](/Users/ringber/code/personal/reuben-photography/src/data/photos.json). Each item includes:
 
-## 🧞 Commands
+- `publicId`
+- `album`
+- `alt`
+- `width`
+- `height`
+- optional `caption`
 
-All commands are run from the root of the project, from a terminal:
+Routes are generated from the album list:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+- `/` shows the `highlights` album
+- `/<album>` shows all photos for that album
+- `/contact` shows the contact page
 
-## 👀 Want to learn more?
+## Cloudinary
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Cloudinary settings are currently hardcoded in [src/data/config.ts](/Users/ringber/code/personal/reuben-photography/src/data/config.ts):
+
+- `CLOUD_NAME`
+- `CONTACT_EMAIL`
+- `HERO_PHOTO_ID`
+
+Image URLs are assembled in [src/utils/cloudinary.ts](/Users/ringber/code/personal/reuben-photography/src/utils/cloudinary.ts).
+
+If you move this project to a different Cloudinary account, update `CLOUD_NAME` there.
+
+## Branding And Layout
+
+The logo is drawn directly in [src/components/Logo.astro](/Users/ringber/code/personal/reuben-photography/src/components/Logo.astro), with separate wrappers for stacked and horizontal variants.
+
+Navigation and mobile drawer behavior live in [src/components/Sidebar.astro](/Users/ringber/code/personal/reuben-photography/src/components/Sidebar.astro).
+
+Global page framing, favicons, and tab title live in [src/layouts/Layout.astro](/Users/ringber/code/personal/reuben-photography/src/layouts/Layout.astro).
+
+## Deployment
+
+This repo is configured for GitHub Pages in [.github/workflows/deploy.yml](/Users/ringber/code/personal/reuben-photography/.github/workflows/deploy.yml).
+
+Deployment assumptions:
+
+- Astro `site` is set to `https://photos.reubeningber.com` in [astro.config.mjs](/Users/ringber/code/personal/reuben-photography/astro.config.mjs)
+- [public/CNAME](/Users/ringber/code/personal/reuben-photography/public/CNAME) contains `photos.reubeningber.com`
+- GitHub Pages is configured to deploy from GitHub Actions
+- Cloudflare DNS should point:
+
+```txt
+Type: CNAME
+Name: photos
+Target: reubeningber.github.io
+```
+
+For GitHub Pages certificate issuance, the Cloudflare record should typically be `DNS only` rather than proxied until HTTPS is healthy.
+
+## Updating The Site
+
+Typical content update flow:
+
+1. Add or edit album labels in `src/data/albums.ts`
+2. Add or edit photo entries in `src/data/photos.json`
+3. Run `npm run build`
+4. Commit and push to `main`
+
+GitHub Actions will build and publish the site automatically.
