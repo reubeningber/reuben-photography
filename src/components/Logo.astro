@@ -64,12 +64,12 @@ const uid = `logo-${variant.replace(/-/g, '')}`;
 
   </svg>
 ) : (
-  <!-- ── Stacked 220 × 196 ──────────────────────────────────────── -->
-  <svg viewBox="0 0 220 196" xmlns="http://www.w3.org/2000/svg"
+  <!-- ── Stacked 220 × 203 ──────────────────────────────────────── -->
+  <svg viewBox="0 0 220 203" xmlns="http://www.w3.org/2000/svg"
        role="img" aria-label="Reuben Ingber"
        class={className} style="display:block;width:100%;height:auto">
 
-    <rect width="220" height="196" fill={BG}/>
+    <rect width="220" height="203" fill={BG}/>
 
     <!-- Larger camera icon closer to the flat reference silhouette -->
     <g transform="translate(71,8) scale(1.5)">
@@ -89,7 +89,7 @@ const uid = `logo-${variant.replace(/-/g, '')}`;
         </text>
       </clipPath>
       <clipPath id={`${uid}-i`}>
-        <text x="110" y="171" text-anchor="middle"
+        <text x="110" y="178" text-anchor="middle"
               font-family="Impact,sans-serif" font-size="54" letter-spacing="2.5">
           INGBER
         </text>
@@ -111,16 +111,16 @@ const uid = `logo-${variant.replace(/-/g, '')}`;
           fill="#ffffff">REUBEN</text>
 
     <!-- INGBER — layer 1: shadow -->
-    <text x="114" y="176" text-anchor="middle"
+    <text x="114" y="183" text-anchor="middle"
           font-family="Impact,sans-serif" font-size="54" letter-spacing="2.5"
           fill="#ea580c">INGBER</text>
     <!-- INGBER — layer 2: gap fill -->
-    <text x="114" y="176" text-anchor="middle"
+    <text x="114" y="183" text-anchor="middle"
           font-family="Impact,sans-serif" font-size="54" letter-spacing="2.5"
           fill="#ea580c" stroke="#ea580c" stroke-width="20" stroke-linejoin="miter"
           clip-path={`url(#${uid}-i)`}>INGBER</text>
     <!-- INGBER — layer 3: white -->
-    <text x="110" y="171" text-anchor="middle"
+    <text x="110" y="178" text-anchor="middle"
           font-family="Impact,sans-serif" font-size="54" letter-spacing="2.5"
           fill="#ffffff">INGBER</text>
 

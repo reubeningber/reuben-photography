@@ -6,7 +6,8 @@ interface Props {
 }
 
 const { title } = Astro.props;
-const pageTitle = title ? `${title} — reuben ingber photography` : 'reuben ingber photography';
+const siteTitle = 'Reuben Ingber Photography';
+const pageTitle = title ? `${title} — ${siteTitle}` : siteTitle;
 ---
 
 <!doctype html>
