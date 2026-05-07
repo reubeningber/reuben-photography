@@ -24,6 +24,21 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
     </nav>
 
     <div class="sidebar-foot">
+      <div class="social-links">
+        <a
+          href="https://instagram.com/reuben_in_color"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+          class="social-link"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3.25" y="3.25" width="17.5" height="17.5" rx="5" />
+            <circle cx="12" cy="12" r="4.25" />
+            <circle cx="17.4" cy="6.6" r="1.15" />
+          </svg>
+        </a>
+      </div>
       <a href="https://reubeningber.com" target="_blank" rel="noopener noreferrer">
         about &amp; writing →
       </a>
@@ -46,7 +61,7 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
   <button class="drawer-close" id="drawer-close" aria-label="Close navigation" type="button">✕</button>
 
   <a href="/" class="drawer-logo-link" aria-label="Home">
-    <LogoStackedLight />
+    <LogoHorizontalLight />
   </a>
 
   <nav class="sidebar-nav">
@@ -57,6 +72,21 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
   </nav>
 
   <div class="sidebar-foot">
+    <div class="social-links">
+      <a
+        href="https://instagram.com/reuben_in_color"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Instagram"
+        class="social-link"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3.25" y="3.25" width="17.5" height="17.5" rx="5" />
+          <circle cx="12" cy="12" r="4.25" />
+          <circle cx="17.4" cy="6.6" r="1.15" />
+        </svg>
+      </a>
+    </div>
     <a href="https://reubeningber.com" target="_blank" rel="noopener noreferrer">
       about &amp; writing →
     </a>
@@ -103,27 +133,35 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    padding: 0 0 40px;
+    padding: 24px 0 44px;
   }
 
-  /* Logo link — flush to top, no extra padding (logo SVG has its own bg) */
   .logo-link {
     display: block;
-    margin-bottom: 28px;
+    width: min(252px, calc(100% - 44px));
+    margin: 0 auto 40px;
     flex-shrink: 0;
+  }
+  .logo-link svg {
+    display: block;
+    width: 100%;
+    height: auto;
   }
   .logo-link:hover { opacity: 0.9; }
 
   .sidebar-nav {
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    padding: 0 28px;
+    align-items: center;
+    gap: 18px;
+    padding: 0 36px;
+    text-align: center;
   }
 
   .sidebar-nav a {
-    font-size: 11.5px;
-    letter-spacing: 0.08em;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    line-height: 1.2;
     text-transform: uppercase;
     color: var(--text);
     opacity: 0.55;
@@ -138,13 +176,43 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
 
   .sidebar-foot {
     margin-top: auto;
-    padding: 40px 28px 0;
+    padding: 48px 36px 0;
+    text-align: center;
+  }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    color: var(--muted);
+    transition: color 0.15s, opacity 0.15s;
+  }
+
+  .social-link svg {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+  }
+
+  .social-link:hover {
+    color: var(--text);
+    opacity: 1;
   }
 
   .sidebar-foot a {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--muted);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.03em;
   }
   .sidebar-foot a:hover { opacity: 0.55; }
 
@@ -177,8 +245,7 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
     .mobile-logo-link {
       display: block;
       height: 44px;
-      /* logo SVG is 320:52 — at 44px height, width = 44*(320/52) ≈ 271px */
-      width: 271px;
+      width: 248px;
       flex-shrink: 0;
     }
     .mobile-logo-link svg {
@@ -191,17 +258,22 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
       background: none;
       border: none;
       cursor: pointer;
-      padding: 10px 16px;
+      width: 56px;
+      height: 44px;
+      padding: 0 16px;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
       flex-shrink: 0;
     }
     .hamburger span {
       display: block;
-      width: 22px;
-      height: 1.5px;
+      width: 24px;
+      height: 2px;
       background: var(--text);
+      flex: 0 0 auto;
     }
 
     /* Drawer */
@@ -237,26 +309,36 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
       padding: 4px 8px;
     }
 
-    /* Stacked logo in drawer — constrain width so it doesn't fill full drawer */
     .drawer-logo-link {
       display: block;
-      width: 120px;
-      margin: 8px 0 32px;
+      width: min(250px, calc(100% - 48px));
+      margin: 4px 0 36px;
+    }
+    .drawer-logo-link svg {
+      display: block;
+      width: 100%;
+      height: auto;
     }
     .drawer-logo-link:hover { opacity: 0.9; }
 
     .mobile-drawer .sidebar-nav {
+      align-items: flex-start;
       gap: 20px;
       padding: 0;
+      text-align: left;
     }
 
     .mobile-drawer .sidebar-nav a {
-      font-size: 13px;
+      font-size: 14px;
       letter-spacing: 0.1em;
     }
 
     .mobile-drawer .sidebar-foot {
       padding: 40px 0 0;
+    }
+
+    .mobile-drawer .social-links {
+      justify-content: flex-start;
     }
   }
 </style>

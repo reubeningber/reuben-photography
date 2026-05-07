@@ -9,141 +9,120 @@ const isH  = variant.startsWith('horizontal');
 const isDk = variant.endsWith('dark');
 
 const BG = isDk ? '#1a1a18' : '#f0ede6';
-const LO = isDk ? '#ede8dc' : '#1a1a18';  // lens outer ring + flash
-const RI = isDk ? '#ede8dc' : '#1a1a18';  // rule / divider
+const DETAIL = '#1a1a18';
+const CUTOUT = isDk ? '#ede8dc' : '#ffffff';
+const DIVIDER = isDk ? '#ede8dc' : '#d7cfc1';
 
 // Unique ID prefix per variant — assumes one instance of each variant per page
 const uid = `logo-${variant.replace(/-/g, '')}`;
 ---
 
 {isH ? (
-  <!-- ── Horizontal  320 × 58 ──────────────────────────────────── -->
-  <svg viewBox="0 0 320 58" xmlns="http://www.w3.org/2000/svg"
-       role="img" aria-label="Reuben Ingber Photography"
+  <!-- ── Horizontal 360 × 64 ───────────────────────────────────── -->
+  <svg viewBox="0 0 360 64" xmlns="http://www.w3.org/2000/svg"
+       role="img" aria-label="Reuben Ingber"
        class={className} style="display:block;width:100%;height:auto">
 
-    <rect width="320" height="58" fill={BG}/>
+    <rect width="360" height="64" fill={BG}/>
 
-    <!-- Camera icon, native 44 × 36, vertically centred in 58px → translate(8,11) -->
-    <g transform="translate(8,11)">
-      <!-- Body — rx=8 for rounded look -->
-      <rect x="0"  y="10" width="44" height="26" rx="8"  fill="#ea580c"/>
-      <!-- Viewfinder bump -->
-      <rect x="13" y="2"  width="14" height="12" rx="4"  fill="#ea580c"/>
-      <!-- Flash (top-right of bump area, lens-outer colour) -->
-      <rect x="32" y="3"  width="7"  height="6"  rx="3"  fill={LO}/>
-      <!-- Lens outer ring -->
-      <circle cx="21" cy="23" r="9"   fill={LO}/>
-      <!-- Lens inner (orange) -->
-      <circle cx="21" cy="23" r="6"   fill="#ea580c"/>
-      <!-- Lens centre dot (background colour) -->
-      <circle cx="21" cy="23" r="2.5" fill={BG}/>
+    <!-- Camera icon closer to the flat reference silhouette -->
+    <g transform="translate(8,9)">
+      <path d="M6 11h10.8c1.6 0 2.9-1.3 2.9-2.9V6.4c0-2 1.6-3.4 3.5-3.4h11.7c1.9 0 3.5 1.4 3.5 3.4v1.7c0 1.6 1.3 2.9 2.9 2.9H46c3.3 0 6 2.7 6 6v18c0 3.3-2.7 6-6 6H6c-3.3 0-6-2.7-6-6V17c0-3.3 2.7-6 6-6Z" fill="#ea580c"/>
+      <rect x="3.5" y="6.2" width="9.2" height="4.2" rx="1.4" fill="#ea580c"/>
+      <rect x="39.5" y="13.2" width="10.6" height="5.8" rx="1.4" fill={CUTOUT}/>
+      <path d="M0.8 16.1H9.1c2.4 0 4.3 1.9 4.3 4.3v12.8c0 2.4-1.9 4.3-4.3 4.3H0.8"
+            fill="none" stroke={CUTOUT} stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="29.4" cy="26.6" r="10.2" fill="none" stroke={CUTOUT} stroke-width="4.3"/>
     </g>
 
     <!-- Vertical divider -->
-    <line x1="61" y1="12" x2="61" y2="46"
-          stroke={RI} stroke-width="0.75" opacity="0.35"/>
+    <line x1="70" y1="13" x2="70" y2="51"
+          stroke={DIVIDER} stroke-width="1" opacity="0.6"/>
 
     <defs>
       <clipPath id={`${uid}-c`}>
-        <text x="71" y="30"
-              font-family="Impact,sans-serif" font-size="22" letter-spacing="4">
+        <text x="80" y="43"
+              font-family="Impact,sans-serif" font-size="38" letter-spacing="2">
           REUBEN INGBER
         </text>
       </clipPath>
     </defs>
 
     <!-- REUBEN INGBER — layer 1: shadow -->
-    <text x="74" y="34"
-          font-family="Impact,sans-serif" font-size="22" letter-spacing="4"
+    <text x="84" y="47"
+          font-family="Impact,sans-serif" font-size="38" letter-spacing="2"
           fill="#ea580c">REUBEN INGBER</text>
     <!-- REUBEN INGBER — layer 2: gap fill -->
-    <text x="74" y="34"
-          font-family="Impact,sans-serif" font-size="22" letter-spacing="4"
-          fill="#ea580c" stroke="#ea580c" stroke-width="14" stroke-linejoin="miter"
+    <text x="84" y="47"
+          font-family="Impact,sans-serif" font-size="38" letter-spacing="2"
+          fill="#ea580c" stroke="#ea580c" stroke-width="20" stroke-linejoin="miter"
           clip-path={`url(#${uid}-c)`}>REUBEN INGBER</text>
     <!-- REUBEN INGBER — layer 3: white top -->
-    <text x="71" y="30"
-          font-family="Impact,sans-serif" font-size="22" letter-spacing="4"
+    <text x="80" y="43"
+          font-family="Impact,sans-serif" font-size="38" letter-spacing="2"
           fill="#ffffff">REUBEN INGBER</text>
-
-    <!-- PHOTOGRAPHY subtitle — flat, no shadow -->
-    <text x="71" y="46"
-          font-family="Impact,sans-serif" font-size="10" letter-spacing="3"
-          fill="#ea580c">PHOTOGRAPHY</text>
 
   </svg>
 ) : (
-  <!-- ── Stacked  190 × 168 ─────────────────────────────────────── -->
-  <svg viewBox="0 0 190 168" xmlns="http://www.w3.org/2000/svg"
-       role="img" aria-label="Reuben Ingber Photography"
+  <!-- ── Stacked 220 × 196 ──────────────────────────────────────── -->
+  <svg viewBox="0 0 220 196" xmlns="http://www.w3.org/2000/svg"
+       role="img" aria-label="Reuben Ingber"
        class={className} style="display:block;width:100%;height:auto">
 
-    <rect width="190" height="168" fill={BG}/>
+    <rect width="220" height="196" fill={BG}/>
 
-    <!-- Camera icon, native 44 × 36, scaled 1.25× (→ 55 × 45), centred horizontally -->
-    <!-- translate x = (190 − 44×1.25) / 2 = (190 − 55) / 2 = 67.5               -->
-    <!-- camera top rendered ≈ y=10.5  bottom ≈ y=53                               -->
-    <g transform="translate(67.5,8) scale(1.25)">
-      <rect x="0"  y="10" width="44" height="26" rx="8"  fill="#ea580c"/>
-      <rect x="13" y="2"  width="14" height="12" rx="4"  fill="#ea580c"/>
-      <rect x="32" y="3"  width="7"  height="6"  rx="3"  fill={LO}/>
-      <circle cx="21" cy="23" r="9"   fill={LO}/>
-      <circle cx="21" cy="23" r="6"   fill="#ea580c"/>
-      <circle cx="21" cy="23" r="2.5" fill={BG}/>
+    <!-- Larger camera icon closer to the flat reference silhouette -->
+    <g transform="translate(71,8) scale(1.5)">
+      <path d="M6 11h10.8c1.6 0 2.9-1.3 2.9-2.9V6.4c0-2 1.6-3.4 3.5-3.4h11.7c1.9 0 3.5 1.4 3.5 3.4v1.7c0 1.6 1.3 2.9 2.9 2.9H46c3.3 0 6 2.7 6 6v18c0 3.3-2.7 6-6 6H6c-3.3 0-6-2.7-6-6V17c0-3.3 2.7-6 6-6Z" fill="#ea580c"/>
+      <rect x="3.5" y="6.2" width="9.2" height="4.2" rx="1.4" fill="#ea580c"/>
+      <rect x="39.5" y="13.2" width="10.6" height="5.8" rx="1.4" fill={CUTOUT}/>
+      <path d="M0.8 16.1H9.1c2.4 0 4.3 1.9 4.3 4.3v12.8c0 2.4-1.9 4.3-4.3 4.3H0.8"
+            fill="none" stroke={CUTOUT} stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="29.4" cy="26.6" r="10.2" fill="none" stroke={CUTOUT} stroke-width="4.3"/>
     </g>
 
     <defs>
       <clipPath id={`${uid}-r`}>
-        <text x="95" y="90" text-anchor="middle"
-              font-family="Impact,sans-serif" font-size="36" letter-spacing="4">
+        <text x="110" y="123" text-anchor="middle"
+              font-family="Impact,sans-serif" font-size="54" letter-spacing="2.5">
           REUBEN
         </text>
       </clipPath>
       <clipPath id={`${uid}-i`}>
-        <text x="95" y="128" text-anchor="middle"
-              font-family="Impact,sans-serif" font-size="36" letter-spacing="4">
+        <text x="110" y="171" text-anchor="middle"
+              font-family="Impact,sans-serif" font-size="54" letter-spacing="2.5">
           INGBER
         </text>
       </clipPath>
     </defs>
 
     <!-- REUBEN — layer 1: shadow -->
-    <text x="98" y="94" text-anchor="middle"
-          font-family="Impact,sans-serif" font-size="36" letter-spacing="4"
+    <text x="114" y="128" text-anchor="middle"
+          font-family="Impact,sans-serif" font-size="54" letter-spacing="2.5"
           fill="#ea580c">REUBEN</text>
     <!-- REUBEN — layer 2: gap fill -->
-    <text x="98" y="94" text-anchor="middle"
-          font-family="Impact,sans-serif" font-size="36" letter-spacing="4"
-          fill="#ea580c" stroke="#ea580c" stroke-width="14" stroke-linejoin="miter"
+    <text x="114" y="128" text-anchor="middle"
+          font-family="Impact,sans-serif" font-size="54" letter-spacing="2.5"
+          fill="#ea580c" stroke="#ea580c" stroke-width="20" stroke-linejoin="miter"
           clip-path={`url(#${uid}-r)`}>REUBEN</text>
     <!-- REUBEN — layer 3: white -->
-    <text x="95" y="90" text-anchor="middle"
-          font-family="Impact,sans-serif" font-size="36" letter-spacing="4"
+    <text x="110" y="123" text-anchor="middle"
+          font-family="Impact,sans-serif" font-size="54" letter-spacing="2.5"
           fill="#ffffff">REUBEN</text>
 
     <!-- INGBER — layer 1: shadow -->
-    <text x="98" y="132" text-anchor="middle"
-          font-family="Impact,sans-serif" font-size="36" letter-spacing="4"
+    <text x="114" y="176" text-anchor="middle"
+          font-family="Impact,sans-serif" font-size="54" letter-spacing="2.5"
           fill="#ea580c">INGBER</text>
     <!-- INGBER — layer 2: gap fill -->
-    <text x="98" y="132" text-anchor="middle"
-          font-family="Impact,sans-serif" font-size="36" letter-spacing="4"
-          fill="#ea580c" stroke="#ea580c" stroke-width="14" stroke-linejoin="miter"
+    <text x="114" y="176" text-anchor="middle"
+          font-family="Impact,sans-serif" font-size="54" letter-spacing="2.5"
+          fill="#ea580c" stroke="#ea580c" stroke-width="20" stroke-linejoin="miter"
           clip-path={`url(#${uid}-i)`}>INGBER</text>
     <!-- INGBER — layer 3: white -->
-    <text x="95" y="128" text-anchor="middle"
-          font-family="Impact,sans-serif" font-size="36" letter-spacing="4"
+    <text x="110" y="171" text-anchor="middle"
+          font-family="Impact,sans-serif" font-size="54" letter-spacing="2.5"
           fill="#ffffff">INGBER</text>
-
-    <!-- Horizontal rule -->
-    <line x1="22" y1="138" x2="168" y2="138"
-          stroke={RI} stroke-width="0.75" opacity="0.35"/>
-
-    <!-- PHOTOGRAPHY subtitle — flat, no shadow -->
-    <text x="95" y="154" text-anchor="middle"
-          font-family="Impact,sans-serif" font-size="10" letter-spacing="4"
-          fill="#ea580c">PHOTOGRAPHY</text>
 
   </svg>
 )}
