@@ -1,36 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { imgUrl } from '../utils/cloudinary';
-import { HERO_PHOTO_ID } from '../data/config';
+import MasonryGrid from '../components/MasonryGrid.astro';
+import allPhotos from '../data/photos.json';
+
+const photos = allPhotos.filter(p => p.album === 'highlights');
 ---
 
 <Layout>
-  <div class="hero">
-    <img
-      src={imgUrl(HERO_PHOTO_ID, 1600)}
-      alt="Hero photograph"
-      loading="eager"
-      decoding="async"
-    />
-  </div>
+  <MasonryGrid photos={photos} />
 </Layout>
-
-<style>
-  .hero {
-    height: 100dvh;
-    overflow: hidden;
-  }
-
-  .hero img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-
-  @media (max-width: 767px) {
-    .hero {
-      height: calc(100dvh - 52px);
-    }
-  }
-</style>
