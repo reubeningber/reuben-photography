@@ -1,0 +1,245 @@
+---
+import { albums } from '../data/albums';
+const path = Astro.url.pathname;
+const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
+---
+
+<!-- Desktop sidebar -->
+<aside class="sidebar">
+  <div class="sidebar-inner">
+    <a href="/" class="wordmark">reuben ingber<br />photography</a>
+
+    <nav class="sidebar-nav">
+      {albums.map(album => (
+        <a href={`/${album.slug}`} class:list={[{ active: isActive(album.slug) }]}>
+          {album.label}
+        </a>
+      ))}
+      <a href="/contact" class:list={[{ active: isActive('contact') }]}>Contact</a>
+    </nav>
+
+    <div class="sidebar-foot">
+      <a href="https://reubeningber.com" target="_blank" rel="noopener noreferrer">
+        about &amp; writing →
+      </a>
+    </div>
+  </div>
+</aside>
+
+<!-- Mobile top bar -->
+<div class="mobile-bar">
+  <a href="/" class="mobile-logo">reuben ingber photography</a>
+  <button class="hamburger" id="hamburger" aria-label="Open navigation" type="button">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<!-- Mobile drawer -->
+<div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+  <button class="drawer-close" id="drawer-close" aria-label="Close navigation" type="button">✕</button>
+
+  <a href="/" class="wordmark">reuben ingber<br />photography</a>
+
+  <nav class="sidebar-nav">
+    {albums.map(album => (
+      <a href={`/${album.slug}`}>{album.label}</a>
+    ))}
+    <a href="/contact">Contact</a>
+  </nav>
+
+  <div class="sidebar-foot">
+    <a href="https://reubeningber.com" target="_blank" rel="noopener noreferrer">
+      about &amp; writing →
+    </a>
+  </div>
+</div>
+
+<script>
+  const hamburger = document.getElementById('hamburger')!;
+  const drawer    = document.getElementById('mobile-drawer')!;
+  const closeBtn  = document.getElementById('drawer-close')!;
+
+  function open() {
+    drawer.classList.add('open');
+    drawer.removeAttribute('aria-hidden');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+  function close() {
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    hamburger.focus();
+  }
+
+  hamburger.addEventListener('click', open);
+  closeBtn.addEventListener('click', close);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+</script>
+
+<style>
+  /* ── Desktop sidebar ── */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-w);
+    height: 100vh;
+    background: var(--bg);
+    z-index: 200;
+    overflow-y: auto;
+  }
+
+  .sidebar-inner {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 32px 28px 40px;
+  }
+
+  .wordmark {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 14px;
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+    color: var(--text);
+    display: block;
+    margin-bottom: 36px;
+    flex-shrink: 0;
+  }
+  .wordmark:hover { opacity: 1; }
+
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .sidebar-nav a {
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+    opacity: 0.55;
+    display: block;
+    transition: opacity 0.15s;
+  }
+
+  .sidebar-nav a:hover,
+  .sidebar-nav a.active {
+    opacity: 1;
+  }
+
+  .sidebar-foot {
+    margin-top: auto;
+    padding-top: 40px;
+  }
+
+  .sidebar-foot a {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+  .sidebar-foot a:hover { opacity: 0.55; }
+
+  /* ── Mobile bar + drawer (hidden on desktop) ── */
+  .mobile-bar,
+  .mobile-drawer {
+    display: none;
+  }
+
+  /* ── Mobile breakpoint ── */
+  @media (max-width: 767px) {
+    .sidebar { display: none; }
+
+    .mobile-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 52px;
+      padding: 0 20px;
+      background: var(--bg);
+      z-index: 200;
+    }
+
+    .mobile-logo {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 13px;
+      letter-spacing: 0.01em;
+      color: var(--text);
+    }
+    .mobile-logo:hover { opacity: 1; }
+
+    .hamburger {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--text);
+    }
+
+    /* Drawer */
+    .mobile-drawer {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 85vw;
+      height: 100vh;
+      background: var(--bg);
+      z-index: 300;
+      padding: 32px 28px 48px;
+      overflow-y: auto;
+      transform: translateX(-100%);
+      transition: transform 0.26s ease;
+    }
+
+    .mobile-drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-close {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--text);
+      padding: 4px 8px;
+    }
+
+    .mobile-drawer .wordmark {
+      font-size: 14px;
+      margin-top: 8px;
+      margin-bottom: 44px;
+    }
+
+    .mobile-drawer .sidebar-nav {
+      gap: 20px;
+    }
+
+    .mobile-drawer .sidebar-nav a {
+      font-size: 13px;
+      letter-spacing: 0.1em;
+    }
+
+    .mobile-drawer .sidebar-foot {
+      padding-top: 40px;
+    }
+  }
+</style>

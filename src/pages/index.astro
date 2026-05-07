@@ -17,8 +17,7 @@ import { HERO_PHOTO_ID } from '../data/config';
 
 <style>
   .hero {
-    width: 100%;
-    height: calc(100dvh - 85px);
+    height: 100dvh;
     overflow: hidden;
   }
 
@@ -29,9 +28,9 @@ import { HERO_PHOTO_ID } from '../data/config';
     object-position: center;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 767px) {
     .hero {
-      height: calc(100dvh - 120px);
+      height: calc(100dvh - 52px);
     }
   }
 </style>

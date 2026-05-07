@@ -16,28 +16,5 @@ const photos = allPhotos.filter(p => p.album === album.slug);
 ---
 
 <Layout title={album.label}>
-  <div class="album-header">
-    <h1>{album.label}</h1>
-  </div>
   <MasonryGrid photos={photos} />
 </Layout>
-
-<style>
-  .album-header {
-    padding: 8px 32px 32px;
-  }
-
-  h1 {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 22px;
-    font-weight: 400;
-    letter-spacing: 0.01em;
-    color: var(--muted);
-  }
-
-  @media (max-width: 600px) {
-    .album-header {
-      padding: 4px 20px 24px;
-    }
-  }
-</style>

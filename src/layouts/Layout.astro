@@ -1,5 +1,5 @@
 ---
-import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
 
 interface Props {
   title?: string;
@@ -19,15 +19,10 @@ const pageTitle = title ? `${title} — reuben ingber photography` : 'reuben ing
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body>
-    <Header />
+    <Sidebar />
     <main>
       <slot />
     </main>
-    <footer>
-      <a href="https://reubeningber.com" target="_blank" rel="noopener noreferrer">
-        about &amp; writing →
-      </a>
-    </footer>
   </body>
 </html>
 
@@ -42,8 +37,8 @@ const pageTitle = title ? `${title} — reuben ingber photography` : 'reuben ing
     --bg: #f9f9f7;
     --text: #1a1a1a;
     --muted: #888;
-    --border: #e0e0e0;
-    --gap: 8px;
+    --gap: 4px;
+    --sidebar-w: 210px;
   }
 
   html {
@@ -56,12 +51,10 @@ const pageTitle = title ? `${title} — reuben ingber photography` : 'reuben ing
 
   body {
     min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
   }
 
   main {
-    flex: 1;
+    margin-left: var(--sidebar-w);
   }
 
   a {
@@ -78,11 +71,10 @@ const pageTitle = title ? `${title} — reuben ingber photography` : 'reuben ing
     max-width: 100%;
   }
 
-  footer {
-    padding: 40px 24px;
-    text-align: center;
-    font-size: 13px;
-    color: var(--muted);
-    letter-spacing: 0.02em;
+  @media (max-width: 767px) {
+    main {
+      margin-left: 0;
+      padding-top: 52px;
+    }
   }
 </style>
