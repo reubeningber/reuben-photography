@@ -1,10 +1,15 @@
 ---
-import { albums } from '../data/albums';
+import { navItems, isNavGroup } from '../data/albums';
+import type { NavGroup } from '../data/albums';
 import LogoStackedLight from './LogoStackedLight.astro';
 import LogoHorizontalLight from './LogoHorizontalLight.astro';
 
 const path = Astro.url.pathname;
 const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
+const isChildActive = (groupSlug: string, childSlug: string) =>
+  path === `/${groupSlug}/${childSlug}` || path === `/${groupSlug}/${childSlug}/`;
+const isGroupExpanded = (item: NavGroup) =>
+  item.children.some(c => isChildActive(item.slug, c.slug));
 ---
 
 <!-- Desktop sidebar -->
@@ -15,9 +20,23 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
     </a>
 
     <nav class="sidebar-nav">
-      {albums.map(album => (
-        <a href={`/${album.slug}`} class:list={[{ active: isActive(album.slug) }]}>
-          {album.label}
+      {navItems.map(item => isNavGroup(item) ? (
+        <div class:list={['nav-group', { expanded: isGroupExpanded(item) }]} data-group>
+          <button class="nav-group-label" type="button" aria-expanded={String(isGroupExpanded(item))}>
+            {item.label}
+            <span class="nav-group-arrow" aria-hidden="true"></span>
+          </button>
+          <div class="nav-group-children">
+            {item.children.map(child => (
+              <a href={`/${item.slug}/${child.slug}`} class:list={[{ active: isChildActive(item.slug, child.slug) }]}>
+                {child.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <a href={`/${item.slug}`} class:list={[{ active: isActive(item.slug) }]}>
+          {item.label}
         </a>
       ))}
       <a href="/contact" class:list={[{ active: isActive('contact') }]}>Contact</a>
@@ -65,8 +84,22 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
   </a>
 
   <nav class="sidebar-nav">
-    {albums.map(album => (
-      <a href={`/${album.slug}`}>{album.label}</a>
+    {navItems.map(item => isNavGroup(item) ? (
+      <div class:list={['nav-group', { expanded: isGroupExpanded(item) }]} data-group>
+        <button class="nav-group-label" type="button" aria-expanded={String(isGroupExpanded(item))}>
+          {item.label}
+          <span class="nav-group-arrow" aria-hidden="true"></span>
+        </button>
+        <div class="nav-group-children">
+          {item.children.map(child => (
+            <a href={`/${item.slug}/${child.slug}`} class:list={[{ active: isChildActive(item.slug, child.slug) }]}>
+              {child.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    ) : (
+      <a href={`/${item.slug}`}>{item.label}</a>
     ))}
     <a href="/contact">Contact</a>
   </nav>
@@ -114,6 +147,14 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
   hamburger.addEventListener('click', open);
   closeBtn.addEventListener('click', close);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+
+  document.querySelectorAll<HTMLButtonElement>('.nav-group-label').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const group = btn.closest('.nav-group')!;
+      const expanded = group.classList.toggle('expanded');
+      btn.setAttribute('aria-expanded', String(expanded));
+    });
+  });
 </script>
 
 <style>
@@ -158,7 +199,7 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
     text-align: center;
   }
 
-  .sidebar-nav a {
+  .sidebar-nav > a {
     font-size: 14px;
     letter-spacing: 0.12em;
     line-height: 1.2;
@@ -169,8 +210,83 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
     transition: opacity 0.15s;
   }
 
-  .sidebar-nav a:hover,
-  .sidebar-nav a.active {
+  .sidebar-nav > a:hover,
+  .sidebar-nav > a.active {
+    opacity: 1;
+  }
+
+  /* ── Nav group (expandable) ── */
+  .nav-group {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-group-label {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    color: var(--text);
+    opacity: 0.55;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: opacity 0.15s;
+    font-family: inherit;
+  }
+
+  .nav-group-label:hover,
+  .nav-group.expanded .nav-group-label {
+    opacity: 1;
+  }
+
+  .nav-group-arrow {
+    display: inline-block;
+    font-style: normal;
+    line-height: 1;
+  }
+
+  .nav-group-arrow::before {
+    content: '+';
+  }
+
+  .nav-group.expanded .nav-group-arrow::before {
+    content: '−';
+  }
+
+  .nav-group-children {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.25s ease, padding-top 0.25s ease;
+    padding-top: 0;
+  }
+
+  .nav-group.expanded .nav-group-children {
+    max-height: 500px;
+    padding-top: 12px;
+  }
+
+  .nav-group-children a {
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    color: var(--text);
+    opacity: 0.45;
+    display: block;
+    transition: opacity 0.15s;
+  }
+
+  .nav-group-children a:hover,
+  .nav-group-children a.active {
     opacity: 1;
   }
 
@@ -241,7 +357,6 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
       overflow: hidden;
     }
 
-    /* Scale the horizontal logo to fit the mobile bar height */
     .mobile-logo-link {
       display: block;
       height: 44px;
@@ -328,9 +443,22 @@ const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
       text-align: left;
     }
 
-    .mobile-drawer .sidebar-nav a {
+    .mobile-drawer .sidebar-nav > a {
       font-size: 14px;
       letter-spacing: 0.1em;
+    }
+
+    .mobile-drawer .nav-group {
+      text-align: left;
+    }
+
+    .mobile-drawer .nav-group-label {
+      justify-content: flex-start;
+    }
+
+    .mobile-drawer .nav-group-children {
+      align-items: flex-start;
+      padding-left: 2px;
     }
 
     .mobile-drawer .sidebar-foot {

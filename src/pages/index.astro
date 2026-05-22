@@ -1,9 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import MasonryGrid from '../components/MasonryGrid.astro';
-import allPhotos from '../data/photos.json';
-
-const photos = allPhotos.filter(p => p.album === 'highlights');
+import photos from '../data/photos/highlights.json';
 ---
 
 <Layout>

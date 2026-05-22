@@ -2,7 +2,16 @@
 import Layout from '../layouts/Layout.astro';
 import MasonryGrid from '../components/MasonryGrid.astro';
 import { albums } from '../data/albums';
-import allPhotos from '../data/photos.json';
+
+interface Photo {
+  publicId: string;
+  album: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
+const photoModules = import.meta.glob<{ default: Photo[] }>('../data/photos/*.json', { eager: true });
 
 export function getStaticPaths() {
   return albums.map(album => ({
@@ -12,7 +21,7 @@ export function getStaticPaths() {
 }
 
 const { album } = Astro.props;
-const photos = allPhotos.filter(p => p.album === album.slug);
+const photos = photoModules[`../data/photos/${album.slug}.json`]?.default ?? [];
 ---
 
 <Layout title={album.label}>

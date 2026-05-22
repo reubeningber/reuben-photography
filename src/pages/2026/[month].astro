@@ -1,0 +1,33 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import MasonryGrid from '../../components/MasonryGrid.astro';
+import { navItems, isNavGroup } from '../../data/albums';
+
+interface Photo {
+  publicId: string;
+  album: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
+const group2026 = navItems.find(isNavGroup);
+const months = group2026?.children ?? [];
+
+const photoModules = import.meta.glob<{ default: Photo[] }>('../../data/photos/2026-*.json', { eager: true });
+
+export function getStaticPaths() {
+  const group = navItems.find(isNavGroup);
+  return (group?.children ?? []).map(month => ({
+    params: { month: month.slug },
+    props: { month },
+  }));
+}
+
+const { month } = Astro.props;
+const photos = photoModules[`../../data/photos/2026-${month.slug}.json`]?.default ?? [];
+---
+
+<Layout title={`2026 — ${month.label}`}>
+  <MasonryGrid photos={photos} />
+</Layout>
