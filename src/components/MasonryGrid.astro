@@ -48,6 +48,7 @@ const lightboxData = photos.map(p => ({
 <!-- Lightbox — z-index 150, below sidebar (200) -->
 <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
   <button class="lb-close" id="lb-close" aria-label="Close" type="button">✕</button>
+  <button class="lb-copy-link" id="lb-copy-link" aria-label="Copy link to photo" type="button" title="Copy link">⛓</button>
   <button class="lb-prev" id="lb-prev" aria-label="Previous photo" type="button">&#8249;</button>
   <button class="lb-next" id="lb-next" aria-label="Next photo" type="button">&#8250;</button>
   <div class="lb-stage">
@@ -60,9 +61,10 @@ const lightboxData = photos.map(p => ({
   const lightbox  = document.getElementById('lightbox');
   const lbImg     = document.getElementById('lb-img');
   const lbCaption = document.getElementById('lb-caption');
-  const lbClose   = document.getElementById('lb-close');
-  const lbPrev    = document.getElementById('lb-prev');
-  const lbNext    = document.getElementById('lb-next');
+  const lbClose    = document.getElementById('lb-close');
+  const lbCopyLink = document.getElementById('lb-copy-link');
+  const lbPrev     = document.getElementById('lb-prev');
+  const lbNext     = document.getElementById('lb-next');
   const photos    = lightboxData;
   let current     = 0;
 
@@ -74,9 +76,18 @@ const lightboxData = photos.map(p => ({
     lbCaption.hidden = !p.caption;
   }
 
+  function setHash(index) {
+    history.replaceState(null, '', '#photo-' + index);
+  }
+
+  function clearHash() {
+    history.replaceState(null, '', location.pathname + location.search);
+  }
+
   function open(index) {
     current = index;
     show(current);
+    setHash(current);
     lightbox.hidden = false;
     document.body.style.overflow = 'hidden';
     lbClose.focus();
@@ -85,11 +96,19 @@ const lightboxData = photos.map(p => ({
   function close() {
     lightbox.hidden = true;
     document.body.style.overflow = '';
+    clearHash();
     document.querySelector(`[data-index="${current}"]`)?.focus();
   }
 
-  function prev() { current = (current - 1 + photos.length) % photos.length; show(current); }
-  function next() { current = (current + 1) % photos.length; show(current); }
+  function prev() { current = (current - 1 + photos.length) % photos.length; show(current); setHash(current); }
+  function next() { current = (current + 1) % photos.length; show(current); setHash(current); }
+
+  // Open to photo specified in URL hash on page load
+  const hashMatch = location.hash.match(/^#photo-(\d+)$/);
+  if (hashMatch) {
+    const i = parseInt(hashMatch[1], 10);
+    if (i >= 0 && i < photos.length) open(i);
+  }
 
   document.getElementById('masonry').addEventListener('click', e => {
     const btn = e.target.closest('[data-index]');
@@ -99,6 +118,13 @@ const lightboxData = photos.map(p => ({
   lbClose.addEventListener('click', close);
   lbPrev.addEventListener('click', prev);
   lbNext.addEventListener('click', next);
+
+  lbCopyLink.addEventListener('click', () => {
+    navigator.clipboard.writeText(location.href).then(() => {
+      lbCopyLink.textContent = '✓';
+      setTimeout(() => { lbCopyLink.textContent = '⛓'; }, 1800);
+    });
+  });
 
   lightbox.addEventListener('click', e => { if (e.target === lightbox) close(); });
 
@@ -212,6 +238,13 @@ const lightboxData = photos.map(p => ({
     top: 18px;
     right: 22px;
     font-size: 18px;
+    padding: 6px 10px;
+  }
+
+  .lb-copy-link {
+    top: 18px;
+    right: 64px;
+    font-size: 16px;
     padding: 6px 10px;
   }
 
