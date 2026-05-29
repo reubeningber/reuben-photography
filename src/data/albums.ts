@@ -17,8 +17,9 @@ export function isNavGroup(item: NavItem): item is NavGroup {
 
 export const navItems: NavItem[] = [
   { slug: 'family',       label: 'Family' },
-  { slug: 'little-league', label: 'Little League' },
-  { slug: 'nature',       label: 'Nature' },
+  { slug: 'little-league',  label: 'Little League' },
+  { slug: 'manhattanhenge', label: 'Manhattanhenge' },
+  { slug: 'nature',         label: 'Nature' },
   { slug: 'paris',        label: 'Paris' },
   { slug: 'running',      label: 'Running' },
   { slug: 'urban',        label: 'Urban' },
