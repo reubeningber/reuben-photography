@@ -16,13 +16,6 @@ export function isNavGroup(item: NavItem): item is NavGroup {
 }
 
 export const navItems: NavItem[] = [
-  { slug: 'family',       label: 'Family' },
-  { slug: 'little-league',  label: 'Little League' },
-  { slug: 'manhattanhenge', label: 'Manhattanhenge' },
-  { slug: 'nature',         label: 'Nature' },
-  { slug: 'paris',        label: 'Paris' },
-  { slug: 'running',      label: 'Running' },
-  { slug: 'urban',        label: 'Urban' },
   {
     slug: '2026',
     label: '2026',
@@ -31,8 +24,24 @@ export const navItems: NavItem[] = [
       { slug: 'february', label: 'February' },
       { slug: 'march',    label: 'March' },
       { slug: 'april',    label: 'April' },
+      { slug: 'may',      label: 'May' },
+      { slug: 'june',     label: 'June' },
     ],
   },
+  {
+    slug: 'travel',
+    label: 'Travel',
+    children: [
+      { slug: 'paris',     label: 'Paris' },
+      { slug: 'lancaster', label: 'Lancaster, PA' },
+    ],
+  },
+  { slug: 'family',       label: 'Family' },
+  { slug: 'urban',        label: 'Street' },
+  { slug: 'little-league',  label: 'Little League' },
+  { slug: 'running',      label: 'Running' },
+  { slug: 'manhattanhenge', label: 'Manhattanhenge' },
+  { slug: 'nature',         label: 'Nature' },
 ];
 
 export const albums: Album[] = navItems.filter((item): item is Album => !isNavGroup(item));

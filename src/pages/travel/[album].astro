@@ -1,0 +1,31 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import MasonryGrid from '../../components/MasonryGrid.astro';
+import { navItems, isNavGroup } from '../../data/albums';
+import type { NavGroup } from '../../data/albums';
+
+interface Photo {
+  publicId: string;
+  album: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
+const photoModules = import.meta.glob<{ default: Photo[] }>('../../data/photos/*.json', { eager: true });
+
+export function getStaticPaths() {
+  const group = navItems.find((item): item is NavGroup => isNavGroup(item) && item.slug === 'travel');
+  return (group?.children ?? []).map(album => ({
+    params: { album: album.slug },
+    props: { album },
+  }));
+}
+
+const { album } = Astro.props;
+const photos = photoModules[`../../data/photos/${album.slug}.json`]?.default ?? [];
+---
+
+<Layout title={album.label}>
+  <MasonryGrid photos={photos} />
+</Layout>
