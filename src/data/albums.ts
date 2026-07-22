@@ -7,6 +7,8 @@ export interface NavGroup {
   slug: string;
   label: string;
   children: Album[];
+  /** When true, the group's own label links to `/${slug}` in addition to expanding its children. */
+  hasOwnPage?: boolean;
 }
 
 export type NavItem = Album | NavGroup;
@@ -17,18 +19,6 @@ export function isNavGroup(item: NavItem): item is NavGroup {
 
 export const navItems: NavItem[] = [
   {
-    slug: '2026',
-    label: '2026',
-    children: [
-      { slug: 'january',  label: 'January' },
-      { slug: 'february', label: 'February' },
-      { slug: 'march',    label: 'March' },
-      { slug: 'april',    label: 'April' },
-      { slug: 'may',      label: 'May' },
-      { slug: 'june',     label: 'June' },
-    ],
-  },
-  {
     slug: 'travel',
     label: 'Travel',
     children: [
@@ -36,12 +26,30 @@ export const navItems: NavItem[] = [
       { slug: 'lancaster', label: 'Lancaster, PA' },
     ],
   },
-  { slug: 'family',       label: 'Family' },
+  {
+    slug: 'family',
+    label: 'Family',
+    hasOwnPage: true,
+    children: [
+      { slug: '2026/january',  label: 'January' },
+      { slug: '2026/february', label: 'February' },
+      { slug: '2026/march',    label: 'March' },
+      { slug: '2026/april',    label: 'April' },
+      { slug: '2026/may',      label: 'May' },
+      { slug: '2026/june',     label: 'June' },
+    ],
+  },
   { slug: 'urban',        label: 'Street' },
-  { slug: 'little-league',  label: 'Little League' },
   { slug: 'running',      label: 'Running' },
-  { slug: 'manhattanhenge', label: 'Manhattanhenge' },
   { slug: 'nature',         label: 'Nature' },
+  {
+    slug: 'events',
+    label: 'Events',
+    children: [
+      { slug: 'manhattanhenge', label: 'Manhattanhenge' },
+      { slug: 'little-league',  label: 'Little League' },
+    ],
+  },
 ];
 
 export const albums: Album[] = navItems.filter((item): item is Album => !isNavGroup(item));
