@@ -40,7 +40,14 @@ export const navItems: NavItem[] = [
     ],
   },
   { slug: 'urban',        label: 'Street' },
-  { slug: 'running',      label: 'Running' },
+  {
+    slug: 'running',
+    label: 'Running',
+    hasOwnPage: true,
+    children: [
+      { slug: 'track-nyc-queens-college', label: 'Trials of Miles Track Morning' },
+    ],
+  },
   { slug: 'nature',         label: 'Nature' },
   {
     slug: 'events',
