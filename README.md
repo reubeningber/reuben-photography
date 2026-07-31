@@ -181,6 +181,22 @@ This record is currently **proxied** (orange-cloud) through Cloudflare — traff
 
 [Cloudflare Web Analytics](https://www.cloudflare.com/web-analytics/) is wired up via a hardcoded beacon token in `src/components/CloudflareAnalytics.astro`, included in `Layout.astro`'s `<head>`. It uses the manual JS-snippet method rather than Cloudflare's "automatic injection" option — automatic injection only applies to hostnames registered as their own Cloudflare "website" (zone), and this subdomain is part of the `reubeningber.com` zone rather than a zone of its own, so the manual snippet is required even though the record is proxied.
 
+## Testing
+
+An end-to-end smoke test suite (Playwright) covers the homepage, an ungrouped album, a group landing page, a nested monthly sub-album, a nested sub-album under Running, an old pre-reorg URL's redirect, the contact page, the sitemap, and `robots.txt`.
+
+```sh
+npm run test:e2e
+```
+
+Before running for the first time, install the Playwright browser:
+
+```sh
+npx playwright install --with-deps chromium
+```
+
+Tests live in `tests/e2e/` and run automatically on push/PR via `.github/workflows/test.yml`.
+
 ## Updating The Site
 
 Typical content update flow:
