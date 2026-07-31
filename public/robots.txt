@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://photos.reubeningber.com/sitemap-index.xml
