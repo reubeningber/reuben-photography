@@ -17,6 +17,7 @@ This repo contains the standalone photography site that was split out from the m
 
 - Astro 6
 - Static output
+- `@astrojs/sitemap` — generates `sitemap-index.xml` at build time; linked from `public/robots.txt`
 - Cloudinary image URLs generated at render time
 - GitHub Actions + GitHub Pages
 

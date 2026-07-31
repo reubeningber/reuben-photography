@@ -8,6 +8,7 @@ Standalone photography portfolio for Reuben Ingber, split out from the main `reu
 - **Styling**: hand-written CSS in `Layout.astro` (`<style is:global>`) — no Tailwind, no CSS framework
 - **Images**: Cloudinary, cloud name in `src/data/config.ts`
 - **Analytics**: Cloudflare Web Analytics (beacon token hardcoded in `CloudflareAnalytics.astro`)
+- **SEO**: `@astrojs/sitemap` generates `sitemap-index.xml`; `public/robots.txt` links to it
 - **Site URL**: `https://photos.reubeningber.com`
 
 ## Key Commands
