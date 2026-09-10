@@ -7,7 +7,6 @@
 import { readFileSync, readdirSync } from 'fs';
 import { join, basename, extname } from 'path';
 import { createHmac, createHash } from 'crypto';
-import { FormData, Blob } from 'node:buffer';
 import https from 'https';
 
 const ENV_PATH = new URL('../.env', import.meta.url).pathname;

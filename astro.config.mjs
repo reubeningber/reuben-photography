@@ -9,6 +9,6 @@ export default defineConfig({
   redirects: {
     '/manhattanhenge': '/events/manhattanhenge',
     '/little-league': '/events/little-league',
-    '/2026/[month]': '/family/2026/[month]',
+    '/family/2026/[month]': '/2026/[month]',
   },
 });
