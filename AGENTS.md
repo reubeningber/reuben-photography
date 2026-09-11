@@ -83,6 +83,17 @@ There is no CMS and no content-collections schema (unlike the main `reubeningber
 - `public/CNAME` pins the custom domain (`photos.reubeningber.com`)
 - DNS is on Cloudflare and **proxied** (unlike the main `reubeningber.com` apex domain, which is DNS-only) — see the README's Deployment section for what that implies for HTTPS issuance and analytics
 
+## Testing
+
+`tests/e2e/smoke.spec.ts` (Playwright) covers routing across the different page shapes: an ungrouped album, a group landing page, a nested monthly sub-album, a nested sub-album under a different group, an old pre-reorg URL's redirect, the sitemap, and `robots.txt`. No unit tests — unlike the main `reubeningber.com` repo, there's no pure logic here worth isolating (no content-collection filtering, no date math).
+
+```bash
+npx playwright install --with-deps chromium  # first time only
+npm run test:e2e
+```
+
+Runs on push/PR via `.github/workflows/test.yml`. Unlike the main repo's `deploy.yml`, this repo's `deploy.yml` is not currently gated on tests passing — see the main repo's `docs/deployment.md` for the `workflow_run` pattern if that's wanted here too.
+
 ## Relationship to the main site
 
 This repo used to be part of `reubeningber.com` (photo galleries, `PhotoGrid.astro`, PhotoSwipe lightbox, an `albums` content collection). It was split out into its own site/repo so photography could have its own design and tooling without dragging photo-specific dependencies into what's otherwise a simple blog. The main site's `Header.astro`/`Footer.astro` link here as an external link; there's no shared layout, design system, or code between the two repos.
