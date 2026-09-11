@@ -8,6 +8,7 @@ Standalone photography portfolio for Reuben Ingber, split out from the main `reu
 - **Styling**: hand-written CSS in `Layout.astro` (`<style is:global>`) — no Tailwind, no CSS framework
 - **Images**: Cloudinary, cloud name in `src/data/config.ts`
 - **Analytics**: Cloudflare Web Analytics (beacon token hardcoded in `CloudflareAnalytics.astro`)
+- **SEO**: `@astrojs/sitemap` generates `sitemap-index.xml`; `public/robots.txt` links to it
 - **Site URL**: `https://photos.reubeningber.com`
 
 ## Key Commands
@@ -39,7 +40,8 @@ src/
     contact.astro
     [album].astro                  # ungrouped top-level albums only (urban, nature)
     family/index.astro             # Family landing page
-    family/2026/[month].astro      # monthly sub-albums
+    family/[album].astro           # Family sub-albums (e.g. first-day-of-school-2026)
+    2026/[month].astro             # monthly 2026 sub-albums
     running/index.astro            # Running landing page
     running/[album].astro          # sub-albums (e.g. track-nyc-queens-college)
     travel/[album].astro           # paris, lancaster
@@ -55,7 +57,7 @@ scripts/
 Two files drive everything:
 
 - **`src/data/albums.ts`** — `navItems` is the nav tree (`Album` = `{slug, label}`, `NavGroup` = `{slug, label, children, hasOwnPage?}`). `albums` is the filtered subset of `navItems` that are plain `Album`s (not groups) — only these get routed by `src/pages/[album].astro`. Grouped albums (Travel, Family, Running, Events) each have a dedicated route file instead.
-- **`src/data/photos/<slug>.json`** — one file per album/sub-album. Filename must match the album's `slug`, with `/` replaced by `-` for nested slugs (e.g. `family` child `2026/may` → `src/data/photos/2026-may.json`). Each entry: `publicId`, `album`, `alt`, `width`, `height`.
+- **`src/data/photos/<slug>.json`** — one file per album/sub-album. Filename must match the album's `slug`, with `/` replaced by `-` for nested slugs. The `2026` group's month routes read `src/data/photos/2026-<month>.json` explicitly (e.g. `2026` child `may` → `src/data/photos/2026-may.json`). Each entry: `publicId`, `album`, `alt`, `width`, `height`.
 
 There is no CMS and no content-collections schema (unlike the main `reubeningber.com` repo) — adding an album means hand-editing `albums.ts` and adding a JSON file.
 
@@ -65,7 +67,7 @@ There is no CMS and no content-collections schema (unlike the main `reubeningber
 
 **New top-level ungrouped album**: add to `navItems` in `albums.ts` (it'll automatically be picked up by `albums` and routed via `[album].astro`) and create the matching `src/data/photos/<slug>.json`.
 
-**New sub-album under an existing group** (e.g. a new month under Family): add to that group's `children` array in `albums.ts`, then create `src/data/photos/<slug-with-dashes>.json`. The group's route file (`family/2026/[month].astro`, `running/[album].astro`, etc.) picks it up via `getStaticPaths`.
+**New sub-album under an existing group** (e.g. a new month under Family): add to that group's `children` array in `albums.ts`, then create `src/data/photos/<slug-with-dashes>.json`. The group's route file (`2026/[month].astro`, `family/[album].astro`, `running/[album].astro`, etc.) picks it up via `getStaticPaths`.
 
 **New top-level group**: needs a new route file under `src/pages/<group-slug>/` following the pattern of `travel/[album].astro` or `events/[album].astro`, in addition to the `albums.ts` entry.
 
@@ -73,7 +75,7 @@ There is no CMS and no content-collections schema (unlike the main `reubeningber
 
 ## Redirects
 
-`astro.config.mjs` has a `redirects` map for URLs that predate the current grouped nav structure (`/manhattanhenge` → `/events/manhattanhenge`, `/little-league` → `/events/little-league`, `/2026/[month]` → `/family/2026/[month]`). If a slug moves to a new nested location again, add the old path here rather than letting it 404.
+`astro.config.mjs` has a `redirects` map for URLs that predate the current grouped nav structure (`/manhattanhenge` → `/events/manhattanhenge`, `/little-league` → `/events/little-league`, `/family/2026/[month]` → `/2026/[month]`). If a slug moves to a new nested location again, add the old path here rather than letting it 404.
 
 ## Deployment
 
