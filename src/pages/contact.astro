@@ -3,7 +3,11 @@ import Layout from '../layouts/Layout.astro';
 import { CONTACT_EMAIL } from '../data/config';
 ---
 
-<Layout title="Contact">
+<Layout
+  title="Contact"
+  description="Contact Reuben Ingber for photography inquiries and bookings."
+  canonicalPath="/contact"
+>
   <div class="contact">
     <a href={`mailto:${CONTACT_EMAIL}`} class="email-link">{CONTACT_EMAIL}</a>
   </div>

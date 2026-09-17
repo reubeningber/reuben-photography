@@ -1,12 +1,73 @@
 [
-  { "publicId": "portfolio/2026/may/20260503-RAI03569", "album": "2026/may", "alt": "", "width": 6192, "height": 4128 },
-  { "publicId": "portfolio/2026/may/20260509-RAI03633", "album": "2026/may", "alt": "", "width": 6192, "height": 4128 },
-  { "publicId": "portfolio/2026/may/20260510-RAI03994", "album": "2026/may", "alt": "", "width": 4128, "height": 6192 },
-  { "publicId": "portfolio/2026/may/20260514-RAI04037", "album": "2026/may", "alt": "", "width": 6192, "height": 4128 },
-  { "publicId": "portfolio/2026/may/20260517-RAI04262", "album": "2026/may", "alt": "", "width": 4128, "height": 6192 },
-  { "publicId": "portfolio/2026/may/20260517-RAI04274", "album": "2026/may", "alt": "", "width": 6192, "height": 4128 },
-  { "publicId": "portfolio/2026/may/20260517-RAI04292", "album": "2026/may", "alt": "", "width": 4128, "height": 6192 },
-  { "publicId": "portfolio/2026/may/20260519-RAI04340", "album": "2026/may", "alt": "", "width": 6192, "height": 4128 },
-  { "publicId": "portfolio/2026/may/20260519-RAI04523", "album": "2026/may", "alt": "", "width": 6192, "height": 4128 },
-  { "publicId": "portfolio/2026/may/20260528-RAI04971", "album": "2026/may", "alt": "", "width": 6192, "height": 4128 }
+  {
+    "_todo": "TODO: this album still needs real, specific alt text (scene/setting/lighting, not filenames) \u2014 see highlights.json and family.json for the pattern.",
+    "publicId": "portfolio/2026/may/20260503-RAI03569",
+    "album": "2026/may",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  },
+  {
+    "publicId": "portfolio/2026/may/20260509-RAI03633",
+    "album": "2026/may",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  },
+  {
+    "publicId": "portfolio/2026/may/20260510-RAI03994",
+    "album": "2026/may",
+    "alt": "",
+    "width": 4128,
+    "height": 6192
+  },
+  {
+    "publicId": "portfolio/2026/may/20260514-RAI04037",
+    "album": "2026/may",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  },
+  {
+    "publicId": "portfolio/2026/may/20260517-RAI04262",
+    "album": "2026/may",
+    "alt": "",
+    "width": 4128,
+    "height": 6192
+  },
+  {
+    "publicId": "portfolio/2026/may/20260517-RAI04274",
+    "album": "2026/may",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  },
+  {
+    "publicId": "portfolio/2026/may/20260517-RAI04292",
+    "album": "2026/may",
+    "alt": "",
+    "width": 4128,
+    "height": 6192
+  },
+  {
+    "publicId": "portfolio/2026/may/20260519-RAI04340",
+    "album": "2026/may",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  },
+  {
+    "publicId": "portfolio/2026/may/20260519-RAI04523",
+    "album": "2026/may",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  },
+  {
+    "publicId": "portfolio/2026/may/20260528-RAI04971",
+    "album": "2026/may",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  }
 ]

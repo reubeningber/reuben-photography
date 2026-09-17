@@ -2,8 +2,14 @@
 import Layout from '../../layouts/Layout.astro';
 import MasonryGrid from '../../components/MasonryGrid.astro';
 import photos from '../../data/photos/family.json';
+import { albumJsonLd } from '../../utils/seo';
 ---
 
-<Layout title="Family">
+<Layout
+  title="Family"
+  description="Family photography by Reuben Ingber — everyday moments and portraits."
+  canonicalPath="/family"
+  jsonLd={albumJsonLd('Family', '/family', photos)}
+>
   <MasonryGrid photos={photos} />
 </Layout>
