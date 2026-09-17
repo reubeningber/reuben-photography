@@ -1,5 +1,24 @@
 [
-  { "publicId": "portfolio/2026/june/20260620-RAI05480", "album": "2026/june", "alt": "", "width": 4128, "height": 6192 },
-  { "publicId": "portfolio/2026/june/20260629-RAI05650", "album": "2026/june", "alt": "", "width": 4128, "height": 6192 },
-  { "publicId": "portfolio/2026/june/20260629-RAI05664", "album": "2026/june", "alt": "", "width": 6192, "height": 4128 }
+  {
+    "_todo": "TODO: this album still needs real, specific alt text (scene/setting/lighting, not filenames) \u2014 see highlights.json and family.json for the pattern.",
+    "publicId": "portfolio/2026/june/20260620-RAI05480",
+    "album": "2026/june",
+    "alt": "",
+    "width": 4128,
+    "height": 6192
+  },
+  {
+    "publicId": "portfolio/2026/june/20260629-RAI05650",
+    "album": "2026/june",
+    "alt": "",
+    "width": 4128,
+    "height": 6192
+  },
+  {
+    "publicId": "portfolio/2026/june/20260629-RAI05664",
+    "album": "2026/june",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  }
 ]

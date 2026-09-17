@@ -1,12 +1,73 @@
 [
-  { "publicId": "portfolio/2026/january/20260106-DSC08397", "album": "2026/january", "alt": "", "width": 4000, "height": 6000 },
-  { "publicId": "portfolio/2026/january/20260110-DSC08413", "album": "2026/january", "alt": "", "width": 6000, "height": 4000 },
-  { "publicId": "portfolio/2026/january/20260115-DSC08521", "album": "2026/january", "alt": "", "width": 6000, "height": 4000 },
-  { "publicId": "portfolio/2026/january/20260115-DSC08584", "album": "2026/january", "alt": "", "width": 6000, "height": 4000 },
-  { "publicId": "portfolio/2026/january/20260117-DSC08585", "album": "2026/january", "alt": "", "width": 6000, "height": 4000 },
-  { "publicId": "portfolio/2026/january/20260117-DSC08683", "album": "2026/january", "alt": "", "width": 4000, "height": 6000 },
-  { "publicId": "portfolio/2026/january/20260126-RAI00046", "album": "2026/january", "alt": "", "width": 6192, "height": 4128 },
-  { "publicId": "portfolio/2026/january/20260126-RAI00117", "album": "2026/january", "alt": "", "width": 6192, "height": 4128 },
-  { "publicId": "portfolio/2026/january/20260126-RAI00224", "album": "2026/january", "alt": "", "width": 6192, "height": 4128 },
-  { "publicId": "portfolio/2026/january/20260131-RAI00498", "album": "2026/january", "alt": "", "width": 6192, "height": 4128 }
+  {
+    "_todo": "TODO: this album still needs real, specific alt text (scene/setting/lighting, not filenames) \u2014 see highlights.json and family.json for the pattern.",
+    "publicId": "portfolio/2026/january/20260106-DSC08397",
+    "album": "2026/january",
+    "alt": "",
+    "width": 4000,
+    "height": 6000
+  },
+  {
+    "publicId": "portfolio/2026/january/20260110-DSC08413",
+    "album": "2026/january",
+    "alt": "",
+    "width": 6000,
+    "height": 4000
+  },
+  {
+    "publicId": "portfolio/2026/january/20260115-DSC08521",
+    "album": "2026/january",
+    "alt": "",
+    "width": 6000,
+    "height": 4000
+  },
+  {
+    "publicId": "portfolio/2026/january/20260115-DSC08584",
+    "album": "2026/january",
+    "alt": "",
+    "width": 6000,
+    "height": 4000
+  },
+  {
+    "publicId": "portfolio/2026/january/20260117-DSC08585",
+    "album": "2026/january",
+    "alt": "",
+    "width": 6000,
+    "height": 4000
+  },
+  {
+    "publicId": "portfolio/2026/january/20260117-DSC08683",
+    "album": "2026/january",
+    "alt": "",
+    "width": 4000,
+    "height": 6000
+  },
+  {
+    "publicId": "portfolio/2026/january/20260126-RAI00046",
+    "album": "2026/january",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  },
+  {
+    "publicId": "portfolio/2026/january/20260126-RAI00117",
+    "album": "2026/january",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  },
+  {
+    "publicId": "portfolio/2026/january/20260126-RAI00224",
+    "album": "2026/january",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  },
+  {
+    "publicId": "portfolio/2026/january/20260131-RAI00498",
+    "album": "2026/january",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  }
 ]

@@ -1,14 +1,32 @@
 ---
 import Sidebar from '../components/Sidebar.astro';
 import CloudflareAnalytics from '../components/CloudflareAnalytics.astro';
+import { HERO_PHOTO_ID } from '../data/config';
+import { imgUrl } from '../utils/cloudinary';
 
 interface Props {
   title?: string;
+  description?: string;
+  image?: string;
+  canonicalPath?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { title } = Astro.props;
+const { title, description, image, canonicalPath, jsonLd } = Astro.props;
 const siteTitle = 'Reuben Ingber Photography';
 const pageTitle = title ? `${title} — ${siteTitle}` : siteTitle;
+const pageDescription = description ?? 'Photography by Reuben Ingber';
+const pageImage = image ?? imgUrl(HERO_PHOTO_ID, 1200);
+const path = canonicalPath ?? Astro.url.pathname;
+const canonicalUrl = `https://photos.reubeningber.com${path}`;
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': 'https://reubeningber.com/#person',
+};
+
+const jsonLdBlocks = [personJsonLd, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
 ---
 
 <!doctype html>
@@ -16,13 +34,31 @@ const pageTitle = title ? `${title} — ${siteTitle}` : siteTitle;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Photography by Reuben Ingber" />
+    <meta name="description" content={pageDescription} />
     <title>{pageTitle}</title>
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" href="/favicon.ico" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={pageImage} />
+    <meta property="og:site_name" content={siteTitle} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={pageImage} />
+
+    {jsonLdBlocks.map(block => (
+      <script type="application/ld+json" set:html={JSON.stringify(block)} />
+    ))}
+
     <CloudflareAnalytics />
   </head>
   <body>

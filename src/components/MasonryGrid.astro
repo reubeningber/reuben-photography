@@ -1,5 +1,6 @@
 ---
 import { imgUrl, imgSrcset, lightboxUrl } from '../utils/cloudinary';
+import { fallbackAlt } from '../utils/alt';
 
 interface Photo {
   publicId: string;
@@ -16,9 +17,11 @@ interface Props {
 
 const { photos } = Astro.props;
 
-const lightboxData = photos.map(p => ({
+const alts = photos.map(p => p.alt || fallbackAlt(p.album, p.publicId));
+
+const lightboxData = photos.map((p, i) => ({
   src: lightboxUrl(p.publicId),
-  alt: p.alt,
+  alt: alts[i],
   caption: p.caption ?? '',
   publicId: p.publicId,
 }));
@@ -29,14 +32,14 @@ const lightboxData = photos.map(p => ({
     <button
       class="photo-btn"
       data-index={i}
-      aria-label={`View ${photo.alt}`}
+      aria-label={`View ${alts[i]}`}
       type="button"
     >
       <img
         src={imgUrl(photo.publicId, 800)}
         srcset={imgSrcset(photo.publicId)}
         sizes="(max-width: 600px) 100vw, (max-width: 960px) 50vw, 33vw"
-        alt={photo.alt}
+        alt={alts[i]}
         width={photo.width}
         height={photo.height}
         loading="lazy"

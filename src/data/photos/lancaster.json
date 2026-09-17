@@ -1,17 +1,108 @@
 [
-  { "publicId": "portfolio/travel/lancaster/20260704-RAI05699", "album": "travel/lancaster", "alt": "", "width": 6192, "height": 4128 },
-  { "publicId": "portfolio/travel/lancaster/20260704-RAI05703", "album": "travel/lancaster", "alt": "", "width": 6192, "height": 4128 },
-  { "publicId": "portfolio/travel/lancaster/20260704-RAI05717", "album": "travel/lancaster", "alt": "", "width": 6192, "height": 4128 },
-  { "publicId": "portfolio/travel/lancaster/20260705-RAI05941", "album": "travel/lancaster", "alt": "", "width": 6192, "height": 4128 },
-  { "publicId": "portfolio/travel/lancaster/20260705-RAI05945", "album": "travel/lancaster", "alt": "", "width": 4128, "height": 6192 },
-  { "publicId": "portfolio/travel/lancaster/20260705-RAI05956", "album": "travel/lancaster", "alt": "", "width": 6192, "height": 4128 },
-  { "publicId": "portfolio/travel/lancaster/20260705-RAI05958", "album": "travel/lancaster", "alt": "", "width": 6192, "height": 4128 },
-  { "publicId": "portfolio/travel/lancaster/20260705-RAI05962", "album": "travel/lancaster", "alt": "", "width": 6192, "height": 4128 },
-  { "publicId": "portfolio/travel/lancaster/20260705-RAI05969", "album": "travel/lancaster", "alt": "", "width": 4128, "height": 6192 },
-  { "publicId": "portfolio/travel/lancaster/20260705-RAI05984", "album": "travel/lancaster", "alt": "", "width": 6192, "height": 4128 },
-  { "publicId": "portfolio/travel/lancaster/20260705-RAI05988", "album": "travel/lancaster", "alt": "", "width": 6192, "height": 4128 },
-  { "publicId": "portfolio/travel/lancaster/20260705-RAI05999", "album": "travel/lancaster", "alt": "", "width": 6192, "height": 4128 },
-  { "publicId": "portfolio/travel/lancaster/20260705-RAI06005", "album": "travel/lancaster", "alt": "", "width": 6192, "height": 4128 },
-  { "publicId": "portfolio/travel/lancaster/20260705-RAI06033", "album": "travel/lancaster", "alt": "", "width": 5661, "height": 3774 },
-  { "publicId": "portfolio/travel/lancaster/20260705-RAI06034", "album": "travel/lancaster", "alt": "", "width": 6192, "height": 4128 }
+  {
+    "_todo": "TODO: this album still needs real, specific alt text (scene/setting/lighting, not filenames) \u2014 see highlights.json and family.json for the pattern.",
+    "publicId": "portfolio/travel/lancaster/20260704-RAI05699",
+    "album": "travel/lancaster",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  },
+  {
+    "publicId": "portfolio/travel/lancaster/20260704-RAI05703",
+    "album": "travel/lancaster",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  },
+  {
+    "publicId": "portfolio/travel/lancaster/20260704-RAI05717",
+    "album": "travel/lancaster",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  },
+  {
+    "publicId": "portfolio/travel/lancaster/20260705-RAI05941",
+    "album": "travel/lancaster",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  },
+  {
+    "publicId": "portfolio/travel/lancaster/20260705-RAI05945",
+    "album": "travel/lancaster",
+    "alt": "",
+    "width": 4128,
+    "height": 6192
+  },
+  {
+    "publicId": "portfolio/travel/lancaster/20260705-RAI05956",
+    "album": "travel/lancaster",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  },
+  {
+    "publicId": "portfolio/travel/lancaster/20260705-RAI05958",
+    "album": "travel/lancaster",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  },
+  {
+    "publicId": "portfolio/travel/lancaster/20260705-RAI05962",
+    "album": "travel/lancaster",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  },
+  {
+    "publicId": "portfolio/travel/lancaster/20260705-RAI05969",
+    "album": "travel/lancaster",
+    "alt": "",
+    "width": 4128,
+    "height": 6192
+  },
+  {
+    "publicId": "portfolio/travel/lancaster/20260705-RAI05984",
+    "album": "travel/lancaster",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  },
+  {
+    "publicId": "portfolio/travel/lancaster/20260705-RAI05988",
+    "album": "travel/lancaster",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  },
+  {
+    "publicId": "portfolio/travel/lancaster/20260705-RAI05999",
+    "album": "travel/lancaster",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  },
+  {
+    "publicId": "portfolio/travel/lancaster/20260705-RAI06005",
+    "album": "travel/lancaster",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  },
+  {
+    "publicId": "portfolio/travel/lancaster/20260705-RAI06033",
+    "album": "travel/lancaster",
+    "alt": "",
+    "width": 5661,
+    "height": 3774
+  },
+  {
+    "publicId": "portfolio/travel/lancaster/20260705-RAI06034",
+    "album": "travel/lancaster",
+    "alt": "",
+    "width": 6192,
+    "height": 4128
+  }
 ]

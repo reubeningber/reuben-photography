@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import MasonryGrid from '../../components/MasonryGrid.astro';
 import { navItems, isNavGroup } from '../../data/albums';
 import type { NavGroup } from '../../data/albums';
+import { albumJsonLd } from '../../utils/seo';
 
 interface Photo {
   publicId: string;
@@ -24,8 +25,14 @@ export function getStaticPaths() {
 
 const { album } = Astro.props;
 const photos = photoModules[`../../data/photos/${album.slug}.json`]?.default ?? [];
+const canonicalPath = `/events/${album.slug}`;
 ---
 
-<Layout title={album.label}>
+<Layout
+  title={album.label}
+  description={`Event photography by Reuben Ingber from ${album.label}.`}
+  canonicalPath={canonicalPath}
+  jsonLd={albumJsonLd(album.label, canonicalPath, photos)}
+>
   <MasonryGrid photos={photos} />
 </Layout>

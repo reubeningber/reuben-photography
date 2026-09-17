@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import MasonryGrid from '../../components/MasonryGrid.astro';
 import { navItems, isNavGroup } from '../../data/albums';
 import type { NavGroup } from '../../data/albums';
+import { albumJsonLd } from '../../utils/seo';
 
 interface Photo {
   publicId: string;
@@ -24,8 +25,14 @@ export function getStaticPaths() {
 
 const { month } = Astro.props;
 const photos = photoModules[`../../data/photos/2026-${month.slug}.json`]?.default ?? [];
+const canonicalPath = `/2026/${month.slug}`;
 ---
 
-<Layout title={`2026 — ${month.label}`}>
+<Layout
+  title={`2026 — ${month.label}`}
+  description={`Photos from ${month.label} 2026 by Reuben Ingber.`}
+  canonicalPath={canonicalPath}
+  jsonLd={albumJsonLd(`${month.label} 2026`, canonicalPath, photos)}
+>
   <MasonryGrid photos={photos} />
 </Layout>

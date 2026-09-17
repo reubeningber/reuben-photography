@@ -2,8 +2,14 @@
 import Layout from '../../layouts/Layout.astro';
 import MasonryGrid from '../../components/MasonryGrid.astro';
 import photos from '../../data/photos/running.json';
+import { albumJsonLd } from '../../utils/seo';
 ---
 
-<Layout title="Running">
+<Layout
+  title="Running"
+  description="Running photography by Reuben Ingber across NYC."
+  canonicalPath="/running"
+  jsonLd={albumJsonLd('Running', '/running', photos)}
+>
   <MasonryGrid photos={photos} />
 </Layout>
