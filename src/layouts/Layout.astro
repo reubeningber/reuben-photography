@@ -3,6 +3,7 @@ import Sidebar from '../components/Sidebar.astro';
 import CloudflareAnalytics from '../components/CloudflareAnalytics.astro';
 import { HERO_PHOTO_ID } from '../data/config';
 import { imgUrl } from '../utils/cloudinary';
+import { withTrailingSlash } from '../utils/url';
 
 interface Props {
   title?: string;
@@ -17,7 +18,7 @@ const siteTitle = 'Reuben Ingber Photography';
 const pageTitle = title ? `${title} — ${siteTitle}` : siteTitle;
 const pageDescription = description ?? 'Photography by Reuben Ingber';
 const pageImage = image ?? imgUrl(HERO_PHOTO_ID, 1200);
-const path = canonicalPath ?? Astro.url.pathname;
+const path = withTrailingSlash(canonicalPath ?? Astro.url.pathname);
 const canonicalUrl = `https://photos.reubeningber.com${path}`;
 
 const personJsonLd = {

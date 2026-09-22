@@ -1,5 +1,6 @@
 ---
 import { albums } from '../data/albums';
+import { pageHref } from '../utils/url';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -8,14 +9,14 @@ const currentPath = Astro.url.pathname;
   <nav>
     {albums.map(album => (
       <a
-        href={`/${album.slug}`}
+        href={pageHref(album.slug)}
         class:list={[{ active: currentPath === `/${album.slug}` || currentPath === `/${album.slug}/` }]}
       >
         {album.label}
       </a>
     ))}
     <a
-      href="/contact"
+      href="/contact/"
       class:list={[{ active: currentPath === '/contact' || currentPath === '/contact/' }]}
     >
       Contact
