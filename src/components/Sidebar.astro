@@ -1,5 +1,6 @@
 ---
 import { navItems, isNavGroup } from '../data/albums';
+import { pageHref } from '../utils/url';
 import type { NavGroup } from '../data/albums';
 import LogoStackedLight from './LogoStackedLight.astro';
 import LogoHorizontalLight from './LogoHorizontalLight.astro';
@@ -25,7 +26,7 @@ const isGroupExpanded = (item: NavGroup) =>
         <div class:list={['nav-group', { expanded: isGroupExpanded(item) }]} data-group>
           {item.hasOwnPage ? (
             <div class:list={['nav-group-label', { active: isActive(item.slug) }]}>
-              <a href={`/${item.slug}`} class="nav-group-label-text">{item.label}</a>
+              <a href={pageHref(item.slug)} class="nav-group-label-text">{item.label}</a>
               <button class="nav-toggle-btn" type="button" aria-expanded={String(isGroupExpanded(item))} aria-label={`Toggle ${item.label} submenu`}>
                 <span class="nav-group-arrow" aria-hidden="true"></span>
               </button>
@@ -38,18 +39,18 @@ const isGroupExpanded = (item: NavGroup) =>
           )}
           <div class="nav-group-children">
             {item.children.map(child => (
-              <a href={`/${item.slug}/${child.slug}`} class:list={[{ active: isChildActive(item.slug, child.slug) }]}>
+              <a href={pageHref(item.slug, child.slug)} class:list={[{ active: isChildActive(item.slug, child.slug) }]}>
                 {child.label}
               </a>
             ))}
           </div>
         </div>
       ) : (
-        <a href={`/${item.slug}`} class:list={[{ active: isActive(item.slug) }]}>
+        <a href={pageHref(item.slug)} class:list={[{ active: isActive(item.slug) }]}>
           {item.label}
         </a>
       ))}
-      <a href="/contact" class:list={[{ active: isActive('contact') }]}>Contact</a>
+      <a href="/contact/" class:list={[{ active: isActive('contact') }]}>Contact</a>
     </nav>
 
     <div class="sidebar-foot">
@@ -98,7 +99,7 @@ const isGroupExpanded = (item: NavGroup) =>
       <div class:list={['nav-group', { expanded: isGroupExpanded(item) }]} data-group>
         {item.hasOwnPage ? (
           <div class:list={['nav-group-label', { active: isActive(item.slug) }]}>
-            <a href={`/${item.slug}`} class="nav-group-label-text">{item.label}</a>
+            <a href={pageHref(item.slug)} class="nav-group-label-text">{item.label}</a>
             <button class="nav-toggle-btn" type="button" aria-expanded={String(isGroupExpanded(item))} aria-label={`Toggle ${item.label} submenu`}>
               <span class="nav-group-arrow" aria-hidden="true"></span>
             </button>
@@ -111,16 +112,16 @@ const isGroupExpanded = (item: NavGroup) =>
         )}
         <div class="nav-group-children">
           {item.children.map(child => (
-            <a href={`/${item.slug}/${child.slug}`} class:list={[{ active: isChildActive(item.slug, child.slug) }]}>
+            <a href={pageHref(item.slug, child.slug)} class:list={[{ active: isChildActive(item.slug, child.slug) }]}>
               {child.label}
             </a>
           ))}
         </div>
       </div>
     ) : (
-      <a href={`/${item.slug}`}>{item.label}</a>
+      <a href={pageHref(item.slug)}>{item.label}</a>
     ))}
-    <a href="/contact">Contact</a>
+    <a href="/contact/">Contact</a>
   </nav>
 
   <div class="sidebar-foot">

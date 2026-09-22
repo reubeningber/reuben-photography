@@ -1,4 +1,5 @@
 import { imgUrl } from './cloudinary';
+import { withTrailingSlash } from './url';
 
 interface Photo {
   publicId: string;
@@ -16,7 +17,7 @@ export function albumJsonLd(name: string, path: string, photos: Photo[]) {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name,
-    url: `https://photos.reubeningber.com${path}`,
+    url: `https://photos.reubeningber.com${withTrailingSlash(path)}`,
     mainEntity: {
       '@type': 'ImageGallery',
       image: images,
