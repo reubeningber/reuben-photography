@@ -25,11 +25,13 @@ This repo contains the standalone photography site that was split out from the m
 
 Requirements:
 
-- Node `>=22.12.0`
+- Node `>=22.12.0` (pinned to the latest 22.x in `.nvmrc`)
 
 Commands:
 
 ```sh
+nvm install   # first time only; reads .nvmrc
+nvm use
 npm install
 npm run dev
 npm run build
