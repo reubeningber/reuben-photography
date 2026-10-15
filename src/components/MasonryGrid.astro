@@ -137,8 +137,9 @@ const lightboxData = photos.map((p, i) => ({
   let laidOutCols = 0;
 
   function layout() {
-    const cols = parseInt(getComputedStyle(masonry).getPropertyValue('--cols'), 10) || 1;
-    if (cols === laidOutCols) return;
+    const cols = parseInt(getComputedStyle(masonry).getPropertyValue('--cols'), 10);
+    // Styles not applied yet (e.g. dev server injects CSS via JS) — keep the CSS-columns fallback.
+    if (!cols || cols === laidOutCols) return;
     laidOutCols = cols;
 
     const columns = Array.from({ length: cols }, () => {
@@ -158,7 +159,12 @@ const lightboxData = photos.map((p, i) => ({
     masonry.classList.add('is-js');
   }
 
-  layout();
+  // Wait for the document to finish parsing so module-injected styles (dev) have applied.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', layout);
+  } else {
+    layout();
+  }
   window.addEventListener('resize', layout);
 
   let touchStartX = 0;
