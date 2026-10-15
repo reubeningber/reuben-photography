@@ -14,6 +14,7 @@ Standalone photography portfolio for Reuben Ingber, split out from the main `reu
 ## Key Commands
 
 ```bash
+nvm use          # Node version pinned in .nvmrc (also used by CI)
 npm run dev      # local dev server
 npm run build    # production build to /dist
 npm run preview  # preview the build
