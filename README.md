@@ -25,7 +25,7 @@ This repo contains the standalone photography site that was split out from the m
 
 Requirements:
 
-- Node `>=22.12.0` (pinned to the latest 22.x in `.nvmrc`)
+- Node `>=22.12.0` (pinned to the latest 26.x in `.nvmrc`)
 
 Commands:
 
