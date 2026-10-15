@@ -72,7 +72,7 @@ No environment variables are needed to build or run the site. `.env` (Cloudinary
 │   │       ├── running.json
 │   │       ├── urban.json
 │   │       ├── paris.json / lancaster.json
-│   │       ├── manhattanhenge.json / little-league.json
+│   │       ├── manhattanhenge.json / little-league.json / adorama-x-flower-district.json
 │   │       ├── track-nyc-queens-college.json
 │   │       └── 2026-<month>.json      # one per month under Family
 │   ├── layouts/
@@ -88,7 +88,7 @@ No environment variables are needed to build or run the site. `.env` (Cloudinary
 │   │   │   ├── index.astro
 │   │   │   └── [album].astro          # sub-albums, e.g. track-nyc-queens-college
 │   │   ├── travel/[album].astro       # paris, lancaster
-│   │   └── events/[album].astro       # manhattanhenge, little-league
+│   │   └── events/[album].astro       # manhattanhenge, little-league, adorama-x-flower-district
 │   └── utils/
 │       └── cloudinary.ts
 └── .github/workflows/deploy.yml

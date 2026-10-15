@@ -62,6 +62,7 @@ export const navItems: NavItem[] = [
     children: [
       { slug: 'manhattanhenge', label: 'Manhattanhenge' },
       { slug: 'little-league',  label: 'Little League' },
+      { slug: 'adorama-x-flower-district', label: 'Adorama x Flower District' },
     ],
   },
 ];

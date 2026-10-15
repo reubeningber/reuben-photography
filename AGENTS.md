@@ -46,7 +46,7 @@ src/
     running/index.astro            # Running landing page
     running/[album].astro          # sub-albums (e.g. track-nyc-queens-college)
     travel/[album].astro           # paris, lancaster
-    events/[album].astro           # manhattanhenge, little-league
+    events/[album].astro           # manhattanhenge, little-league, adorama-x-flower-district
   utils/
     cloudinary.ts           # URL/srcset builders
 scripts/
