@@ -129,6 +129,38 @@ const lightboxData = photos.map((p, i) => ({
     if (e.key === 'ArrowRight')  next();
   });
 
+  // CSS columns fill top-to-bottom, so photo order reads down column 1 first.
+  // Redistribute into explicit columns, each photo going to the currently
+  // shortest one, so order reads across rows. CSS columns remain the no-JS fallback.
+  const masonry = document.getElementById('masonry');
+  const buttons = [...masonry.querySelectorAll('.photo-btn')];
+  let laidOutCols = 0;
+
+  function layout() {
+    const cols = parseInt(getComputedStyle(masonry).getPropertyValue('--cols'), 10) || 1;
+    if (cols === laidOutCols) return;
+    laidOutCols = cols;
+
+    const columns = Array.from({ length: cols }, () => {
+      const col = document.createElement('div');
+      col.className = 'masonry-col';
+      return col;
+    });
+    const heights = new Array(cols).fill(0);
+    for (const btn of buttons) {
+      const img = btn.querySelector('img');
+      const ratio = (img.getAttribute('height') / img.getAttribute('width')) || 1;
+      const shortest = heights.indexOf(Math.min(...heights));
+      columns[shortest].appendChild(btn);
+      heights[shortest] += ratio;
+    }
+    masonry.replaceChildren(...columns);
+    masonry.classList.add('is-js');
+  }
+
+  layout();
+  window.addEventListener('resize', layout);
+
   let touchStartX = 0;
   lightbox.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
   lightbox.addEventListener('touchend', e => {
@@ -140,9 +172,22 @@ const lightboxData = photos.map((p, i) => ({
 
 <style>
   .masonry {
-    column-count: 3;
+    --cols: 3;
+    column-count: var(--cols);
     column-gap: var(--gap);
     padding: var(--gap);
+  }
+
+  .masonry.is-js {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--gap);
+    column-count: auto;
+  }
+
+  .masonry :global(.masonry-col) {
+    flex: 1;
+    min-width: 0;
   }
 
   .photo-btn {
@@ -254,11 +299,11 @@ const lightboxData = photos.map((p, i) => ({
   }
 
   @media (max-width: 960px) {
-    .masonry { column-count: 2; }
+    .masonry { --cols: 2; }
   }
 
   @media (max-width: 767px) {
-    .masonry { column-count: 2; }
+    .masonry { --cols: 2; }
 
     /* On mobile, lightbox covers full screen (no sidebar) */
     .lightbox {
@@ -270,6 +315,6 @@ const lightboxData = photos.map((p, i) => ({
   }
 
   @media (max-width: 480px) {
-    .masonry { column-count: 1; }
+    .masonry { --cols: 1; }
   }
 </style>
