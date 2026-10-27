@@ -46,7 +46,7 @@ src/
     running/index.astro            # Running landing page
     running/[album].astro          # sub-albums (e.g. track-nyc-queens-college)
     nature/index.astro             # Nature landing page
-    nature/[album].astro           # Nature sub-albums (e.g. katerskill-falls)
+    nature/[album].astro           # Nature sub-albums (e.g. kaaterskill-falls)
     travel/[album].astro           # paris, lancaster
     events/[album].astro           # manhattanhenge, little-league, adorama-x-flower-district, retromobile, adorama-x-flower-district
   utils/

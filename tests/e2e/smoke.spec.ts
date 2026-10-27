@@ -28,7 +28,7 @@ test('a nested sub-album under running renders', async ({ page }) => {
 });
 
 test('a nested sub-album under nature renders', async ({ page }) => {
-  await page.goto('/nature/katerskill-falls/');
+  await page.goto('/nature/kaaterskill-falls/');
   await expect(page).toHaveTitle(/Kaaterskill Falls/);
   await expect(page.locator('img').first()).toBeVisible();
 });

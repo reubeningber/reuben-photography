@@ -60,7 +60,7 @@ export const navItems: NavItem[] = [
     label: 'Nature',
     hasOwnPage: true,
     children: [
-      { slug: 'katerskill-falls', label: 'Kaaterskill Falls' },
+      { slug: 'kaaterskill-falls', label: 'Kaaterskill Falls' },
     ],
   },
   {
