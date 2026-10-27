@@ -7,8 +7,8 @@ test('homepage loads with highlights', async ({ page }) => {
 });
 
 test('an ungrouped top-level album renders', async ({ page }) => {
-  await page.goto('/nature/');
-  await expect(page).toHaveTitle(/Nature/);
+  await page.goto('/urban/');
+  await expect(page).toHaveTitle(/Street/);
   await expect(page.locator('img').first()).toBeVisible();
 });
 
@@ -24,6 +24,12 @@ test('a nested monthly sub-album renders', async ({ page }) => {
 
 test('a nested sub-album under running renders', async ({ page }) => {
   await page.goto('/running/track-nyc-queens-college/');
+  await expect(page.locator('img').first()).toBeVisible();
+});
+
+test('a nested sub-album under nature renders', async ({ page }) => {
+  await page.goto('/nature/katerskill-falls/');
+  await expect(page).toHaveTitle(/Kaaterskill Falls/);
   await expect(page.locator('img').first()).toBeVisible();
 });
 

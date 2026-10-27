@@ -80,7 +80,7 @@ No environment variables are needed to build or run the site. `.env` (Cloudinary
 │   ├── pages/
 │   │   ├── index.astro                # shows highlights.json
 │   │   ├── contact.astro
-│   │   ├── [album].astro              # top-level, ungrouped albums (urban, nature)
+│   │   ├── [album].astro              # top-level, ungrouped albums (urban)
 │   │   ├── family/
 │   │   │   ├── index.astro
 │   │   │   └── 2026/[month].astro
@@ -101,7 +101,7 @@ No environment variables are needed to build or run the site. `.env` (Cloudinary
 Album navigation lives in `src/data/albums.ts`. It exports two things:
 
 - `navItems` — the full navigation tree, used by `Sidebar.astro`. Top-level items can be either a plain `Album` (with a `slug` and `label`) or a `NavGroup` (with a `slug`, `label`, `children` array of `Album`s, and an optional `hasOwnPage` flag for groups like Family/Running that have their own landing page in addition to their children).
-- `albums` — a flat list of only the *ungrouped* top-level albums (currently `urban` and `nature`), used by `src/pages/[album].astro` to generate routes. Grouped albums (Travel, Family, Running, Events) each have their own route file under `src/pages/` instead — see Routes below.
+- `albums` — a flat list of only the *ungrouped* top-level albums (currently just `urban`), used by `src/pages/[album].astro` to generate routes. Grouped albums (Travel, Family, Running, Nature, Events) each have their own route file under `src/pages/` instead — see Routes below.
 
 To add a new top-level album, add an entry to `navItems`. To add a new grouped sub-album (e.g. a new month under 2026), add it to the relevant `NavGroup`'s `children` array.
 
@@ -117,10 +117,10 @@ Each album has its own JSON file in `src/data/photos/`. The filename must match 
 ### Routes
 
 - `/` — shows `highlights.json`
-- `/<album>` — an ungrouped top-level album, e.g. `/urban`, `/nature` (via `src/pages/[album].astro`)
-- `/family`, `/running` — landing pages for groups with `hasOwnPage: true`
+- `/<album>` — an ungrouped top-level album, e.g. `/urban` (via `src/pages/[album].astro`)
+- `/family`, `/running`, `/nature` — landing pages for groups with `hasOwnPage: true`
 - `/family/2026/<month>` — a monthly sub-album, e.g. `/family/2026/may`
-- `/running/<album>`, `/travel/<album>`, `/events/<album>` — sub-albums nested under their group
+- `/running/<album>`, `/nature/<album>`, `/travel/<album>`, `/events/<album>` — sub-albums nested under their group
 - `/contact` — contact page
 
 Old URLs from before the nav was reorganized into groups (`/manhattanhenge`, `/little-league`, `/2026/<month>`) still resolve — `astro.config.mjs`'s `redirects` config generates static redirect stubs from each old path to its new location.

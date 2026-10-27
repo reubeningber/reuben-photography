@@ -1,6 +1,104 @@
 [
   {
-    "_todo": "TODO: this album still needs real, specific alt text (scene/setting/lighting, not filenames) \u2014 see highlights.json and family.json for the pattern.",
+    "publicId": "portfolio/urban/20261024-RAI01791",
+    "album": "urban",
+    "alt": "Commuters wait on a tiled 28th Street subway platform, framed by dark steel columns across the tracks",
+    "width": 1600,
+    "height": 2400
+  },
+  {
+    "publicId": "portfolio/urban/20261024-RAI01748",
+    "album": "urban",
+    "alt": "A man walks along a subway platform, framed through the coupling gates between two train cars",
+    "width": 1600,
+    "height": 2400
+  },
+  {
+    "publicId": "portfolio/urban/20261024-RAI01730",
+    "album": "urban",
+    "alt": "A dark subway car seen between the steel columns of an underground platform",
+    "width": 2400,
+    "height": 1600
+  },
+  {
+    "publicId": "portfolio/urban/20260812-RAI09645",
+    "album": "urban",
+    "alt": "Men in dark shirts gather in a park, framed by blurred heads in the foreground",
+    "width": 1600,
+    "height": 2400
+  },
+  {
+    "publicId": "portfolio/urban/20260812-RAI09631",
+    "album": "urban",
+    "alt": "A woman works on a laptop at a mint-green café table in a leafy city park",
+    "width": 1600,
+    "height": 2400
+  },
+  {
+    "publicId": "portfolio/urban/20260812-RAI09578",
+    "album": "urban",
+    "alt": "A young man in a navy shirt sits on a stone ledge checking his phone among shrubs",
+    "width": 1600,
+    "height": 2400
+  },
+  {
+    "publicId": "portfolio/urban/20260812-RAI09574",
+    "album": "urban",
+    "alt": "Four men pause with Citi Bikes at a docking station along a tree-lined bike lane",
+    "width": 2400,
+    "height": 1600
+  },
+  {
+    "publicId": "portfolio/urban/20260808-RAI09408",
+    "album": "urban",
+    "alt": "A wedge of sunlight falls across a dark green roll-up garage door and the sidewalk below",
+    "width": 1600,
+    "height": 2400
+  },
+  {
+    "publicId": "portfolio/urban/20260808-RAI09391",
+    "album": "urban",
+    "alt": "A red neon \"Club Cumming\" sign glows on a dark brick building beside a fire escape",
+    "width": 2400,
+    "height": 1600
+  },
+  {
+    "publicId": "portfolio/urban/20260808-RAI09384",
+    "album": "urban",
+    "alt": "A curving tower with staggered, brick-like balconies rises into an overcast sky",
+    "width": 1600,
+    "height": 2400
+  },
+  {
+    "publicId": "portfolio/urban/20260723-RAI07024",
+    "album": "urban",
+    "alt": "Yellow graffiti covers a rolled-down metal shutter on a gray stone storefront corner",
+    "width": 1600,
+    "height": 2400
+  },
+  {
+    "publicId": "portfolio/urban/20260723-RAI07018",
+    "album": "urban",
+    "alt": "A yellow cart of brooms and mops parked outside a hardware store doorway",
+    "width": 1600,
+    "height": 2400
+  },
+  {
+    "publicId": "portfolio/urban/20260723-RAI07016",
+    "album": "urban",
+    "alt": "A corner hardware and locksmith store with a faded red awning on a sunny Queens street",
+    "width": 2400,
+    "height": 1600
+  },
+  {
+    "publicId": "portfolio/urban/20260718-RAI06613",
+    "album": "urban",
+    "alt": "A suspension bridge spans a wide, misty river between hazy green hills",
+    "width": 2400,
+    "height": 1600
+  },
+  {
+    "_todo": "TODO: this album still needs real, specific alt text (scene/setting/lighting, not filenames) — see highlights.json and family.json for the pattern.",
     "publicId": "portfolio/urban/20250808-DSC03115",
     "album": "urban",
     "alt": "",

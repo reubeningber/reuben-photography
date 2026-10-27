@@ -39,14 +39,16 @@ src/
   pages/
     index.astro                    # highlights.json
     contact.astro
-    [album].astro                  # ungrouped top-level albums only (urban, nature)
+    [album].astro                  # ungrouped top-level albums only (urban)
     family/index.astro             # Family landing page
     family/[album].astro           # Family sub-albums (e.g. first-day-of-school-2026)
     2026/[month].astro             # monthly 2026 sub-albums
     running/index.astro            # Running landing page
     running/[album].astro          # sub-albums (e.g. track-nyc-queens-college)
+    nature/index.astro             # Nature landing page
+    nature/[album].astro           # Nature sub-albums (e.g. katerskill-falls)
     travel/[album].astro           # paris, lancaster
-    events/[album].astro           # manhattanhenge, little-league, adorama-x-flower-district
+    events/[album].astro           # manhattanhenge, little-league, adorama-x-flower-district, retromobile, adorama-x-flower-district
   utils/
     cloudinary.ts           # URL/srcset builders
 scripts/
@@ -57,7 +59,7 @@ scripts/
 
 Two files drive everything:
 
-- **`src/data/albums.ts`** — `navItems` is the nav tree (`Album` = `{slug, label}`, `NavGroup` = `{slug, label, children, hasOwnPage?}`). `albums` is the filtered subset of `navItems` that are plain `Album`s (not groups) — only these get routed by `src/pages/[album].astro`. Grouped albums (Travel, Family, Running, Events) each have a dedicated route file instead.
+- **`src/data/albums.ts`** — `navItems` is the nav tree (`Album` = `{slug, label}`, `NavGroup` = `{slug, label, children, hasOwnPage?}`). `albums` is the filtered subset of `navItems` that are plain `Album`s (not groups) — only these get routed by `src/pages/[album].astro`. Grouped albums (Travel, Family, Running, Nature, Events) each have a dedicated route file instead.
 - **`src/data/photos/<slug>.json`** — one file per album/sub-album. Filename must match the album's `slug`, with `/` replaced by `-` for nested slugs. The `2026` group's month routes read `src/data/photos/2026-<month>.json` explicitly (e.g. `2026` child `may` → `src/data/photos/2026-may.json`). Each entry: `publicId`, `album`, `alt`, `width`, `height`.
 
 There is no CMS and no content-collections schema (unlike the main `reubeningber.com` repo) — adding an album means hand-editing `albums.ts` and adding a JSON file.
