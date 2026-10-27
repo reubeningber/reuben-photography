@@ -5,16 +5,16 @@ export default defineConfig({
   fullyParallel: true,
   retries: process.env.CI ? 2 : 0,
   use: {
-    baseURL: 'http://localhost:4321',
+    baseURL: 'http://localhost:4322',
   },
   webServer: {
-    // CI always builds fresh for a prod-accurate check; locally reuse the faster
-    // dev server (and any already-running server) to keep iteration quick.
-    command: process.env.CI
-      ? 'npm run build && npm run preview -- --port 4321'
-      : 'npm run dev -- --port 4321',
-    url: 'http://localhost:4321',
-    reuseExistingServer: !process.env.CI,
+    // Always test the production build: @astrojs/sitemap only emits
+    // sitemap-index.xml at build time, so the dev server 404s it. The build takes
+    // about a second. Port 4322 keeps a running `npm run dev` (4321) from being
+    // picked up by mistake.
+    command: 'npm run build && npm run preview -- --port 4322',
+    url: 'http://localhost:4322',
+    reuseExistingServer: false,
     timeout: 120_000,
   },
 });

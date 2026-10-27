@@ -55,7 +55,14 @@ export const navItems: NavItem[] = [
       { slug: 'track-nyc-queens-college', label: 'Trials of Miles Track Morning' },
     ],
   },
-  { slug: 'nature',         label: 'Nature' },
+  {
+    slug: 'nature',
+    label: 'Nature',
+    hasOwnPage: true,
+    children: [
+      { slug: 'kaaterskill-falls', label: 'Kaaterskill Falls' },
+    ],
+  },
   {
     slug: 'events',
     label: 'Events',
@@ -63,6 +70,7 @@ export const navItems: NavItem[] = [
       { slug: 'manhattanhenge', label: 'Manhattanhenge' },
       { slug: 'little-league',  label: 'Little League' },
       { slug: 'adorama-x-flower-district', label: 'Adorama x Flower District' },
+      { slug: 'retromobile', label: 'Retromobile Car Meet' },
     ],
   },
 ];

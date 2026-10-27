@@ -30,6 +30,6 @@ Deep-linking went through two designs on the same day (May 29, 2026):
 Two shapes, defined in `src/data/albums.ts`:
 
 - **`Album`** — a plain leaf: `{ slug, label }`.
-- **`NavGroup`** — `{ slug, label, children: Album[], hasOwnPage? }`. Groups render as expandable sections in `Sidebar.astro`. `hasOwnPage: true` (used by Family and Running) means the group label is itself a link to a landing page in addition to expanding to show its children — most groups (Travel, Events) are navigation-only and have no page of their own at their group slug.
+- **`NavGroup`** — `{ slug, label, children: Album[], hasOwnPage? }`. Groups render as expandable sections in `Sidebar.astro`. `hasOwnPage: true` (used by Family, Running, and Nature) means the group label is itself a link to a landing page in addition to expanding to show its children — most groups (Travel, Events) are navigation-only and have no page of their own at their group slug.
 
 This two-level model (flat albums vs. groups-with-children) is deliberately shallow — there's no arbitrary nesting depth, because the routing (see [content-model.md](./content-model.md)) is hand-written per group rather than generated generically from the tree shape.

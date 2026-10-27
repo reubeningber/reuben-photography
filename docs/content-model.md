@@ -4,7 +4,7 @@
 
 Adding or changing an album always touches two places:
 
-1. **`src/data/albums.ts`** — the nav entry (`navItems`), which also determines routing. Only plain `Album`s that sit at the top level of `navItems` get automatically routed, via `src/pages/[album].astro`'s `getStaticPaths` reading the derived `albums` list. Right now that's just `urban` and `nature` — everything else (Travel, Family, Running, Events) is a `NavGroup`, and each group has its own hand-written route file (`family/index.astro` + `family/2026/[month].astro`, `running/index.astro` + `running/[album].astro`, `travel/[album].astro`, `events/[album].astro`).
+1. **`src/data/albums.ts`** — the nav entry (`navItems`), which also determines routing. Only plain `Album`s that sit at the top level of `navItems` get automatically routed, via `src/pages/[album].astro`'s `getStaticPaths` reading the derived `albums` list. Right now that's just `urban` — everything else (Travel, Family, Running, Nature, Events) is a `NavGroup`, and each group has its own hand-written route file (`family/index.astro` + `family/2026/[month].astro`, `running/index.astro` + `running/[album].astro`, `nature/index.astro` + `nature/[album].astro`, `travel/[album].astro`, `events/[album].astro`).
 2. **`src/data/photos/<slug>.json`** — the actual photo list for that album. Filename must match the slug, with `/` replaced by `-` (a `family` child with slug `2026/may` lives at `src/data/photos/2026-may.json`).
 
 There's no schema validation (no Zod, unlike the main site's content collections) — a malformed photo JSON file fails at build time with whatever error `import.meta.glob` or the JSON parser throws, not a friendly validation message.
