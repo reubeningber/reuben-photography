@@ -96,7 +96,8 @@
     "album": "track-nyc-queens-college",
     "alt": "",
     "width": 6192,
-    "height": 4128
+    "height": 4128,
+    "highlight": true
   },
   {
     "publicId": "portfolio/running/track-nyc-queens-college/20260725-RAI07497",
@@ -152,7 +153,8 @@
     "album": "track-nyc-queens-college",
     "alt": "",
     "width": 3182,
-    "height": 3977
+    "height": 3977,
+    "highlight": true
   },
   {
     "publicId": "portfolio/running/track-nyc-queens-college/20260725-RAI07680",

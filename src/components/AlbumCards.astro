@@ -1,0 +1,81 @@
+---
+import { imgUrl, imgSrcset } from '../utils/cloudinary';
+import { fallbackAlt } from '../utils/alt';
+import { pageHref } from '../utils/url';
+import { allPhotos, coverPhoto, dateRange } from '../data/library';
+import type { NavNode } from '../data/library';
+
+interface Props {
+  nodes: NavNode[];
+}
+
+const cards = Astro.props.nodes.map(node => {
+  const photos = allPhotos(node);
+  return {
+    href: pageHref(node.path),
+    label: node.item.label,
+    cover: coverPhoto(photos),
+    count: photos.length,
+    dates: dateRange(photos),
+  };
+});
+---
+
+<div class="album-cards">
+  {cards.map(card => (
+    <a href={card.href} class="album-card">
+      {card.cover && (
+        <img
+          src={imgUrl(card.cover.publicId, 800)}
+          srcset={imgSrcset(card.cover.publicId)}
+          sizes="(max-width: 767px) 50vw, 25vw"
+          alt={card.cover.alt || fallbackAlt(card.cover.album, card.cover.publicId)}
+          loading="lazy"
+        />
+      )}
+      <span class="album-card-label">{card.label}</span>
+      <span class="album-card-meta">{[card.dates, `${card.count} photos`].filter(Boolean).join(' · ')}</span>
+    </a>
+  ))}
+</div>
+
+<style>
+  .album-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 28px var(--gap);
+    padding: var(--gap) var(--gap) 40px;
+  }
+
+  .album-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .album-card img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    margin-bottom: 8px;
+  }
+
+  .album-card-label {
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0 4px;
+  }
+
+  .album-card-meta {
+    color: var(--muted);
+    font-size: 12px;
+    padding: 0 4px;
+  }
+
+  @media (max-width: 480px) {
+    .album-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

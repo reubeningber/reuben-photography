@@ -1,17 +1,12 @@
 ---
-import { navItems, isNavGroup } from '../data/albums';
+import { navTree } from '../data/library';
 import { pageHref } from '../utils/url';
-import type { NavGroup } from '../data/albums';
 import LogoStackedLight from './LogoStackedLight.astro';
 import LogoHorizontalLight from './LogoHorizontalLight.astro';
 
 const path = Astro.url.pathname;
-const isActive = (slug: string) => path === `/${slug}` || path === `/${slug}/`;
-const isChildActive = (groupSlug: string, childSlug: string) =>
-  path === `/${groupSlug}/${childSlug}` || path === `/${groupSlug}/${childSlug}/`;
-const isGroupExpanded = (item: NavGroup) =>
-  item.children.some(c => isChildActive(item.slug, c.slug)) ||
-  (item.hasOwnPage === true && isActive(item.slug));
+const isActive = (p: string) => path === `/${p}` || path === `/${p}/`;
+const isWithin = (p: string) => path === `/${p}` || path.startsWith(`/${p}/`);
 ---
 
 <!-- Desktop sidebar -->
@@ -22,33 +17,31 @@ const isGroupExpanded = (item: NavGroup) =>
     </a>
 
     <nav class="sidebar-nav">
-      {navItems.map(item => isNavGroup(item) ? (
-        <div class:list={['nav-group', { expanded: isGroupExpanded(item) }]} data-group>
-          {item.hasOwnPage ? (
-            <div class:list={['nav-group-label', { active: isActive(item.slug) }]}>
-              <a href={pageHref(item.slug)} class="nav-group-label-text">{item.label}</a>
-              <button class="nav-toggle-btn" type="button" aria-expanded={String(isGroupExpanded(item))} aria-label={`Toggle ${item.label} submenu`}>
-                <span class="nav-group-arrow" aria-hidden="true"></span>
-              </button>
-            </div>
-          ) : (
-            <button class="nav-group-label nav-toggle-btn" type="button" aria-expanded={String(isGroupExpanded(item))}>
-              {item.label}
+      {navTree.map(node => node.children.length ? (
+        <div class:list={['nav-group', { expanded: isWithin(node.path) }]} data-group>
+          <div class:list={['nav-group-label', { active: isActive(node.path) }]}>
+            <a href={pageHref(node.path)} class="nav-group-label-text">{node.item.label}</a>
+            <button class="nav-toggle-btn" type="button" aria-expanded={String(isWithin(node.path))} aria-label={`Toggle ${node.item.label} submenu`}>
               <span class="nav-group-arrow" aria-hidden="true"></span>
             </button>
-          )}
+          </div>
           <div class="nav-group-children">
-            {item.children.map(child => (
-              <a href={pageHref(item.slug, child.slug)} class:list={[{ active: isChildActive(item.slug, child.slug) }]}>
-                {child.label}
-              </a>
+            {node.children.map(child => child.children.length ? (
+              <div class="nav-subgroup">
+                <a href={pageHref(child.path)} class:list={[{ active: isActive(child.path) }]}>{child.item.label}</a>
+                <div class="nav-subgroup-items">
+                  {child.children.map(leaf => (
+                    <a href={pageHref(leaf.path)} class:list={[{ active: isActive(leaf.path) }]}>{leaf.item.label}</a>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <a href={pageHref(child.path)} class:list={[{ active: isActive(child.path) }]}>{child.item.label}</a>
             ))}
           </div>
         </div>
       ) : (
-        <a href={pageHref(item.slug)} class:list={[{ active: isActive(item.slug) }]}>
-          {item.label}
-        </a>
+        <a href={pageHref(node.path)} class:list={[{ active: isActive(node.path) }]}>{node.item.label}</a>
       ))}
       <a href="/contact/" class:list={[{ active: isActive('contact') }]}>Contact</a>
     </nav>
@@ -95,31 +88,31 @@ const isGroupExpanded = (item: NavGroup) =>
   </a>
 
   <nav class="sidebar-nav">
-    {navItems.map(item => isNavGroup(item) ? (
-      <div class:list={['nav-group', { expanded: isGroupExpanded(item) }]} data-group>
-        {item.hasOwnPage ? (
-          <div class:list={['nav-group-label', { active: isActive(item.slug) }]}>
-            <a href={pageHref(item.slug)} class="nav-group-label-text">{item.label}</a>
-            <button class="nav-toggle-btn" type="button" aria-expanded={String(isGroupExpanded(item))} aria-label={`Toggle ${item.label} submenu`}>
-              <span class="nav-group-arrow" aria-hidden="true"></span>
-            </button>
-          </div>
-        ) : (
-          <button class="nav-group-label nav-toggle-btn" type="button" aria-expanded={String(isGroupExpanded(item))}>
-            {item.label}
+    {navTree.map(node => node.children.length ? (
+      <div class:list={['nav-group', { expanded: isWithin(node.path) }]} data-group>
+        <div class:list={['nav-group-label', { active: isActive(node.path) }]}>
+          <a href={pageHref(node.path)} class="nav-group-label-text">{node.item.label}</a>
+          <button class="nav-toggle-btn" type="button" aria-expanded={String(isWithin(node.path))} aria-label={`Toggle ${node.item.label} submenu`}>
             <span class="nav-group-arrow" aria-hidden="true"></span>
           </button>
-        )}
+        </div>
         <div class="nav-group-children">
-          {item.children.map(child => (
-            <a href={pageHref(item.slug, child.slug)} class:list={[{ active: isChildActive(item.slug, child.slug) }]}>
-              {child.label}
-            </a>
+          {node.children.map(child => child.children.length ? (
+            <div class="nav-subgroup">
+              <a href={pageHref(child.path)} class:list={[{ active: isActive(child.path) }]}>{child.item.label}</a>
+              <div class="nav-subgroup-items">
+                {child.children.map(leaf => (
+                  <a href={pageHref(leaf.path)} class:list={[{ active: isActive(leaf.path) }]}>{leaf.item.label}</a>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <a href={pageHref(child.path)} class:list={[{ active: isActive(child.path) }]}>{child.item.label}</a>
           ))}
         </div>
       </div>
     ) : (
-      <a href={pageHref(item.slug)}>{item.label}</a>
+      <a href={pageHref(node.path)} class:list={[{ active: isActive(node.path) }]}>{node.item.label}</a>
     ))}
     <a href="/contact/">Contact</a>
   </nav>
@@ -307,7 +300,7 @@ const isGroupExpanded = (item: NavGroup) =>
   }
 
   .nav-group.expanded .nav-group-children {
-    max-height: 500px;
+    max-height: 600px;
     padding-top: 12px;
   }
 
@@ -320,6 +313,24 @@ const isGroupExpanded = (item: NavGroup) =>
     opacity: 0.45;
     display: block;
     transition: opacity 0.15s;
+  }
+
+  .nav-subgroup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-subgroup-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 14px;
+  }
+
+  .nav-subgroup-items a {
+    font-size: 11px;
   }
 
   .nav-group-children a:hover,
@@ -496,6 +507,14 @@ const isGroupExpanded = (item: NavGroup) =>
     .mobile-drawer .nav-group-children {
       align-items: flex-start;
       padding-left: 2px;
+    }
+
+    .mobile-drawer .nav-subgroup {
+      align-items: flex-start;
+    }
+
+    .mobile-drawer .nav-subgroup-items {
+      justify-content: flex-start;
     }
 
     .mobile-drawer .sidebar-foot {

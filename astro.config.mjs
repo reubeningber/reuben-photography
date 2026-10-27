@@ -11,8 +11,18 @@ export default defineConfig({
   build: { format: 'directory' },
   integrations: [sitemap()],
   redirects: {
+    // Pre-grouping URLs
     '/manhattanhenge': '/events/manhattanhenge/',
-    '/little-league': '/events/little-league/',
-    '/family/2026/[month]': '/2026/[month]',
+    '/little-league': '/family/2026/spring/',
+    '/family/2026/january': '/2026/january/',
+    '/family/2026/february': '/2026/february/',
+    '/family/2026/march': '/2026/march/',
+    '/family/2026/april': '/2026/april/',
+    '/family/2026/may': '/2026/may/',
+    '/family/2026/june': '/2026/june/',
+    // October 2026 reorganization
+    '/urban': '/street/',
+    '/events/little-league': '/family/2026/spring/',
+    '/family/first-day-of-school-2026': '/family/2026/first-day-of-school/',
   },
 });

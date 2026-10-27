@@ -31,9 +31,10 @@
   {
     "publicId": "portfolio/paris/20251012-DSC04064",
     "album": "paris",
-    "alt": "",
+    "alt": "A window framed by red curtains looks out over the gardens at Versailles",
     "width": 2400,
-    "height": 1600
+    "height": 1600,
+    "highlight": true
   },
   {
     "publicId": "portfolio/paris/20251012-DSC04081",
@@ -45,9 +46,10 @@
   {
     "publicId": "portfolio/paris/20251012-DSC04114",
     "album": "paris",
-    "alt": "",
+    "alt": "A long gilded gallery hall with chandeliers and paintings at the Palace of Versailles",
     "width": 2400,
-    "height": 1600
+    "height": 1600,
+    "highlight": true
   },
   {
     "publicId": "portfolio/paris/20251012-DSC04160",
@@ -66,9 +68,10 @@
   {
     "publicId": "portfolio/paris/20251013-DSC04288",
     "album": "paris",
-    "alt": "",
+    "alt": "A street musician in a beret plays accordion with a black cat on his shoulder against a pink graffiti wall in Paris",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "highlight": true
   },
   {
     "publicId": "portfolio/paris/20251013-DSC04292",
@@ -87,9 +90,10 @@
   {
     "publicId": "portfolio/paris/20251013-DSC04344",
     "album": "paris",
-    "alt": "",
+    "alt": "Pedestrians pass a Paris Metro sign on a tree-lined street",
     "width": 2400,
-    "height": 1600
+    "height": 1600,
+    "highlight": true
   },
   {
     "publicId": "portfolio/paris/20251013-DSC04347",
@@ -108,9 +112,10 @@
   {
     "publicId": "portfolio/paris/20251013-DSC04383",
     "album": "paris",
-    "alt": "",
+    "alt": "The Eiffel Tower framed by bridge girders, with love locks on the railing in the foreground",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "highlight": true
   },
   {
     "publicId": "portfolio/paris/20251013-DSC04401",

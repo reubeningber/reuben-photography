@@ -3,12 +3,15 @@ export interface Album {
   label: string;
 }
 
+/**
+ * A group of albums (or nested groups). Every group gets a landing page at its
+ * path showing a cover card per child, followed by any photos in the group's
+ * own JSON file (e.g. `nature.json`).
+ */
 export interface NavGroup {
   slug: string;
   label: string;
-  children: Album[];
-  /** When true, the group's own label links to `/${slug}` in addition to expanding its children. */
-  hasOwnPage?: boolean;
+  children: NavItem[];
 }
 
 export type NavItem = Album | NavGroup;
@@ -17,40 +20,41 @@ export function isNavGroup(item: NavItem): item is NavGroup {
   return 'children' in item;
 }
 
+// Children are listed newest first. Family is split by year, then by season
+// (winter = Dec–Feb of the same calendar year); a year with too few photos for
+// seasons, like 2025, is a single album.
 export const navItems: NavItem[] = [
-  {
-    slug: 'travel',
-    label: 'Travel',
-    children: [
-      { slug: 'paris',     label: 'Paris' },
-      { slug: 'lancaster', label: 'Lancaster, PA' },
-    ],
-  },
   {
     slug: 'family',
     label: 'Family',
-    hasOwnPage: true,
     children: [
-      { slug: 'first-day-of-school-2026', label: 'First Day of School 2026' },
+      {
+        slug: '2026',
+        label: '2026',
+        children: [
+          { slug: 'fall',                label: 'Fall' },
+          { slug: 'first-day-of-school', label: 'First Day of School' },
+          { slug: 'summer',              label: 'Summer' },
+          { slug: 'spring',              label: 'Spring' },
+          { slug: 'winter',              label: 'Winter' },
+        ],
+      },
+      { slug: '2025', label: '2025' },
     ],
   },
+  { slug: 'street', label: 'Street' },
   {
-    slug: '2026',
-    label: '2026',
+    slug: 'events',
+    label: 'Events',
     children: [
-      { slug: 'january',  label: 'January' },
-      { slug: 'february', label: 'February' },
-      { slug: 'march',    label: 'March' },
-      { slug: 'april',    label: 'April' },
-      { slug: 'may',      label: 'May' },
-      { slug: 'june',     label: 'June' },
+      { slug: 'retromobile',               label: 'Retromobile Car Meet' },
+      { slug: 'adorama-x-flower-district', label: 'Adorama x Flower District' },
+      { slug: 'manhattanhenge',            label: 'Manhattanhenge' },
     ],
   },
-  { slug: 'urban',        label: 'Street' },
   {
     slug: 'running',
     label: 'Running',
-    hasOwnPage: true,
     children: [
       { slug: 'track-nyc-queens-college', label: 'Trials of Miles Track Morning' },
     ],
@@ -58,21 +62,31 @@ export const navItems: NavItem[] = [
   {
     slug: 'nature',
     label: 'Nature',
-    hasOwnPage: true,
     children: [
       { slug: 'kaaterskill-falls', label: 'Kaaterskill Falls' },
     ],
   },
   {
-    slug: 'events',
-    label: 'Events',
+    slug: 'travel',
+    label: 'Travel',
     children: [
-      { slug: 'manhattanhenge', label: 'Manhattanhenge' },
-      { slug: 'little-league',  label: 'Little League' },
-      { slug: 'adorama-x-flower-district', label: 'Adorama x Flower District' },
-      { slug: 'retromobile', label: 'Retromobile Car Meet' },
+      { slug: 'lancaster', label: 'Lancaster, PA' },
+      { slug: 'paris',     label: 'Paris' },
+    ],
+  },
+  {
+    slug: '2026',
+    label: '2026',
+    children: [
+      { slug: 'june',     label: 'June' },
+      { slug: 'may',      label: 'May' },
+      { slug: 'april',    label: 'April' },
+      { slug: 'march',    label: 'March' },
+      { slug: 'february', label: 'February' },
+      { slug: 'january',  label: 'January' },
     ],
   },
 ];
 
+/** Top-level albums that aren't in a group. */
 export const albums: Album[] = navItems.filter((item): item is Album => !isNavGroup(item));

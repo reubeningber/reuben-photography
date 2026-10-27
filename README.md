@@ -53,7 +53,8 @@ No environment variables are needed to build or run the site. `.env` (Cloudinary
 │   └── upload-to-cloudinary.mjs
 ├── src/
 │   ├── components/
-│   │   ├── Header.astro
+│   │   ├── AlbumCards.astro           # cover cards on group landing pages
+│   │   ├── Header.astro               # unused
 │   │   ├── Logo.astro
 │   │   ├── LogoHorizontalDark.astro
 │   │   ├── LogoHorizontalLight.astro
@@ -63,32 +64,23 @@ No environment variables are needed to build or run the site. `.env` (Cloudinary
 │   │   ├── Sidebar.astro
 │   │   └── CloudflareAnalytics.astro
 │   ├── data/
-│   │   ├── albums.ts                  # nav tree + top-level album list
+│   │   ├── albums.ts                  # nav tree
+│   │   ├── library.ts                 # nav tree helpers, photo loading, highlights
 │   │   ├── config.ts                  # Cloudinary cloud name, contact email, hero photo
-│   │   └── photos/                    # one JSON file per album, filename == slug
-│   │       ├── highlights.json
-│   │       ├── family.json
-│   │       ├── nature.json
-│   │       ├── running.json
-│   │       ├── urban.json
-│   │       ├── paris.json / lancaster.json
-│   │       ├── manhattanhenge.json / little-league.json / adorama-x-flower-district.json
-│   │       ├── track-nyc-queens-college.json
-│   │       └── 2026-<month>.json      # one per month under Family
+│   │   └── photos/                    # one JSON file per album, named by URL path with dashes
+│   │       ├── family-2026-fall.json / family-2026-summer.json / ... / family-2025.json
+│   │       ├── street.json
+│   │       ├── events-retromobile.json / events-manhattanhenge.json / ...
+│   │       ├── running.json / running-track-nyc-queens-college.json
+│   │       ├── nature.json / nature-kaaterskill-falls.json
+│   │       ├── travel-paris.json / travel-lancaster.json
+│   │       └── 2026-<month>.json
 │   ├── layouts/
 │   │   └── Layout.astro
 │   ├── pages/
-│   │   ├── index.astro                # shows highlights.json
+│   │   ├── index.astro                # highlights (photos flagged "highlight": true)
 │   │   ├── contact.astro
-│   │   ├── [album].astro              # top-level, ungrouped albums (urban)
-│   │   ├── family/
-│   │   │   ├── index.astro
-│   │   │   └── 2026/[month].astro
-│   │   ├── running/
-│   │   │   ├── index.astro
-│   │   │   └── [album].astro          # sub-albums, e.g. track-nyc-queens-college
-│   │   ├── travel/[album].astro       # paris, lancaster
-│   │   └── events/[album].astro       # manhattanhenge, little-league, adorama-x-flower-district
+│   │   └── [...path].astro            # every group landing page and album
 │   └── utils/
 │       └── cloudinary.ts
 └── .github/workflows/deploy.yml
@@ -98,37 +90,42 @@ No environment variables are needed to build or run the site. `.env` (Cloudinary
 
 ### Navigation
 
-Album navigation lives in `src/data/albums.ts`. It exports two things:
+`src/data/albums.ts` exports `navItems`, the navigation tree used by `Sidebar.astro` and by `src/pages/[...path].astro` to generate pages. An item is either an `Album` (`slug`, `label`) or a `NavGroup` (`slug`, `label`, `children`). Groups can nest: Family > 2026 > Fall lives at `/family/2026/fall/`.
 
-- `navItems` — the full navigation tree, used by `Sidebar.astro`. Top-level items can be either a plain `Album` (with a `slug` and `label`) or a `NavGroup` (with a `slug`, `label`, `children` array of `Album`s, and an optional `hasOwnPage` flag for groups like Family/Running that have their own landing page in addition to their children).
-- `albums` — a flat list of only the *ungrouped* top-level albums (currently just `urban`), used by `src/pages/[album].astro` to generate routes. Grouped albums (Travel, Family, Running, Nature, Events) each have their own route file under `src/pages/` instead — see Routes below.
-
-To add a new top-level album, add an entry to `navItems`. To add a new grouped sub-album (e.g. a new month under 2026), add it to the relevant `NavGroup`'s `children` array.
+Every group gets a landing page with a cover card for each child. Covers use the first highlighted photo in the album (or the first photo).
 
 ### Photos
 
-Each album has its own JSON file in `src/data/photos/`. The filename must match the album's `slug`. Each photo entry includes:
+Each album has a JSON file in `src/data/photos/` named after its URL path, with `/` replaced by `-` (`family/2026/fall` → `family-2026-fall.json`). A group can have its own file too (`nature.json`); those photos show under its album cards. Each photo entry includes:
 
 - `publicId` — Cloudinary public ID
-- `album` — album slug (matches the filename)
+- `album` — album name, used for fallback alt text
 - `alt` — alt text
 - `width` / `height` — original image dimensions
+- `highlight` — optional; `true` also shows the photo on the homepage
+
+### Highlights
+
+The homepage shows every photo flagged `"highlight": true` in any album, newest first. To feature or unfeature a photo, edit the flag in its album's JSON.
+
+### Family
+
+Family is split by year, then season, using the date at the start of each filename: winter (Jan, Feb, Dec), spring (Mar–May), summer (Jun–Aug), fall (Sep–Nov). A year without enough photos for seasons is one album (`/family/2025/`).
 
 ### Routes
 
-- `/` — shows `highlights.json`
-- `/<album>` — an ungrouped top-level album, e.g. `/urban` (via `src/pages/[album].astro`)
-- `/family`, `/running`, `/nature` — landing pages for groups with `hasOwnPage: true`
-- `/family/2026/<month>` — a monthly sub-album, e.g. `/family/2026/may`
-- `/running/<album>`, `/nature/<album>`, `/travel/<album>`, `/events/<album>` — sub-albums nested under their group
-- `/contact` — contact page
+- `/` — highlights
+- `/<group>/` — group landing page, e.g. `/family/`, `/events/`, `/family/2026/`
+- `/<group>/.../<album>/` — an album, e.g. `/family/2026/fall/`, `/events/retromobile/`
+- `/street/` — a top-level album
+- `/contact/` — contact page
 
-Old URLs from before the nav was reorganized into groups (`/manhattanhenge`, `/little-league`, `/2026/<month>`) still resolve — `astro.config.mjs`'s `redirects` config generates static redirect stubs from each old path to its new location.
+Old URLs (`/urban`, `/little-league`, `/events/little-league`, `/manhattanhenge`, `/family/first-day-of-school-2026`, `/family/2026/<month>`) redirect via the `redirects` map in `astro.config.mjs`.
 
-## Adding a New Monthly Album (2026)
+## Adding a New Album
 
-1. Add the month to the `family` group's `children` array in `src/data/albums.ts` (slug format: `2026/<month>`)
-2. Create `src/data/photos/2026-<month>.json` with the photo entries for that month
+1. Add it to the right place in `navItems` in `src/data/albums.ts`, newest first
+2. Create `src/data/photos/<path-with-dashes>.json` with the photo entries
 3. Run `npm run build`, then commit and push
 
 ## Cloudinary
@@ -205,7 +202,7 @@ Tests live in `tests/e2e/` and run automatically on push/PR via `.github/workflo
 Typical content update flow:
 
 1. Add or edit nav items in `src/data/albums.ts`
-2. Add or edit photo entries in the relevant `src/data/photos/<album>.json`
+2. Add or edit photo entries in the relevant `src/data/photos/<path-with-dashes>.json`
 3. Run `npm run build`
 4. Commit and push to `main`
 

@@ -25,30 +25,23 @@ npm run preview  # preview the build
 ```
 src/
   data/
-    albums.ts            # nav tree (navItems) + top-level ungrouped album list (albums)
+    albums.ts             # nav tree (navItems): groups can nest, e.g. Family > 2026 > Fall
+    library.ts            # walks the nav tree; loads photos, covers, date ranges, highlights
     config.ts             # CLOUD_NAME, CONTACT_EMAIL, HERO_PHOTO_ID
-    photos/                # one JSON file per album/sub-album, filename == slug (dashes for slashes, e.g. 2026-may.json)
+    photos/               # one JSON file per album/group, named by its URL path with dashes (family-2026-fall.json)
   layouts/
-    Layout.astro           # root HTML shell — head, Sidebar, global styles
+    Layout.astro          # root HTML shell — head, Sidebar, global styles
   components/
-    Header.astro
+    Header.astro          # unused
     Logo.astro, LogoHorizontalDark/Light.astro, LogoStackedDark/Light.astro
-    Sidebar.astro          # nav + mobile drawer, reads navItems from albums.ts
-    MasonryGrid.astro      # photo grid + hand-rolled lightbox (no PhotoSwipe/library)
+    Sidebar.astro         # nav + mobile drawer, renders navTree (up to 3 levels)
+    AlbumCards.astro      # cover card per child album on group landing pages
+    MasonryGrid.astro     # photo grid + hand-rolled lightbox (no PhotoSwipe/library)
     CloudflareAnalytics.astro
   pages/
-    index.astro                    # highlights.json
+    index.astro           # highlights: every photo flagged "highlight": true, newest first
     contact.astro
-    [album].astro                  # ungrouped top-level albums only (urban)
-    family/index.astro             # Family landing page
-    family/[album].astro           # Family sub-albums (e.g. first-day-of-school-2026)
-    2026/[month].astro             # monthly 2026 sub-albums
-    running/index.astro            # Running landing page
-    running/[album].astro          # sub-albums (e.g. track-nyc-queens-college)
-    nature/index.astro             # Nature landing page
-    nature/[album].astro           # Nature sub-albums (e.g. kaaterskill-falls)
-    travel/[album].astro           # paris, lancaster
-    events/[album].astro           # manhattanhenge, little-league, adorama-x-flower-district, retromobile, adorama-x-flower-district
+    [...path].astro       # every group landing page and album, generated from navItems
   utils/
     cloudinary.ts           # URL/srcset builders
 scripts/
@@ -59,26 +52,32 @@ scripts/
 
 Two files drive everything:
 
-- **`src/data/albums.ts`** — `navItems` is the nav tree (`Album` = `{slug, label}`, `NavGroup` = `{slug, label, children, hasOwnPage?}`). `albums` is the filtered subset of `navItems` that are plain `Album`s (not groups) — only these get routed by `src/pages/[album].astro`. Grouped albums (Travel, Family, Running, Nature, Events) each have a dedicated route file instead.
-- **`src/data/photos/<slug>.json`** — one file per album/sub-album. Filename must match the album's `slug`, with `/` replaced by `-` for nested slugs. The `2026` group's month routes read `src/data/photos/2026-<month>.json` explicitly (e.g. `2026` child `may` → `src/data/photos/2026-may.json`). Each entry: `publicId`, `album`, `alt`, `width`, `height`.
+- **`src/data/albums.ts`** — `navItems` is the nav tree. `Album` = `{slug, label}`; `NavGroup` = `{slug, label, children}` where children can themselves be groups (Family > 2026 > Fall). A node's URL is its slugs joined: `/family/2026/fall/`. `src/pages/[...path].astro` generates a page for every node — no per-group route files.
+- **`src/data/photos/<path-with-dashes>.json`** — the photos for the node at that path: `family/2026/fall` → `family-2026-fall.json`, `street` → `street.json`. A group may have its own file too (`nature.json`, `running.json`); those photos show below the group's album cards. Each entry: `publicId`, `album`, `alt`, `width`, `height`, optional `highlight`.
+
+Pages:
+
+- **Group** (has children): breadcrumb, a cover card per child (cover = first highlighted photo, else first photo; with date range and count), then the group's own photos if it has a JSON file.
+- **Album** (leaf): breadcrumb, then the masonry grid.
+- **Homepage**: every photo with `"highlight": true` in any album JSON, newest first by filename date, de-duplicated by filename. There is no separate highlights file — tag the photo in its album.
+
+Family is split by year, then season (winter = Jan, Feb, and Dec of the same calendar year; spring = Mar–May; summer = Jun–Aug; fall = Sep–Nov), using the `YYYYMMDD` date at the start of each filename. A year with too few photos for seasons (2025) is a single album, `family/2025`. Children are listed newest first.
 
 There is no CMS and no content-collections schema (unlike the main `reubeningber.com` repo) — adding an album means hand-editing `albums.ts` and adding a JSON file.
 
 ## Adding Content
 
-**New photos in an existing album**: append entries to the album's JSON file in `src/data/photos/`.
+**New photos in an existing album**: add entries at the top of the album's JSON file in `src/data/photos/`. Check for duplicates by filename across every JSON first.
 
-**New top-level ungrouped album**: add to `navItems` in `albums.ts` (it'll automatically be picked up by `albums` and routed via `[album].astro`) and create the matching `src/data/photos/<slug>.json`.
+**Feature a photo on the homepage**: add `"highlight": true` to its entry in its album's JSON.
 
-**New sub-album under an existing group** (e.g. a new month under Family): add to that group's `children` array in `albums.ts`, then create `src/data/photos/<slug-with-dashes>.json`. The group's route file (`2026/[month].astro`, `family/[album].astro`, `running/[album].astro`, etc.) picks it up via `getStaticPaths`.
+**New album anywhere** (top level, in a group, or in a nested group): add it to `navItems` in `albums.ts` and create `src/data/photos/<full-path-with-dashes>.json`. **New group**: same, with `children`; it gets a landing page automatically.
 
-**New top-level group**: needs a new route file under `src/pages/<group-slug>/` following the pattern of `travel/[album].astro` or `events/[album].astro`, in addition to the `albums.ts` entry.
-
-**Uploading the actual images**: `node scripts/upload-to-cloudinary.mjs <folder> <album-name>` pushes files to `portfolio/<album-name>/` in Cloudinary. It does not touch `albums.ts` or the photos JSON — those still need manual edits with the resulting public IDs.
+**Uploading the actual images**: `node scripts/upload-to-cloudinary.mjs <folder> <album-name>` pushes files to `portfolio/<album-name>/` in Cloudinary. It does not touch `albums.ts` or the photos JSON — those still need manual edits with the resulting public IDs. Cloudinary folders don't have to match the URL path (Family seasons still point at `portfolio/family/...`).
 
 ## Redirects
 
-`astro.config.mjs` has a `redirects` map for URLs that predate the current grouped nav structure (`/manhattanhenge` → `/events/manhattanhenge`, `/little-league` → `/events/little-league`, `/family/2026/[month]` → `/2026/[month]`). If a slug moves to a new nested location again, add the old path here rather than letting it 404.
+`astro.config.mjs` has a `redirects` map for old URLs: the pre-grouping ones (`/manhattanhenge`, `/little-league`, `/family/2026/<month>`) and the October 2026 reorganization (`/urban` → `/street/`, `/events/little-league` → `/family/2026/spring/`, `/family/first-day-of-school-2026` → `/family/2026/first-day-of-school/`). If a page moves, add the old path here rather than letting it 404.
 
 ## Deployment
 
@@ -88,7 +87,7 @@ There is no CMS and no content-collections schema (unlike the main `reubeningber
 
 ## Testing
 
-`tests/e2e/smoke.spec.ts` (Playwright) covers routing across the different page shapes: an ungrouped album, a group landing page, a nested monthly sub-album, a nested sub-album under a different group, an old pre-reorg URL's redirect, the sitemap, and `robots.txt`. No unit tests — unlike the main `reubeningber.com` repo, there's no pure logic here worth isolating (no content-collection filtering, no date math).
+`tests/e2e/smoke.spec.ts` (Playwright) covers routing across the different page shapes: an ungrouped album, every group landing page, a nested family year and season, a monthly album, sub-albums under Running and Nature, old-URL redirects, the sitemap, and `robots.txt`. No unit tests — unlike the main `reubeningber.com` repo, there's no pure logic here worth isolating (no content-collection filtering, no date math).
 
 ```bash
 npx playwright install --with-deps chromium  # first time only
