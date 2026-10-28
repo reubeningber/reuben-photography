@@ -7,18 +7,39 @@ test('homepage loads with highlights', async ({ page }) => {
 });
 
 test('an ungrouped top-level album renders', async ({ page }) => {
-  await page.goto('/urban/');
+  await page.goto('/street/');
   await expect(page).toHaveTitle(/Street/);
   await expect(page.locator('img').first()).toBeVisible();
 });
 
-test('a group landing page renders', async ({ page }) => {
-  await page.goto('/family/');
-  await expect(page).toHaveTitle(/Family/);
+test('every group has a landing page with album cards', async ({ page }) => {
+  for (const group of ['family', 'events', 'running', 'nature', 'travel', '2026']) {
+    await page.goto(`/${group}/`);
+    await expect(page.locator('.album-card').first()).toBeVisible();
+  }
 });
 
-test('a nested monthly sub-album renders', async ({ page }) => {
-  await page.goto('/family/2026/may/');
+test('the Family page lists each year with its season albums', async ({ page }) => {
+  await page.goto('/family/');
+  await expect(page.locator('.album-section h2', { hasText: '2026' })).toBeVisible();
+  await expect(page.locator('.album-card', { hasText: 'Spring' })).toHaveAttribute('href', '/family/2026/spring/');
+});
+
+test('a nested group (a family year) lists its seasons', async ({ page }) => {
+  await page.goto('/family/2026/');
+  await expect(page).toHaveTitle(/2026 · Family/);
+  await expect(page.locator('.album-card', { hasText: 'Fall' })).toBeVisible();
+});
+
+test('a family season album renders with a breadcrumb', async ({ page }) => {
+  await page.goto('/family/2026/fall/');
+  await expect(page).toHaveTitle(/Fall · 2026 · Family/);
+  await expect(page.locator('.breadcrumb a', { hasText: 'Family' })).toHaveAttribute('href', '/family/');
+  await expect(page.locator('.masonry img').first()).toBeVisible();
+});
+
+test('a monthly 2026 album renders', async ({ page }) => {
+  await page.goto('/2026/may/');
   await expect(page.locator('img').first()).toBeVisible();
 });
 
@@ -35,8 +56,14 @@ test('a nested sub-album under nature renders', async ({ page }) => {
 
 test('a redirect stub for a pre-reorg URL resolves to its new location', async ({ page }) => {
   await page.goto('/little-league/');
-  await page.waitForURL(/\/events\/little-league/);
-  expect(page.url()).toContain('/events/little-league');
+  await page.waitForURL(/\/family\/2026\/spring\//);
+  expect(page.url()).toContain('/family/2026/spring/');
+});
+
+test('the old /urban/ URL redirects to /street/', async ({ page }) => {
+  await page.goto('/urban/');
+  await page.waitForURL(/\/street\//);
+  expect(page.url()).toContain('/street/');
 });
 
 test('contact page loads', async ({ page }) => {

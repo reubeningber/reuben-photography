@@ -1,8 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import MasonryGrid from '../components/MasonryGrid.astro';
-import photos from '../data/photos/highlights.json';
+import { highlights } from '../data/library';
 import { albumJsonLd } from '../utils/seo';
+
+// Any photo flagged `"highlight": true` in an album's JSON, newest first.
+const photos = highlights();
 ---
 
 <Layout

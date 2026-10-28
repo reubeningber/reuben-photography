@@ -30,6 +30,6 @@ Deep-linking went through two designs on the same day (May 29, 2026):
 Two shapes, defined in `src/data/albums.ts`:
 
 - **`Album`** — a plain leaf: `{ slug, label }`.
-- **`NavGroup`** — `{ slug, label, children: Album[], hasOwnPage? }`. Groups render as expandable sections in `Sidebar.astro`. `hasOwnPage: true` (used by Family, Running, and Nature) means the group label is itself a link to a landing page in addition to expanding to show its children — most groups (Travel, Events) are navigation-only and have no page of their own at their group slug.
+- **`NavGroup`** — `{ slug, label, children: NavItem[] }`. Children can be groups too (Family > 2026 > Fall). Every group has a landing page with a cover card per child; in `Sidebar.astro` the group label links there and the toggle expands its children. A nested group renders as a label with its children in a wrapped row beneath it.
 
-This two-level model (flat albums vs. groups-with-children) is deliberately shallow — there's no arbitrary nesting depth, because the routing (see [content-model.md](./content-model.md)) is hand-written per group rather than generated generically from the tree shape.
+`src/data/library.ts` turns the tree into `NavNode`s (item + URL path + label trail). The sidebar, the catch-all page `src/pages/[...path].astro`, and `AlbumCards.astro` all use those nodes. The sidebar is styled for three levels at most; deeper nesting would route fine but needs nav styling.

@@ -25,7 +25,8 @@
     "album": "adorama-x-flower-district",
     "alt": "A model in a black gown and a man in a tuxedo holding champagne stand beside a yellow floral ladder on a city rooftop",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "highlight": true
   },
   {
     "publicId": "portfolio/adorama-x-flower-district/20261014-RAI01202",
@@ -39,14 +40,16 @@
     "album": "adorama-x-flower-district",
     "alt": "An upright bass player in a black cap performs on a rooftop, glowing string lights and apartment towers behind her",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "highlight": true
   },
   {
     "publicId": "portfolio/adorama-x-flower-district/20261014-RAI01204",
     "album": "adorama-x-flower-district",
     "alt": "A silver-haired man in a double-breasted tuxedo leans on a rooftop ledge, hand at his chin, beside a leafy tree",
     "width": 2400,
-    "height": 1600
+    "height": 1600,
+    "cover": true
   },
   {
     "publicId": "portfolio/adorama-x-flower-district/20261014-RAI01209",

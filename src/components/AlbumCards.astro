@@ -1,0 +1,88 @@
+---
+import { imgUrl, imgSrcset } from '../utils/cloudinary';
+import { fallbackAlt } from '../utils/alt';
+import { pageHref } from '../utils/url';
+import { allPhotos, coverPhoto, dateRange } from '../data/library';
+import type { NavNode } from '../data/library';
+
+interface Props {
+  nodes: NavNode[];
+  /**
+   * Desktop column count. Defaults to one per album (2–3) so the cards span the
+   * page; a lone album takes half the width rather than a full-width banner.
+   */
+  columns?: number;
+}
+
+const { nodes, columns = Math.min(Math.max(nodes.length, 2), 3) } = Astro.props;
+
+const cards = nodes.map(node => {
+  const photos = allPhotos(node);
+  return {
+    href: pageHref(node.path),
+    label: node.item.label,
+    cover: coverPhoto(photos),
+    count: photos.length,
+    dates: dateRange(photos),
+  };
+});
+---
+
+<div class="album-cards" style={`--cols: ${columns}; --cols-mobile: ${Math.min(columns, 2)}`}>
+  {cards.map(card => (
+    <a href={card.href} class="album-card">
+      {card.cover && (
+        <img
+          src={imgUrl(card.cover.publicId, 800)}
+          srcset={imgSrcset(card.cover.publicId)}
+          sizes="(max-width: 767px) 50vw, 33vw"
+          alt={card.cover.alt || fallbackAlt(card.cover.album, card.cover.publicId)}
+          loading="lazy"
+        />
+      )}
+      <span class="album-card-label">{card.label}</span>
+      <span class="album-card-meta">{[card.dates, `${card.count} photos`].filter(Boolean).join(' · ')}</span>
+    </a>
+  ))}
+</div>
+
+<style>
+  .album-cards {
+    display: grid;
+    grid-template-columns: repeat(var(--cols), 1fr);
+    gap: 28px var(--gap);
+    padding: var(--gap) var(--gap) 40px;
+  }
+
+  .album-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .album-card img {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    margin-bottom: 8px;
+  }
+
+  .album-card-label {
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0 4px;
+  }
+
+  .album-card-meta {
+    color: var(--muted);
+    font-size: 12px;
+    padding: 0 4px;
+  }
+
+  @media (max-width: 767px) {
+    .album-cards {
+      grid-template-columns: repeat(var(--cols-mobile), 1fr);
+    }
+  }
+</style>

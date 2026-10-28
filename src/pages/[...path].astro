@@ -1,0 +1,104 @@
+---
+// Every group landing page and album in the nav, at its nested path
+// (e.g. /family/, /family/2026/, /family/2026/fall/, /street/).
+import Layout from '../layouts/Layout.astro';
+import MasonryGrid from '../components/MasonryGrid.astro';
+import AlbumCards from '../components/AlbumCards.astro';
+import { allNodes, allPhotos, ownPhotos, coverPhoto } from '../data/library';
+import type { NavNode } from '../data/library';
+import { pageHref } from '../utils/url';
+import { albumJsonLd } from '../utils/seo';
+
+export function getStaticPaths() {
+  return allNodes().map(node => ({ params: { path: node.path }, props: { node } }));
+}
+
+const { node } = Astro.props as { node: NavNode };
+const photos = ownPhotos(node.path);
+const isGroup = node.children.length > 0;
+const canonicalPath = `/${node.path}`;
+
+// "Fall · 2026 · Family"
+const title = [...node.trail].reverse().join(' · ');
+const place = [...node.trail.slice(1)].reverse().join(' ');
+
+const DESCRIPTIONS: Record<string, string> = {
+  family: 'Family photography by Reuben Ingber — everyday moments and portraits.',
+  street: 'Street photography by Reuben Ingber, mostly in New York City.',
+  events: 'Event photography by Reuben Ingber.',
+  running: 'Running and race photography by Reuben Ingber.',
+  nature: 'Nature photography by Reuben Ingber — waterfalls, forests, and landscapes.',
+  travel: 'Travel photography by Reuben Ingber.',
+  '2026': 'A monthly photo journal of 2026 by Reuben Ingber.',
+};
+const top = node.path.split('/')[0];
+const description = node.trail.length === 1
+  ? DESCRIPTIONS[top] ?? `${node.item.label} photography by Reuben Ingber.`
+  : `${node.trail[0]} photography by Reuben Ingber: ${place}.`;
+
+// Ancestor links for the breadcrumb, then the current page as plain text.
+const segments = node.path.split('/');
+const crumbs = node.trail.map((label, i) => ({ label, href: pageHref(...segments.slice(0, i + 1)) }));
+
+// A group whose children include groups (Family > 2026 > Fall) lists each child as a
+// section with its own albums' cards, so the albums are one click away.
+const sectioned = node.children.some(c => c.children.length > 0);
+
+const ldPhotos = isGroup
+  ? [...photos, ...node.children.map(c => coverPhoto(allPhotos(c))).filter(p => p !== undefined)]
+  : photos;
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalPath={canonicalPath}
+  jsonLd={albumJsonLd(title, canonicalPath, ldPhotos)}
+>
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    {crumbs.map((crumb, i) => i < crumbs.length - 1
+      ? <><a href={crumb.href}>{crumb.label}</a><span aria-hidden="true">/</span></>
+      : <span aria-current="page">{crumb.label}</span>)}
+  </nav>
+  {isGroup && !sectioned && <AlbumCards nodes={node.children} />}
+  {sectioned && node.children.map(child => (
+    <section class="album-section">
+      <h2><a href={pageHref(child.path)}>{child.item.label}</a></h2>
+      <AlbumCards nodes={child.children.length ? child.children : [child]} columns={3} />
+    </section>
+  ))}
+  {photos.length > 0 && <MasonryGrid photos={photos} />}
+</Layout>
+
+<style>
+  .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 20px 8px 16px;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .album-section h2 {
+    margin: 0 8px 12px;
+    padding-top: 16px;
+    border-top: 1px solid #dcd7cc;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .album-section:first-of-type h2 {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .breadcrumb a,
+  .breadcrumb span[aria-hidden] {
+    color: var(--muted);
+  }
+</style>

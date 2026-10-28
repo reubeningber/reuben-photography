@@ -4,14 +4,18 @@
 
 Adding or changing an album always touches two places:
 
-1. **`src/data/albums.ts`** — the nav entry (`navItems`), which also determines routing. Only plain `Album`s that sit at the top level of `navItems` get automatically routed, via `src/pages/[album].astro`'s `getStaticPaths` reading the derived `albums` list. Right now that's just `urban` — everything else (Travel, Family, Running, Nature, Events) is a `NavGroup`, and each group has its own hand-written route file (`family/index.astro` + `family/2026/[month].astro`, `running/index.astro` + `running/[album].astro`, `nature/index.astro` + `nature/[album].astro`, `travel/[album].astro`, `events/[album].astro`).
-2. **`src/data/photos/<slug>.json`** — the actual photo list for that album. Filename must match the slug, with `/` replaced by `-` (a `family` child with slug `2026/may` lives at `src/data/photos/2026-may.json`).
+1. **`src/data/albums.ts`** — the nav entry (`navItems`), which also determines routing. `src/pages/[...path].astro` walks the tree (via `src/data/library.ts`) and generates a page for every node: a landing page with album cards for each group, a masonry grid for each album.
+2. **`src/data/photos/<path>.json`** — the photo list, named by the node's URL path with `/` replaced by `-` (`family/2026/fall` → `family-2026-fall.json`).
 
 There's no schema validation (no Zod, unlike the main site's content collections) — a malformed photo JSON file fails at build time with whatever error `import.meta.glob` or the JSON parser throws, not a friendly validation message.
 
-## Why grouped albums aren't generic
+## Why routing became generic
 
-It would be possible to write one generic `[...group]/[album].astro` catch-all that reads `navItems` and routes any group automatically. That's not what happened — each group (`family`, `running`, `travel`, `events`) got its own route file, written by hand as the group was added. The tradeoff: adding a *new* top-level group means writing a new route file (see `AGENTS.md`'s "Adding Content" section for the exact pattern), but the routing logic for each group stays simple and readable rather than generic and parameterized.
+Until October 2026 each group had its own hand-written route file (`family/`, `running/`, `nature/`, `travel/`, `events/`, `2026/`). By then there were six near-identical copies. Groups without one (Travel, Events, 2026) 404'd at their own URL, and Family needed a third level (year > season). One catch-all `[...path].astro` replaced them all. Adding a group or nesting level is now only a data change.
+
+## Highlights are a flag, not a file
+
+The homepage used to read a separate `highlights.json` whose entries were separate Cloudinary uploads (`portfolio/highlights/...`) of photos that were also in albums. Now a photo is featured by adding `"highlight": true` to its album entry. It shows on the homepage and stays in its album, and the album's landing card uses it as the cover.
 
 ## Getting photos in
 
@@ -19,4 +23,4 @@ It would be possible to write one generic `[...group]/[album].astro` catch-all t
 
 ## Redirects for renamed/moved slugs
 
-When the nav was reorganized into groups (Events, Family nesting), some album URLs moved — `/manhattanhenge` and `/little-league` became `/events/manhattanhenge` and `/events/little-league`; `/2026/<month>` became `/family/2026/<month>`. Rather than break old links (including ones already shared), `astro.config.mjs`'s `redirects` map generates static redirect pages from each old path to its new one. If a slug moves again, add it there.
+When the nav was reorganized into groups (Events, Family nesting), some album URLs moved — `/manhattanhenge` and `/little-league` became `/events/manhattanhenge` and `/events/little-league`; `/2026/<month>` became `/family/2026/<month>`. Rather than break old links (including ones already shared), `astro.config.mjs`'s `redirects` map generates static redirect pages from each old path to its new one. The October 2026 reorganization added more (`/urban` → `/street/`, Little League → `/family/2026/spring/`, First Day of School → `/family/2026/first-day-of-school/`). If a slug moves again, add it there.

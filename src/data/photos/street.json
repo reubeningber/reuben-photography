@@ -4,7 +4,8 @@
     "album": "urban",
     "alt": "Commuters wait on a tiled 28th Street subway platform, framed by dark steel columns across the tracks",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "highlight": true
   },
   {
     "publicId": "portfolio/urban/20261024-RAI01748",
@@ -30,7 +31,7 @@
   {
     "publicId": "portfolio/urban/20260812-RAI09631",
     "album": "urban",
-    "alt": "A woman works on a laptop at a mint-green café table in a leafy city park",
+    "alt": "A woman works on a laptop at a mint-green caf\u00e9 table in a leafy city park",
     "width": 1600,
     "height": 2400
   },
@@ -60,14 +61,16 @@
     "album": "urban",
     "alt": "A red neon \"Club Cumming\" sign glows on a dark brick building beside a fire escape",
     "width": 2400,
-    "height": 1600
+    "height": 1600,
+    "highlight": true
   },
   {
     "publicId": "portfolio/urban/20260808-RAI09384",
     "album": "urban",
     "alt": "A curving tower with staggered, brick-like balconies rises into an overcast sky",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "highlight": true
   },
   {
     "publicId": "portfolio/urban/20260723-RAI07024",
@@ -98,171 +101,179 @@
     "height": 1600
   },
   {
-    "_todo": "TODO: this album still needs real, specific alt text (scene/setting/lighting, not filenames) — see highlights.json and family.json for the pattern.",
+    "_todo": "TODO: this album still needs real, specific alt text (scene/setting/lighting, not filenames) \u2014 see highlights.json and family.json for the pattern.",
     "publicId": "portfolio/urban/20250808-DSC03115",
     "album": "urban",
-    "alt": "",
+    "alt": "Close-up of the chrome grille and hood ornament of a black vintage car on a leafy street",
     "width": 2400,
     "height": 1750
   },
   {
     "publicId": "portfolio/urban/20250904-DSC03614",
     "album": "urban",
-    "alt": "",
+    "alt": "A padlock hangs on a chain-link fence above blurred subway tracks",
     "width": 2400,
     "height": 1600
   },
   {
     "publicId": "portfolio/urban/20250904-DSC03638",
     "album": "urban",
-    "alt": "",
+    "alt": "Two subway trains pass on the tracks below, seen through a chain-link overpass fence",
     "width": 2400,
     "height": 1600
   },
   {
     "publicId": "portfolio/urban/20250912-DSC03681",
     "album": "urban",
-    "alt": "",
+    "alt": "A narrow alley between brick apartment buildings in New York City",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "highlight": true
   },
   {
     "publicId": "portfolio/urban/20250916-DSC03702",
     "album": "urban",
-    "alt": "",
+    "alt": "A 'Guard Dog On Duty' sign hangs on a wrought-iron gate framed by potted plants",
     "width": 2400,
-    "height": 1600
+    "height": 1600,
+    "highlight": true
   },
   {
     "publicId": "portfolio/urban/20250916-DSC03709",
     "album": "urban",
-    "alt": "",
+    "alt": "A silver Lincoln Town Car parked in front of a Tudor-style brick house",
     "width": 2400,
     "height": 1600
   },
   {
     "publicId": "portfolio/urban/20250916-DSC03712",
     "album": "urban",
-    "alt": "",
+    "alt": "Head-on view of a silver Lincoln Town Car with a New York plate on a leafy street",
     "width": 2400,
     "height": 1920
   },
   {
     "publicId": "portfolio/urban/20250916-DSC03718",
     "album": "urban",
-    "alt": "",
+    "alt": "Close-up of the Lincoln badge and headlight on a silver vintage sedan",
     "width": 2400,
     "height": 1600
   },
   {
     "publicId": "portfolio/urban/20250927-DSC03776",
     "album": "urban",
-    "alt": "",
+    "alt": "Close-up of a fire truck's control panel with gauges and coiled hoses, black and white",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "highlight": true
   },
   {
     "publicId": "portfolio/urban/20250927-DSC03779",
     "album": "urban",
-    "alt": "",
+    "alt": "Folded red and yellow fire hoses packed on the side of a fire truck",
     "width": 1600,
     "height": 2400
   },
   {
     "publicId": "portfolio/urban/20251031-DSC04808",
     "album": "urban",
-    "alt": "",
+    "alt": "A glowing jack-o'-lantern with a jagged toothy grin sits in the dark",
     "width": 2400,
     "height": 1600
   },
   {
     "publicId": "portfolio/urban/20251108-DSC06314",
     "album": "urban",
-    "alt": "",
+    "alt": "The chrome grille of a white vintage Cadillac with an ECTO-1 New York license plate",
     "width": 2400,
     "height": 1600
   },
   {
     "publicId": "portfolio/urban/20251108-DSC06429",
     "album": "urban",
-    "alt": "",
+    "alt": "The Verrazzano-Narrows Bridge spans the water at dusk",
     "width": 2400,
-    "height": 1600
+    "height": 1600,
+    "highlight": true
   },
   {
     "publicId": "portfolio/urban/20260114-DSC08505",
     "album": "urban",
-    "alt": "",
+    "alt": "A street sign post at a New York City intersection decorated with a character sticker",
     "width": 2400,
-    "height": 1600
+    "height": 1600,
+    "highlight": true
   },
   {
     "publicId": "portfolio/urban/20260215-RAI01259",
     "album": "urban",
-    "alt": "",
+    "alt": "A street musician in a red beanie plays trumpet outdoors",
     "width": 2400,
-    "height": 1600
+    "height": 1600,
+    "highlight": true
   },
   {
     "publicId": "portfolio/urban/20260215-RAI01297",
     "album": "urban",
-    "alt": "",
+    "alt": "A golden eagle statue tops an ornate building against a pale winter sky",
     "width": 2400,
     "height": 1600
   },
   {
     "publicId": "portfolio/urban/20260227-RAI01457",
     "album": "urban",
-    "alt": "",
+    "alt": "A tree-lined downtown street of parked cars leads toward One World Trade Center",
     "width": 1600,
     "height": 2400
   },
   {
     "publicId": "portfolio/urban/20260227-RAI01462",
     "album": "urban",
-    "alt": "",
+    "alt": "A firehouse with an American flag mural behind a ridge of melting snow",
     "width": 2400,
     "height": 1600
   },
   {
     "publicId": "portfolio/urban/20260318-RAI02304",
     "album": "urban",
-    "alt": "",
+    "alt": "A bright yellow leaded-glass window on a brick building, seen through bare branches",
     "width": 1600,
     "height": 2400
   },
   {
     "publicId": "portfolio/urban/20260404-RAI02856",
     "album": "urban",
-    "alt": "",
+    "alt": "A street artist paints at an easel on a Paris sidewalk near a cafe",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "highlight": true
   },
   {
     "publicId": "portfolio/urban/20260414-RAI03242",
     "album": "urban",
-    "alt": "",
+    "alt": "A green utility box tagged with white graffiti beside scaffolding and yellow forsythia",
     "width": 2400,
     "height": 1600
   },
   {
     "publicId": "portfolio/urban/20260414-RAI03250",
     "album": "urban",
-    "alt": "",
+    "alt": "An FDNY fire truck drives down a city street",
     "width": 2400,
-    "height": 1600
+    "height": 1600,
+    "highlight": true
   },
   {
     "publicId": "portfolio/urban/20260414-RAI03252",
     "album": "urban",
-    "alt": "",
+    "alt": "A graffiti-covered trash can and a rusty standpipe on a sunny Queens street corner",
     "width": 2400,
     "height": 1600
   },
   {
     "publicId": "portfolio/urban/20260414-RAI03260",
     "album": "urban",
-    "alt": "",
+    "alt": "A wire trash can casts a long late-afternoon shadow across a quiet street corner with red curb ramps",
     "width": 2400,
     "height": 1600
   }
