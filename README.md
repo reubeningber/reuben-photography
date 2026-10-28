@@ -110,7 +110,7 @@ The homepage shows every photo flagged `"highlight": true` in any album, newest 
 
 ### Family
 
-Family is split by year, then season, using the date at the start of each filename: winter (Jan, Feb, Dec), spring (Mar–May), summer (Jun–Aug), fall (Sep–Nov). A year without enough photos for seasons is one album (`/family/2025/`).
+Family is split by year, then season, using the date at the start of each filename: winter (Dec–Feb, filed under the year of its January, so December goes in the next year's winter), spring (Mar–May), summer (Jun–Aug), fall (Sep–Nov). A year without enough photos for seasons is one album (`/family/2025/`).
 
 ### Routes
 

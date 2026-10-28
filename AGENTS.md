@@ -63,7 +63,7 @@ Pages:
 - **Album** (leaf): breadcrumb, then the masonry grid.
 - **Homepage**: every photo with `"highlight": true` in any album JSON, newest first by filename date, de-duplicated by filename. There is no separate highlights file — tag the photo in its album.
 
-Family is split by year, then season (winter = Jan, Feb, and Dec of the same calendar year; spring = Mar–May; summer = Jun–Aug; fall = Sep–Nov), using the `YYYYMMDD` date at the start of each filename. A year with too few photos for seasons (2025) is a single album, `family/2025`. Children are listed newest first.
+Family is split by year, then season (winter = Dec–Feb, filed under the year of its January, so December goes in the next year's winter: Dec 2025 is in `family/2026/winter`; spring = Mar–May; summer = Jun–Aug; fall = Sep–Nov), using the `YYYYMMDD` date at the start of each filename. A year with too few photos for seasons (2025) is a single album, `family/2025`. Children are listed newest first.
 
 There is no CMS and no content-collections schema (unlike the main `reubeningber.com` repo) — adding an album means hand-editing `albums.ts` and adding a JSON file.
 
