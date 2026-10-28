@@ -48,6 +48,7 @@ export const navItems: NavItem[] = [
     slug: 'events',
     label: 'Events',
     children: [
+      { slug: 'from-fear-to-flash',        label: 'From Fear to Flash @ B&H' },
       { slug: 'retromobile',               label: 'Retromobile Car Meet' },
       { slug: 'adorama-x-flower-district', label: 'Adorama x Flower District' },
       { slug: 'manhattanhenge',            label: 'Manhattanhenge' },
