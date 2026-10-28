@@ -71,7 +71,7 @@ No environment variables are needed to build or run the site. `.env` (Cloudinary
 │   │       ├── family-2026-fall.json / family-2026-summer.json / ... / family-2025.json
 │   │       ├── street.json
 │   │       ├── events-retromobile.json / events-manhattanhenge.json / ...
-│   │       ├── running.json / running-track-nyc-queens-college.json
+│   │       ├── running-track-nyc-queens-college.json / running-nyc-half-marathon-2026.json / running-tcs-nyc-marathon-2025.json
 │   │       ├── nature.json / nature-kaaterskill-falls.json
 │   │       ├── travel-paris.json / travel-lancaster.json
 │   │       └── 2026-<month>.json

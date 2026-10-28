@@ -53,7 +53,7 @@ scripts/
 Two files drive everything:
 
 - **`src/data/albums.ts`** — `navItems` is the nav tree. `Album` = `{slug, label}`; `NavGroup` = `{slug, label, children}` where children can themselves be groups (Family > 2026 > Fall). A node's URL is its slugs joined: `/family/2026/fall/`. `src/pages/[...path].astro` generates a page for every node — no per-group route files.
-- **`src/data/photos/<path-with-dashes>.json`** — the photos for the node at that path: `family/2026/fall` → `family-2026-fall.json`, `street` → `street.json`. A group may have its own file too (`nature.json`, `running.json`); those photos show below the group's album cards. Each entry: `publicId`, `album`, `alt`, `width`, `height`, optional `highlight`.
+- **`src/data/photos/<path-with-dashes>.json`** — the photos for the node at that path: `family/2026/fall` → `family-2026-fall.json`, `street` → `street.json`. A group may have its own file too (`nature.json`); those photos show below the group's album cards. Each entry: `publicId`, `album`, `alt`, `width`, `height`, optional `highlight`.
 
 Pages:
 
