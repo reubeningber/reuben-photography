@@ -54,8 +54,7 @@
     "album": "first-day-of-school-2026",
     "alt": "A boy and his little sister sit together in a big gray armchair, giving a thumbs up on the first day of school",
     "width": 1707,
-    "height": 2560,
-    "cover": true
+    "height": 2560
   },
   {
     "publicId": "portfolio/family/first-day-of-school-2026/20260910-RAI00397",
@@ -67,9 +66,10 @@
   {
     "publicId": "portfolio/family/first-day-of-school-2026/20260910-RAI00417",
     "album": "first-day-of-school-2026",
-    "alt": "",
+    "alt": "Low-angle view of a child's sneakers on a wooden floor beside a row of small toy cars",
     "width": 2560,
-    "height": 1707
+    "height": 1707,
+    "cover": true
   },
   {
     "publicId": "portfolio/family/first-day-of-school-2026/20260910-RAI00419",
