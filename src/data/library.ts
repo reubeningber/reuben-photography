@@ -9,6 +9,8 @@ export interface Photo {
   height: number;
   /** Also show this photo on the homepage. */
   highlight?: boolean;
+  /** Use this photo as the album's cover card image. */
+  cover?: boolean;
 }
 
 /** A nav item plus where it sits: its URL path and the items above it. */
@@ -51,9 +53,9 @@ export function allPhotos(node: NavNode): Photo[] {
   return [...ownPhotos(node.path), ...node.children.flatMap(allPhotos)];
 }
 
-/** First highlighted photo, falling back to the first photo. */
+/** The photo flagged `cover`, else the first highlighted photo, else the first photo. */
 export function coverPhoto(photos: Photo[]): Photo | undefined {
-  return photos.find(p => p.highlight) ?? photos[0];
+  return photos.find(p => p.cover) ?? photos.find(p => p.highlight) ?? photos[0];
 }
 
 function fileDate(photo: Photo): string {

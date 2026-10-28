@@ -19,6 +19,12 @@ test('every group has a landing page with album cards', async ({ page }) => {
   }
 });
 
+test('the Family page lists each year with its season albums', async ({ page }) => {
+  await page.goto('/family/');
+  await expect(page.locator('.album-section h2', { hasText: '2026' })).toBeVisible();
+  await expect(page.locator('.album-card', { hasText: 'Spring' })).toHaveAttribute('href', '/family/2026/spring/');
+});
+
 test('a nested group (a family year) lists its seasons', async ({ page }) => {
   await page.goto('/family/2026/');
   await expect(page).toHaveTitle(/2026 · Family/);

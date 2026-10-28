@@ -40,6 +40,10 @@ const description = node.trail.length === 1
 const segments = node.path.split('/');
 const crumbs = node.trail.map((label, i) => ({ label, href: pageHref(...segments.slice(0, i + 1)) }));
 
+// A group whose children include groups (Family > 2026 > Fall) lists each child as a
+// section with its own albums' cards, so the albums are one click away.
+const sectioned = node.children.some(c => c.children.length > 0);
+
 const ldPhotos = isGroup
   ? [...photos, ...node.children.map(c => coverPhoto(allPhotos(c))).filter(p => p !== undefined)]
   : photos;
@@ -56,7 +60,13 @@ const ldPhotos = isGroup
       ? <><a href={crumb.href}>{crumb.label}</a><span aria-hidden="true">/</span></>
       : <span aria-current="page">{crumb.label}</span>)}
   </nav>
-  {isGroup && <AlbumCards nodes={node.children} />}
+  {isGroup && !sectioned && <AlbumCards nodes={node.children} />}
+  {sectioned && node.children.map(child => (
+    <section class="album-section">
+      <h2><a href={pageHref(child.path)}>{child.item.label}</a></h2>
+      <AlbumCards nodes={child.children.length ? child.children : [child]} columns={3} />
+    </section>
+  ))}
   {photos.length > 0 && <MasonryGrid photos={photos} />}
 </Layout>
 
@@ -69,6 +79,22 @@ const ldPhotos = isGroup
     font-size: 13px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+  }
+
+  .album-section h2 {
+    margin: 0 8px 12px;
+    padding-top: 16px;
+    border-top: 1px solid #dcd7cc;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .album-section:first-of-type h2 {
+    border-top: 0;
+    padding-top: 0;
   }
 
   .breadcrumb a,

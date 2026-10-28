@@ -7,9 +7,16 @@ import type { NavNode } from '../data/library';
 
 interface Props {
   nodes: NavNode[];
+  /**
+   * Desktop column count. Defaults to one per album (2–3) so the cards span the
+   * page; a lone album takes half the width rather than a full-width banner.
+   */
+  columns?: number;
 }
 
-const cards = Astro.props.nodes.map(node => {
+const { nodes, columns = Math.min(Math.max(nodes.length, 2), 3) } = Astro.props;
+
+const cards = nodes.map(node => {
   const photos = allPhotos(node);
   return {
     href: pageHref(node.path),
@@ -21,14 +28,14 @@ const cards = Astro.props.nodes.map(node => {
 });
 ---
 
-<div class="album-cards">
+<div class="album-cards" style={`--cols: ${columns}; --cols-mobile: ${Math.min(columns, 2)}`}>
   {cards.map(card => (
     <a href={card.href} class="album-card">
       {card.cover && (
         <img
           src={imgUrl(card.cover.publicId, 800)}
           srcset={imgSrcset(card.cover.publicId)}
-          sizes="(max-width: 767px) 50vw, 25vw"
+          sizes="(max-width: 767px) 50vw, 33vw"
           alt={card.cover.alt || fallbackAlt(card.cover.album, card.cover.publicId)}
           loading="lazy"
         />
@@ -42,7 +49,7 @@ const cards = Astro.props.nodes.map(node => {
 <style>
   .album-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(var(--cols), 1fr);
     gap: 28px var(--gap);
     padding: var(--gap) var(--gap) 40px;
   }
@@ -55,7 +62,7 @@ const cards = Astro.props.nodes.map(node => {
 
   .album-card img {
     width: 100%;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 3 / 2;
     object-fit: cover;
     margin-bottom: 8px;
   }
@@ -73,9 +80,9 @@ const cards = Astro.props.nodes.map(node => {
     padding: 0 4px;
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 767px) {
     .album-cards {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(var(--cols-mobile), 1fr);
     }
   }
 </style>

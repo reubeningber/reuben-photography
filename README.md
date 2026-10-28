@@ -92,7 +92,7 @@ No environment variables are needed to build or run the site. `.env` (Cloudinary
 
 `src/data/albums.ts` exports `navItems`, the navigation tree used by `Sidebar.astro` and by `src/pages/[...path].astro` to generate pages. An item is either an `Album` (`slug`, `label`) or a `NavGroup` (`slug`, `label`, `children`). Groups can nest: Family > 2026 > Fall lives at `/family/2026/fall/`.
 
-Every group gets a landing page with a cover card for each child. Covers use the first highlighted photo in the album (or the first photo).
+Every group gets a landing page with a cover card for each child. A cover is the photo flagged `"cover": true`, else the first highlighted photo, else the first photo. The Family page shows each year as a section with its season albums underneath.
 
 ### Photos
 
@@ -103,6 +103,7 @@ Each album has a JSON file in `src/data/photos/` named after its URL path, with 
 - `alt` — alt text
 - `width` / `height` — original image dimensions
 - `highlight` — optional; `true` also shows the photo on the homepage
+- `cover` — optional; `true` makes it the album's cover card (otherwise the first highlighted photo, then the first photo)
 
 ### Highlights
 

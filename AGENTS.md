@@ -55,11 +55,11 @@ scripts/
 Two files drive everything:
 
 - **`src/data/albums.ts`** — `navItems` is the nav tree. `Album` = `{slug, label}`; `NavGroup` = `{slug, label, children}` where children can themselves be groups (Family > 2026 > Fall). A node's URL is its slugs joined: `/family/2026/fall/`. `src/pages/[...path].astro` generates a page for every node — no per-group route files.
-- **`src/data/photos/<path-with-dashes>.json`** — the photos for the node at that path: `family/2026/fall` → `family-2026-fall.json`, `street` → `street.json`. A group may have its own file too (`nature.json`); those photos show below the group's album cards. Each entry: `publicId`, `album`, `alt`, `width`, `height`, optional `highlight`.
+- **`src/data/photos/<path-with-dashes>.json`** — the photos for the node at that path: `family/2026/fall` → `family-2026-fall.json`, `street` → `street.json`. A group may have its own file too (`nature.json`); those photos show below the group's album cards. Each entry: `publicId`, `album`, `alt`, `width`, `height`, optional `highlight`, optional `cover`.
 
 Pages:
 
-- **Group** (has children): breadcrumb, a cover card per child (cover = first highlighted photo, else first photo; with date range and count), then the group's own photos if it has a JSON file.
+- **Group** (has children): breadcrumb, a 3:2 cover card per child in 2–3 columns that span the page (cover = the photo flagged `"cover": true`, else the first highlighted photo, else the first photo; with date range and count), then the group's own photos if it has a JSON file. If any child is itself a group (Family > 2026), the page instead shows a section per child with that child's albums as cards, so seasons are one click from `/family/`.
 - **Album** (leaf): breadcrumb, then the masonry grid.
 - **Homepage**: every photo with `"highlight": true` in any album JSON, newest first by filename date, de-duplicated by filename. There is no separate highlights file — tag the photo in its album.
 
