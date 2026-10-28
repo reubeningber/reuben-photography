@@ -1,16 +1,15 @@
 [
   {
-    "_todo": "TODO: this album still needs real, specific alt text (scene/setting/lighting, not filenames) \u2014 see highlights.json and family.json for the pattern.",
     "publicId": "portfolio/nature/20250904-DSC03603",
     "album": "nature",
-    "alt": "",
+    "alt": "A vivid red flower glows against a soft teal background",
     "width": 2400,
     "height": 1600
   },
   {
     "publicId": "portfolio/nature/20250904-DSC03606",
     "album": "nature",
-    "alt": "",
+    "alt": "A bright yellow sunflower in close-up against blurred green leaves",
     "width": 2400,
     "height": 1600
   },
@@ -25,21 +24,21 @@
   {
     "publicId": "portfolio/nature/20251227-DSC07379",
     "album": "nature",
-    "alt": "",
+    "alt": "Rolling mountains under a pale blue sky beyond a hillside of bare winter trees",
     "width": 2400,
     "height": 1600
   },
   {
     "publicId": "portfolio/nature/20251227-DSC07396",
     "album": "nature",
-    "alt": "",
+    "alt": "A view through bare trees to distant blue mountain ridges in late afternoon light",
     "width": 2400,
     "height": 1600
   },
   {
     "publicId": "portfolio/nature/20251227-DSC07448",
     "album": "nature",
-    "alt": "",
+    "alt": "A speckled black-and-white rooster with a red comb beside a wire fence in raking light",
     "width": 2400,
     "height": 1600
   }
