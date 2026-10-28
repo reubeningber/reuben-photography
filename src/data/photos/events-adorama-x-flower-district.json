@@ -48,7 +48,8 @@
     "album": "adorama-x-flower-district",
     "alt": "A silver-haired man in a double-breasted tuxedo leans on a rooftop ledge, hand at his chin, beside a leafy tree",
     "width": 2400,
-    "height": 1600
+    "height": 1600,
+    "cover": true
   },
   {
     "publicId": "portfolio/adorama-x-flower-district/20261014-RAI01209",
