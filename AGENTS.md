@@ -20,6 +20,8 @@ npm run build    # production build to /dist
 npm run preview  # preview the build
 ```
 
+Restart `npm run dev` after adding, renaming, or removing a file in `src/data/photos/` or changing `navItems`. The dev server doesn't pick up new album files, so new pages 404 and group pages show old album cards until it restarts.
+
 ## Project Structure
 
 ```
