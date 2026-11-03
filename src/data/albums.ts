@@ -33,6 +33,7 @@ export const navItems: NavItem[] = [
         slug: '2026',
         label: '2026',
         children: [
+          { slug: 'halloween',           label: 'Halloween' },
           { slug: 'fall',                label: 'Fall' },
           { slug: 'first-day-of-school', label: 'First Day of School' },
           { slug: 'summer',              label: 'Summer' },
