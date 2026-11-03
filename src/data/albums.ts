@@ -20,10 +20,10 @@ export function isNavGroup(item: NavItem): item is NavGroup {
   return 'children' in item;
 }
 
-// Children are listed newest first. Family is split by year, then by season.
-// Winter runs Dec–Feb and belongs to the year of its January, so Dec 2026 goes
-// in 2027/winter. A year with too few photos for seasons, like 2025, is a
-// single album.
+// Children are listed newest first. Family is split by year, then by season,
+// with occasions like Halloween following the seasons. Winter runs Dec–Feb and
+// belongs to the year of its January, so Dec 2026 goes in 2027/winter. A year
+// with too few photos for seasons, like 2025, is a single album.
 export const navItems: NavItem[] = [
   {
     slug: 'family',
@@ -33,12 +33,12 @@ export const navItems: NavItem[] = [
         slug: '2026',
         label: '2026',
         children: [
-          { slug: 'halloween',           label: 'Halloween' },
           { slug: 'fall',                label: 'Fall' },
-          { slug: 'first-day-of-school', label: 'First Day of School' },
           { slug: 'summer',              label: 'Summer' },
           { slug: 'spring',              label: 'Spring' },
           { slug: 'winter',              label: 'Winter' },
+          { slug: 'halloween',           label: 'Halloween' },
+          { slug: 'first-day-of-school', label: 'First Day of School' },
         ],
       },
       { slug: '2025', label: '2025' },
