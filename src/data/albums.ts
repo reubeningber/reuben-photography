@@ -59,6 +59,7 @@ export const navItems: NavItem[] = [
     slug: 'running',
     label: 'Running',
     children: [
+      { slug: 'tcs-nyc-marathon-2026',     label: '2026 TCS NYC Marathon' },
       { slug: 'track-nyc-queens-college',  label: 'Trials of Miles Track Morning' },
       { slug: 'nyc-half-marathon-2026',    label: '2026 NYC Half Marathon' },
       { slug: 'tcs-nyc-marathon-2025',     label: '2025 TCS NYC Marathon' },

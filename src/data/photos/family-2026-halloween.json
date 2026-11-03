@@ -60,7 +60,8 @@
     "album": "family/2026/halloween",
     "alt": "A boy in a Ghostbusters costume holds a pink candy bucket beneath a trick-or-treat candy chute",
     "width": 2400,
-    "height": 1600
+    "height": 1600,
+    "cover": true
   },
   {
     "publicId": "portfolio/family/2026/halloween/20261031-RAI01998",
