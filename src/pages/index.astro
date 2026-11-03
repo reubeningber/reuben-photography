@@ -4,7 +4,8 @@ import MasonryGrid from '../components/MasonryGrid.astro';
 import { highlights } from '../data/library';
 import { albumJsonLd } from '../utils/seo';
 
-// Any photo flagged `"highlight": true` in an album's JSON, newest first.
+// Any photo flagged `"highlight": true` in an album's JSON. The grid shuffles
+// them on each page load.
 const photos = highlights();
 ---
 
@@ -13,5 +14,5 @@ const photos = highlights();
   canonicalPath="/"
   jsonLd={albumJsonLd('Highlights', '/', photos)}
 >
-  <MasonryGrid photos={photos} />
+  <MasonryGrid photos={photos} shuffle />
 </Layout>
