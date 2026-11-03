@@ -6,6 +6,37 @@ test('homepage loads with highlights', async ({ page }) => {
   await expect(page.locator('img').first()).toBeVisible();
 });
 
+test('homepage shuffles on each load and the lightbox follows that order', async ({ page }) => {
+  const order = () => page.locator('.photo-btn').evaluateAll(btns =>
+    btns
+      .sort((a, b) => Number(a.dataset.index) - Number(b.dataset.index))
+      .map(btn => btn.querySelector('img').alt));
+
+  await page.goto('/');
+  const first = await order();
+  await page.reload();
+  const second = await order();
+  expect(second).not.toEqual(first);
+  expect([...second].sort()).toEqual([...first].sort());
+
+  await page.locator('[data-index="0"]').click();
+  await expect(page.locator('#lb-img')).toHaveAttribute('alt', second[0]);
+  await page.keyboard.press('ArrowRight');
+  await expect(page.locator('#lb-img')).toHaveAttribute('alt', second[1]);
+});
+
+test('album pages keep their order on each load', async ({ page }) => {
+  const order = () => page.locator('.photo-btn img').evaluateAll(imgs => imgs.map(img => img.alt).sort());
+  const firstPhoto = () => page.locator('[data-index="0"] img').getAttribute('alt');
+
+  await page.goto('/running/tcs-nyc-marathon-2026/');
+  const first = await firstPhoto();
+  const all = await order();
+  await page.reload();
+  expect(await firstPhoto()).toBe(first);
+  expect(await order()).toEqual(all);
+});
+
 test('an ungrouped top-level album renders', async ({ page }) => {
   await page.goto('/street/');
   await expect(page).toHaveTitle(/Street/);

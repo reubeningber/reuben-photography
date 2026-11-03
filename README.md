@@ -107,7 +107,7 @@ Each album has a JSON file in `src/data/photos/` named after its URL path, with 
 
 ### Highlights
 
-The homepage shows every photo flagged `"highlight": true` in any album, newest first. To feature or unfeature a photo, edit the flag in its album's JSON.
+The homepage shows every photo flagged `"highlight": true` in any album, in a new random order on each page load. To feature or unfeature a photo, edit the flag in its album's JSON.
 
 ### Family
 

@@ -13,9 +13,11 @@ interface Photo {
 
 interface Props {
   photos: Photo[];
+  /** Show the photos in a new random order on each page load. */
+  shuffle?: boolean;
 }
 
-const { photos } = Astro.props;
+const { photos, shuffle = false } = Astro.props;
 
 const alts = photos.map(p => p.alt || fallbackAlt(p.album, p.publicId));
 
@@ -60,7 +62,7 @@ const lightboxData = photos.map((p, i) => ({
   </div>
 </div>
 
-<script define:vars={{ lightboxData }}>
+<script define:vars={{ lightboxData, shuffle }}>
   const lightbox  = document.getElementById('lightbox');
   const lbImg     = document.getElementById('lb-img');
   const lbCaption = document.getElementById('lb-caption');
@@ -70,6 +72,24 @@ const lightboxData = photos.map((p, i) => ({
   const photos   = lightboxData;
   const albumUrl = location.pathname;
   let current    = 0;
+
+  const masonry = document.getElementById('masonry');
+  const buttons = [...masonry.querySelectorAll('.photo-btn')];
+
+  // The site is static, so shuffling has to happen in the browser. The photos
+  // and their buttons move together so the lightbox follows the order on screen.
+  // Without JS the photos stay in build order.
+  if (shuffle) {
+    for (let i = photos.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [photos[i], photos[j]] = [photos[j], photos[i]];
+      [buttons[i], buttons[j]] = [buttons[j], buttons[i]];
+    }
+    buttons.forEach((btn, i) => {
+      btn.dataset.index = i;
+      masonry.appendChild(btn);
+    });
+  }
 
   function show(index) {
     const p = photos[index];
@@ -111,7 +131,7 @@ const lightboxData = photos.map((p, i) => ({
     if (i !== -1) open(i);
   }
 
-  document.getElementById('masonry').addEventListener('click', e => {
+  masonry.addEventListener('click', e => {
     const btn = e.target.closest('[data-index]');
     if (btn) open(parseInt(btn.dataset.index, 10));
   });
@@ -132,8 +152,6 @@ const lightboxData = photos.map((p, i) => ({
   // CSS columns fill top-to-bottom, so photo order reads down column 1 first.
   // Redistribute into explicit columns, each photo going to the currently
   // shortest one, so order reads across rows. CSS columns remain the no-JS fallback.
-  const masonry = document.getElementById('masonry');
-  const buttons = [...masonry.querySelectorAll('.photo-btn')];
   let laidOutCols = 0;
 
   function layout() {
