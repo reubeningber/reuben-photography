@@ -1,5 +1,75 @@
 [
   {
+    "publicId": "portfolio/family/2026/fall/20261108-RAI04761",
+    "album": "family/2026/fall",
+    "alt": "A boy in an olive bomber jacket sits on a swing and looks off to the side, fall leaves behind him",
+    "width": 1600,
+    "height": 2400
+  },
+  {
+    "publicId": "portfolio/family/2026/fall/20261108-RAI04752",
+    "album": "family/2026/fall",
+    "alt": "A toddler girl in a heart-print sweatshirt smiles on a swing in the late-afternoon light",
+    "width": 2400,
+    "height": 1600
+  },
+  {
+    "publicId": "portfolio/family/2026/fall/20261108-RAI04745",
+    "album": "family/2026/fall",
+    "alt": "A toddler girl with a ponytail grins up close while holding the swing chains",
+    "width": 2400,
+    "height": 1600
+  },
+  {
+    "publicId": "portfolio/family/2026/fall/20261108-RAI04725",
+    "album": "family/2026/fall",
+    "alt": "A boy in an olive bomber jacket climbs out of a tube slide, autumn trees behind him",
+    "width": 2400,
+    "height": 1600
+  },
+  {
+    "publicId": "portfolio/family/2026/fall/20261103-RAI03859",
+    "album": "family/2026/fall",
+    "alt": "A boy stands at the top of a red and blue playground climber against a clear sky",
+    "width": 2400,
+    "height": 1600
+  },
+  {
+    "publicId": "portfolio/family/2026/fall/20261103-RAI03840",
+    "album": "family/2026/fall",
+    "alt": "A girl in a tie-dye shirt slides down a blue slide under orange fall leaves",
+    "width": 1600,
+    "height": 2400
+  },
+  {
+    "publicId": "portfolio/family/2026/fall/20261103-RAI03795",
+    "album": "family/2026/fall",
+    "alt": "A girl hangs from the bars above a blue slide, fall foliage behind the playground",
+    "width": 1600,
+    "height": 2400
+  },
+  {
+    "publicId": "portfolio/family/2026/fall/20261103-RAI03772",
+    "album": "family/2026/fall",
+    "alt": "A girl in a pink jacket is backlit by low sun, her hair glowing",
+    "width": 1600,
+    "height": 2400
+  },
+  {
+    "publicId": "portfolio/family/2026/fall/20261103-RAI03756",
+    "album": "family/2026/fall",
+    "alt": "A boy throws both arms in the air behind a playground railing, apartment buildings behind him",
+    "width": 2400,
+    "height": 1600
+  },
+  {
+    "publicId": "portfolio/family/2026/fall/20261103-RAI03717",
+    "album": "family/2026/fall",
+    "alt": "A boy in red sneakers kicks his leg out while his sister swings in the afternoon sun",
+    "width": 2400,
+    "height": 1600
+  },
+  {
     "publicId": "portfolio/family/20261018-RAI01418",
     "album": "family",
     "alt": "A girl with butterfly face paint and a Minnie Mouse sweater sits inside a blue playground climber",
