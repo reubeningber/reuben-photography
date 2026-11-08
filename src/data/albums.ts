@@ -49,10 +49,12 @@ export const navItems: NavItem[] = [
     slug: 'events',
     label: 'Events',
     children: [
-      { slug: 'from-fear-to-flash',        label: 'From Fear to Flash @ B&H' },
-      { slug: 'retromobile',               label: 'Retromobile Car Meet' },
-      { slug: 'adorama-x-flower-district', label: 'Adorama x Flower District' },
-      { slug: 'manhattanhenge',            label: 'Manhattanhenge' },
+      { slug: 'queens-veterans-day-parade',     label: 'Queens Veterans Day Parade' },
+      { slug: 'creative-light-lift-off-studios', label: 'Creative Light @ Lift Off Studios' },
+      { slug: 'from-fear-to-flash',              label: 'From Fear to Flash @ B&H' },
+      { slug: 'retromobile',                     label: 'Retromobile Car Meet' },
+      { slug: 'adorama-x-flower-district',       label: 'Adorama x Flower District' },
+      { slug: 'manhattanhenge',                  label: 'Manhattanhenge' },
     ],
   },
   {
