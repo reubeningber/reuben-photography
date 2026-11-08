@@ -39,7 +39,8 @@
     "album": "from-fear-to-flash",
     "alt": "A model in a Catwoman mask and sheer black sleeves tilts her head back beneath a glass skyscraper",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "highlight": true
   },
   {
     "publicId": "portfolio/from-fear-to-flash/20261027-RAI01821",
@@ -75,7 +76,8 @@
     "album": "from-fear-to-flash",
     "alt": "A model dressed as the Joker in a red suit rubs his hands together among High Line plantings, a painted mural behind",
     "width": 2400,
-    "height": 1600
+    "height": 1600,
+    "highlight": true
   },
   {
     "publicId": "portfolio/from-fear-to-flash/20261027-RAI01847",

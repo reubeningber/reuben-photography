@@ -39,7 +39,8 @@
     "album": "events/queens-veterans-day-parade",
     "alt": "An honor guard carries American, New York City and service flags down the avenue",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "highlight": true
   },
   {
     "publicId": "portfolio/events/queens-veterans-day-parade/20261108-RAI04472",
@@ -201,7 +202,8 @@
     "album": "events/queens-veterans-day-parade",
     "alt": "A Navy Junior ROTC drummer in a white cap marches across a crosswalk",
     "width": 1600,
-    "height": 2400
+    "height": 2400,
+    "highlight": true
   },
   {
     "publicId": "portfolio/events/queens-veterans-day-parade/20261108-RAI04679",
