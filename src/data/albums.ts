@@ -49,6 +49,7 @@ export const navItems: NavItem[] = [
     slug: 'events',
     label: 'Events',
     children: [
+      { slug: 'portraits-gantry-state-park',      label: 'Portraits @ Gantry State Park' },
       { slug: 'queens-veterans-day-parade',     label: 'Queens Veterans Day Parade' },
       { slug: 'creative-light-lift-off-studios', label: 'Creative Light @ Lift Off Studios' },
       { slug: 'from-fear-to-flash',              label: 'From Fear to Flash @ B&H' },
